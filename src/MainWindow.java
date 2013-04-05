@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 public class MainWindow extends JPanel {
 	public static final String LAST_USER = "lastUser.dat";
+	private User user;
 	
 	public MainWindow() {
 		super();
@@ -52,9 +53,8 @@ public class MainWindow extends JPanel {
 			try {
 				read = new Scanner(lastUserFile);
 				String lastUser = read.nextLine();
-				// TODO: pass this to a constructor of a User class (or something)
-				// For now, we're just printing this out
-				System.out.println(lastUser);
+				// Create a current user from the previous session
+				user = new User(lastUser);
 				
 				read.close();
 			}
