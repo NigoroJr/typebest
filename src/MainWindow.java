@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -9,9 +10,10 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
 
-public class MainWindow extends JPanel {
+public class MainWindow extends JFrame {
 	public static final String LAST_USER = "lastUser.dat";
 	private User user;
 	
@@ -19,16 +21,24 @@ public class MainWindow extends JPanel {
 		super();
 		
 		this.setPreferredSize(new Dimension(800, 400));
-		this.setBackground(Color.BLACK);
-		// So that we can see that the MainWindow panel is working
-		this.setLayout(new BorderLayout(20, 20));
+		this.setBackground(Color.CYAN);
+		this.setLayout(new FlowLayout());
+		
+		SpringLayout springLayout = new SpringLayout();
+		
+		JPanel p = new JPanel();
+		p.setLayout(springLayout);
 		
 		// TODO: Add menu bar
 		// For now, add button
-		this.add(new JButton("Menu bar"), BorderLayout.NORTH);
+		Button menu = new Button("Menu");
+		springLayout.putConstraint(SpringLayout.NORTH, menu, 100, SpringLayout.NORTH, p);
 		
 		// Window to type in
-		this.add(new MainTypePanel(), BorderLayout.CENTER);
+		MainTypePanel mtp = new MainTypePanel();
+		springLayout.putConstraint(SpringLayout.NORTH, mtp, 150, SpringLayout.NORTH, p);
+		
+		this.add(p);
 		
 		// Load the previous user's data
 		loadPreviousSession();
@@ -66,14 +76,14 @@ public class MainWindow extends JPanel {
 	}
 	
 	public static void main(String[] args) {
-		JFrame jf = new JFrame("TypeBest");
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setLayout(new BorderLayout());
+		MainWindow mw = new MainWindow();
+		mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mw.setLayout(new BorderLayout());
 		// The main window
-		jf.add(new MainWindow());
+		mw.add(new MainWindow());
 		
-		jf.pack();
-		jf.setLocationRelativeTo(null);
-		jf.setVisible(true);
+		mw.pack();
+		mw.setLocationRelativeTo(null);
+		mw.setVisible(true);
 	}
 }

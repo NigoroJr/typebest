@@ -21,7 +21,7 @@ public class MainTypePanel extends JPanel {
 		
 //		this.setPreferredSize(new Dimension(super.getPreferredSize().width,
 //				super.getPreferredSize().height));
-		this.setBounds(50, 50, 500, 300);
+		//this.setSize(400, 300);
 		this.setBackground(Color.DARK_GRAY);
 	}
 }
