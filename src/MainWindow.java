@@ -39,7 +39,8 @@ public class MainWindow extends JPanel {
 	 * file named lastUser.dat and put that to the window.
 	 * lastUser.dat contains which user last used, and another file with
 	 * the user's name as a file name will be loaded.
-	 * TODO: Better JavaDoc here
+	 * For example, if the name John was in lastUser.dat, then
+	 * John_settings.dat and John_records.dat will be loaded (if they exist).
 	 */
 	public void loadPreviousSession() {
 		File lastUserFile = new File(LAST_USER);
