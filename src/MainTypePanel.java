@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -21,7 +22,8 @@ public class MainTypePanel extends JPanel {
 		
 //		this.setPreferredSize(new Dimension(super.getPreferredSize().width,
 //				super.getPreferredSize().height));
-		//this.setSize(400, 300);
-		this.setBackground(Color.DARK_GRAY);
+//		this.setSize(400, 300);
+		this.setLayout(new FlowLayout());
+		this.setBackground(Color.red);
 	}
 }

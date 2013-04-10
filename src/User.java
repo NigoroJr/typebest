@@ -40,6 +40,7 @@ public class User {
 			if (choice == 1)
 				System.exit(0);
 			
+			// TODO: Write default settings or write to a file when there is a change in the setting?
 			// Create a new Settings object with the default settings with only the userName
 			s = new Settings(userName);
 			BufferedWriter bw;

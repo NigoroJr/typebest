@@ -5,10 +5,15 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
@@ -17,28 +22,31 @@ public class MainWindow extends JFrame {
 	public static final String LAST_USER = "lastUser.dat";
 	private User user;
 	
+	/**
+	 * Creates a new window with a panel that you type in, and a menu bar
+	 */
 	public MainWindow() {
 		super();
 		
-		this.setPreferredSize(new Dimension(800, 400));
-		this.setBackground(Color.CYAN);
-		this.setLayout(new FlowLayout());
-		
 		SpringLayout springLayout = new SpringLayout();
 		
-		JPanel p = new JPanel();
-		p.setLayout(springLayout);
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(springLayout);
 		
-		// TODO: Add menu bar
-		// For now, add button
-		Button menu = new Button("Menu");
-		springLayout.putConstraint(SpringLayout.NORTH, menu, 100, SpringLayout.NORTH, p);
+		
+		menuBar();
 		
 		// Window to type in
 		MainTypePanel mtp = new MainTypePanel();
-		springLayout.putConstraint(SpringLayout.NORTH, mtp, 150, SpringLayout.NORTH, p);
+		springLayout.putConstraint(SpringLayout.NORTH, mtp, 15, SpringLayout.NORTH, mainPanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, mtp, -40, SpringLayout.SOUTH, mainPanel);
+		springLayout.putConstraint(SpringLayout.WEST, mtp, 5, SpringLayout.WEST, mainPanel);
+		springLayout.putConstraint(SpringLayout.EAST, mtp, -5, SpringLayout.EAST, mainPanel);
+		mainPanel.add(mtp);
 		
-		this.add(p);
+		getContentPane().add(mainPanel);
+		// The size of the main window
+		setSize(800, 400);
 		
 		// Load the previous user's data
 		loadPreviousSession();
@@ -56,8 +64,20 @@ public class MainWindow extends JFrame {
 		File lastUserFile = new File(LAST_USER);
 		if (!(lastUserFile.exists())) {
 				System.out.println("Last user file does not exist!\nCreating a new one.");
-				// TODO: Add some operation that prompts the user for a name (JOptionPane, maybe)
-				// Then, create a new User instance with the default settings, etc.
+				
+				String userName = JOptionPane.showInputDialog("What's your user name?");
+				user = new User(userName);
+				
+				// Write the previous user name to the file
+				try {
+					PrintWriter pw = new PrintWriter(lastUserFile);
+					pw.println(userName);
+					pw.flush();
+					pw.close();
+				}
+				catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
 		}
 		else {
 			Scanner read = null;
@@ -75,15 +95,27 @@ public class MainWindow extends JFrame {
 		}
 	}
 	
+	/**
+	 * Adds a menu bar to the main panel.
+	 */
+	public void menuBar() {
+		// TODO: Add menu bar
+		JMenuBar menu = new JMenuBar();
+		JMenu open = new JMenu("Open");
+		open.add(new JMenuItem("Change user"));
+		open.add(new JMenuItem("Change Practice Mode"));
+		
+		menu.add(open);
+		setJMenuBar(menu);
+		
+	}
+	
 	public static void main(String[] args) {
 		MainWindow mw = new MainWindow();
 		mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mw.setLayout(new BorderLayout());
-		// The main window
-		mw.add(new MainWindow());
-		
-		mw.pack();
+		//mw.setLayout(new BorderLayout());
 		mw.setLocationRelativeTo(null);
 		mw.setVisible(true);
 	}
+	
 }
