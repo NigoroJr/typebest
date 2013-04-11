@@ -122,7 +122,7 @@ public class MainTypePanel extends JPanel implements KeyListener {
         // in order to determine if the user has finished)
         if (cnt == oneString.length() - 1)
             JOptionPane.showMessageDialog(null,
-                    "Congratulations, you successfully typed all the words!",
+                    "Congratulations, you successfully typed all the words with " + miss + " miss types!",
                     "Mission Accomplished", JOptionPane.INFORMATION_MESSAGE);
         repaint();
     }
