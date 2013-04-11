@@ -22,17 +22,20 @@ import java.io.FileNotFoundException;
 
 
 /**
- * This is a panel for the typing section in the main window.
- * It is where the words to type appear and the user knows what to type,
- * whether s/he typed right, and what to type next.
+ * This is the panel that the the user types in whatever is shown.
+ * It shows the untyped words in blue and the correctly typed words in red.
+ * 
  * @author Naoki Mizuno
  *
  */
+//TODO: Put the letters into a JLabel that represents the word so that the words will no be separated when coming to the end of the line.
+//|words being sep|
+//|arated among li|
 
 public class MainTypePanel extends JPanel implements KeyListener {
 
     public static final String FILENAME = "dic.txt";
-    private String oneString = "";
+    private int totalNumOfLetters = 0;
     private ArrayList<String> words = new ArrayList<String>();
     private ArrayList<JLabel> labels = new ArrayList<JLabel>();
     private static int cnt = 0;
@@ -60,10 +63,12 @@ public class MainTypePanel extends JPanel implements KeyListener {
             e.printStackTrace();
         }
 
-        // Add all the words to one String
+        // Find out the total number of letters in the dictionary file
+        // Add 1 for the white space after the word
         for (int i = 0; i < words.size(); i++)
-            oneString += words.get(i) + " ";
+        	totalNumOfLetters += words.get(i).length() + 1;
 
+        // Separate the words into chunks of letters
         for (int w = 0; w < words.size(); w++) {
             String word = words.get(w);
             for (int i = 0; i < word.length(); i++) {
@@ -118,9 +123,8 @@ public class MainTypePanel extends JPanel implements KeyListener {
         cnt++;
 
         // Finish if the user finishes typing all the words
-        // (The last word is a place holder added automatically
-        // in order to determine if the user has finished)
-        if (cnt == oneString.length() - 1)
+        // (subtracts 1 because the last word is always a white space)
+        if (cnt == totalNumOfLetters - 1)
             JOptionPane.showMessageDialog(null,
                     "Congratulations, you successfully typed all the words with " + miss + " miss types!",
                     "Mission Accomplished", JOptionPane.INFORMATION_MESSAGE);

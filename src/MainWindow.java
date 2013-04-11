@@ -35,7 +35,7 @@ public class MainWindow extends JFrame {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(springLayout);
 		
-		
+		// Add the menu bar
 		menuBar();
 		
 		// Window to type in
@@ -102,7 +102,7 @@ public class MainWindow extends JFrame {
 	 * Adds a menu bar to the main panel.
 	 */
 	public void menuBar() {
-		// TODO: Add menu bar
+		// TODO: Think what kind of menus to add
 		JMenuBar menu = new JMenuBar();
 		JMenu open = new JMenu("Open");
 		open.add(new JMenuItem("Change user"));

@@ -20,6 +20,6 @@ public class Settings {
 	
 	@Override
 	public String toString() {
-		return "have to write something here once I know some important things about this class";
+		return "have to write something here";
 	}
 }

@@ -7,6 +7,13 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+/**
+ * This class is for storing the user's information such as
+ * the settings, records, fonts, and the size of the window etc.
+ * 
+ * @author Naoki Mizuno
+ *
+ */
 
 public class User {
 	private String userName;
