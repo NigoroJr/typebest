@@ -35,7 +35,7 @@ public class MainWindow extends JFrame {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(springLayout);
 		
-		
+		// Add the menu bar
 		menuBar();
 		
 		// Window to type in
@@ -66,7 +66,6 @@ public class MainWindow extends JFrame {
 	public void loadPreviousSession() {
 		File lastUserFile = new File(LAST_USER);
 		if (!(lastUserFile.exists())) {
-				System.out.println("Last user file does not exist!\nCreating a new one.");
 				
 				String userName = JOptionPane.showInputDialog("What's your user name?");
 				user = new User(userName);
@@ -102,7 +101,7 @@ public class MainWindow extends JFrame {
 	 * Adds a menu bar to the main panel.
 	 */
 	public void menuBar() {
-		// TODO: Add menu bar
+		// TODO: Think what kind of menus to add
 		JMenuBar menu = new JMenuBar();
 		JMenu open = new JMenu("Open");
 		open.add(new JMenuItem("Change user"));

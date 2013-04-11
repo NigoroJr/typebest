@@ -7,6 +7,13 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+/**
+ * This class is for storing the user's information such as
+ * the settings, records, fonts, and the size of the window etc.
+ * 
+ * @author Naoki Mizuno
+ *
+ */
 
 public class User {
 	private String userName;
@@ -33,7 +40,7 @@ public class User {
 		}
 		catch (FileNotFoundException e) {
 			int choice = JOptionPane.showConfirmDialog(null,
-					"No settings found.\nCreat a new setting file?", "No setting file found",
+					"No settings found.\nCreate a new setting file?", "No setting file found",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			
 			// Can't proceed without creating a setting file
