@@ -3,6 +3,8 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -45,6 +47,7 @@ public class MainWindow extends JFrame {
 		mainPanel.add(mtp);
 		
 		getContentPane().add(mainPanel);
+		
 		// The size of the main window
 		setSize(800, 400);
 		
@@ -113,9 +116,7 @@ public class MainWindow extends JFrame {
 	public static void main(String[] args) {
 		MainWindow mw = new MainWindow();
 		mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//mw.setLayout(new BorderLayout());
 		mw.setLocationRelativeTo(null);
 		mw.setVisible(true);
 	}
-	
 }
