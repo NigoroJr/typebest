@@ -33,14 +33,15 @@ import java.io.FileNotFoundException;
 // TODO: Put the letters into a JLabel that represents the word so that the words will no be separated when coming to the end of the line.
 //|words being sep|
 //|arated among li|
+// Create new branch for this.
 
 public class MainTypePanel extends JPanel {
 
     public static final String FILENAME = "dic.txt";
     
+    // I didn't make these final so that the user can change it later
     private Color toBeTyped = Color.BLUE;
     private Color alreadyTyped = Color.RED;
-    // I didn't make this final so that the user can change it later
     private Font defaultFont = new Font("MS Gothic", Font.BOLD, 30);
     
     private int totalNumOfLetters = 0;
@@ -59,7 +60,6 @@ public class MainTypePanel extends JPanel {
         setSize(800, 400);
         setLayout(new FlowLayout());
         setBackground(Color.GRAY);
-        
         // Read from dictionary file
         readDic();
 
@@ -81,6 +81,10 @@ public class MainTypePanel extends JPanel {
             
             if (pressed == s.charAt(0)) {
                 labels.get(cnt).setForeground(alreadyTyped);
+                // DEBUG: The color is being changed. Looks like there is something wrong with the repaint()?
+            	// System.out.println("R: " + labels.get(cnt).getForeground().getRed());
+            	// System.out.println("G: " + labels.get(cnt).getForeground().getGreen());
+            	// System.out.println("B: " + labels.get(cnt).getForeground().getBlue());
             }
             else {
             	miss++;
@@ -122,11 +126,12 @@ public class MainTypePanel extends JPanel {
 		
 		words.clear();
 		labels.clear();
-//		System.out.println(String.format("w: %d, l: %d", words.size(), labels.size()));
 		readDic();
 		tokenize();
 		
-		repaint();
+		// Note: Only revalidate() worked here
+		// repaint();
+		revalidate();
 	}
 	
 	/**
