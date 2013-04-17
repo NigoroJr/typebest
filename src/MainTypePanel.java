@@ -33,11 +33,7 @@ import java.io.FileNotFoundException;
  *
  */
 // TODO: UPDATE JAVADOC!!!!!
-// TODO: Modify tokenize() method so that it's easier to understand (try to think of a way to get rid of the tmp var)
-// TODO: Put the letters into a JLabel that represents the word so that the words will no be separated when coming to the end of the line.
-//|words being sep|
-//|arated among li|
-// Create new branch for this.
+// TODO: Create menu
 
 public class MainTypePanel extends JPanel {
 
