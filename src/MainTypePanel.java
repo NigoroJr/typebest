@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,6 +17,8 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.FlowLayout;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -45,19 +48,22 @@ public class MainTypePanel extends JPanel {
     private Color alreadyTyped = Color.RED;
     private Color backGroundColor = Color.GRAY;
     private Font defaultFont = new Font("Arial", Font.PLAIN, 30);
+    // The number of digits to show after decimal point
+	private int speedFractionDigit = 8;
+	private int timeFractionDigit = 9;
     
-    private int totalNumOfLetters = 0;
-    private int correctKeyStrokes = 0;
     private ArrayList<String> words = new ArrayList<String>();
 	private ArrayList<JPanel> wordPanels = new ArrayList<JPanel>();
-    private static int cnt = 0;
-    private static int words_cnt = 0;
-    private static int miss = 0;
+    private int totalNumOfLetters = 0;
+    private int correctKeyStrokes = 0;
+    private int cnt = 0;
+    private int words_cnt = 0;
+    private int miss = 0;
     private boolean finished = false;
     private boolean restartFlag = false;
     
     private long startTime = -1;
-    private long endTime = -1;
+
 
     public MainTypePanel() {
         super();
@@ -84,6 +90,7 @@ public class MainTypePanel extends JPanel {
 				restart();
 			else
 				restartFlag = true;
+			return;
 		}
 		else
 			restartFlag = false;
@@ -103,6 +110,8 @@ public class MainTypePanel extends JPanel {
             }
             else {
             	miss++;
+            	// This is supposed to emit a beep sound
+            	// Toolkit.getDefaultToolkit().beep();
                 return;
             }
         }
@@ -118,12 +127,24 @@ public class MainTypePanel extends JPanel {
         // (subtracts 1 because the last word is always a white space)
         if (correctKeyStrokes == totalNumOfLetters  - 1) {
         	// Record the time it took
-        	endTime = System.nanoTime();
+        	long endTime = System.nanoTime();
         	
-        	long duration = endTime - startTime;
-            JOptionPane.showMessageDialog(null,
-                    "Time: " + (double)duration / 1000000000 + "\nMiss: " + miss,
-                    "Result", JOptionPane.INFORMATION_MESSAGE);
+        	DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance();
+        	df.setMaximumFractionDigits(timeFractionDigit);
+        	df.setMinimumFractionDigits(timeFractionDigit);
+        	double duration = (double)(endTime - startTime) / 1000000000;
+        	String message = "Time: " + df.format(duration) + " sec\n";
+        	
+        	message += "Miss: " + miss + "\n";
+        	
+        	df.setMaximumFractionDigits(speedFractionDigit);
+        	df.setMinimumFractionDigits(speedFractionDigit);
+        	message += "Speed: " + df.format(totalNumOfLetters / duration) + " keys/sec\n";
+//            message += String.format("Speed: %.8f keys/sec\n",
+//            		totalNumOfLetters / duration);
+            		
+            JOptionPane.showMessageDialog(null, message,
+                     "Result", JOptionPane.INFORMATION_MESSAGE);
         }
         repaint();
     }
@@ -143,14 +164,13 @@ public class MainTypePanel extends JPanel {
 		totalNumOfLetters = 0;
 		correctKeyStrokes = 0;
 		startTime = -1;
-		endTime = -1;
 		
 		words.clear();
 		wordPanels.clear();
 		readDic();
 		tokenize();
 		
-		// Note: Only revalidate() worked here
+		// Note: Only revalidate() works here
 		// repaint();
 		revalidate();
 	}
