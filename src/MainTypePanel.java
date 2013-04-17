@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -42,14 +43,18 @@ public class MainTypePanel extends JPanel {
     // I didn't make these final so that the user can change it later
     private Color toBeTyped = Color.BLUE;
     private Color alreadyTyped = Color.RED;
-    private Font defaultFont = new Font("MS Gothic", Font.BOLD, 30);
+    private Color backGroundColor = Color.GRAY;
+    private Font defaultFont = new Font("Arial", Font.PLAIN, 30);
     
     private int totalNumOfLetters = 0;
+    private int correctKeyStrokes = 0;
     private ArrayList<String> words = new ArrayList<String>();
-    private ArrayList<JLabel> labels = new ArrayList<JLabel>();
+	private ArrayList<JPanel> wordPanels = new ArrayList<JPanel>();
     private static int cnt = 0;
+    private static int words_cnt = 0;
     private static int miss = 0;
     private boolean finished = false;
+    private boolean restartFlag = false;
     
     private long startTime = -1;
     private long endTime = -1;
@@ -58,8 +63,8 @@ public class MainTypePanel extends JPanel {
         super();
 
         setSize(800, 400);
-        setLayout(new FlowLayout());
-        setBackground(Color.GRAY);
+        setLayout(new FlowLayout(FlowLayout.LEADING));
+        setBackground(backGroundColor);
         // Read from dictionary file
         readDic();
 
@@ -72,39 +77,53 @@ public class MainTypePanel extends JPanel {
     	// Don't go any further if it's done
     	if (finished)
     		return;
+    	
+		// Restart when ESCAPE key is pressed twice-in-a-row
+		if (pressed == KeyEvent.VK_ESCAPE) {
+			if (restartFlag)
+				restart();
+			else
+				restartFlag = true;
+		}
+		else
+			restartFlag = false;
 
+		
+    	JPanel p = wordPanels.get(words_cnt);
+    	JLabel l = (JLabel)(p.getComponent(cnt));
         String s;
-        if ((s = labels.get(cnt).getText()) != null) {
+        if ((s = l.getText()) != null) {
             // Start timer
             if (startTime == -1)
             	startTime = System.nanoTime();
             
             if (pressed == s.charAt(0)) {
-                labels.get(cnt).setForeground(alreadyTyped);
-                // DEBUG: The color is being changed. Looks like there is something wrong with the repaint()?
-            	// System.out.println("R: " + labels.get(cnt).getForeground().getRed());
-            	// System.out.println("G: " + labels.get(cnt).getForeground().getGreen());
-            	// System.out.println("B: " + labels.get(cnt).getForeground().getBlue());
+                l.setForeground(alreadyTyped);
+                correctKeyStrokes++;
             }
             else {
             	miss++;
                 return;
             }
         }
-
-        // Remember where the last index was
+        
         cnt++;
+        // If it's the end of the word
+    	if (pressed == ' ') {
+    		words_cnt++;
+    		cnt = 0;
+    	}
 
         // Finish if the user finishes typing all the words
         // (subtracts 1 because the last word is always a white space)
-        if (cnt == totalNumOfLetters - 1) {
+        if (correctKeyStrokes == totalNumOfLetters  - 1) {
         	// Record the time it took
         	endTime = System.nanoTime();
         	
         	long duration = endTime - startTime;
             JOptionPane.showMessageDialog(null,
                     "Time: " + (double)duration / 1000000000 + "\nMiss: " + miss,
-                    "Mission Accomplished", JOptionPane.INFORMATION_MESSAGE);
+                    "Result", JOptionPane.INFORMATION_MESSAGE);
         }
         repaint();
     }
@@ -112,20 +131,22 @@ public class MainTypePanel extends JPanel {
     /**
      * Clears the words and prepares for a new round.
      */
-	public void resetPanel() {
+	public void restart() {
 		// Clear everything
 		this.removeAll();
 		
 		// Set everything to default value
 		finished = false;
 		cnt = 0;
+		words_cnt = 0;
 		miss = 0;
 		totalNumOfLetters = 0;
+		correctKeyStrokes = 0;
 		startTime = -1;
 		endTime = -1;
 		
 		words.clear();
-		labels.clear();
+		wordPanels.clear();
 		readDic();
 		tokenize();
 		
@@ -159,22 +180,33 @@ public class MainTypePanel extends JPanel {
 	
 	/**
 	 * Tokenize the words into chunks of letters that will then be set to the color "toBeTyped".
+	 * Words will first be added to a JPanel so that the word will not be separated when coming to a new line.
 	 */
 	public void tokenize() {
         // Separate the words into chunks of letters
         for (int w = 0; w < words.size(); w++) {
             String word = words.get(w);
+            JPanel oneWordPanel = new JPanel();
+            oneWordPanel.setBackground(backGroundColor);
             for (int i = 0; i < word.length(); i++) {
-                JLabel tmp = new JLabel(Character.toString(word.charAt(i)));
-                tmp.setFont(defaultFont);
-                tmp.setForeground(toBeTyped);
-                labels.add(tmp);
-                this.add(tmp);
+                oneWordPanel.add(new JLabel(Character.toString(word.charAt(i))));
             }
-            JLabel tmp = new JLabel(" ");
-            tmp.setFont(defaultFont);
-            labels.add(tmp);
-            this.add(tmp);
+            oneWordPanel.add(new JLabel(" "));
+            
+            wordPanels.add(oneWordPanel);
+        }
+        
+        // Add all the elements in the ArrayList to "this" after setting font and color
+        for (int i = 0; i < wordPanels.size(); i++) {
+        	JPanel p = wordPanels.get(i);
+        	for (Component c : p.getComponents()) {
+	        	JLabel l = (JLabel)c;
+	        	l.setFont(defaultFont);
+	        	l.setForeground(toBeTyped);
+	        	// Checking whether the letters are separated
+	        	// l.setForeground(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
+        	}
+        	this.add(p);
         }
 	}
 }

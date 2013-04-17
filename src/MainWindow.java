@@ -24,7 +24,7 @@ public class MainWindow extends JFrame {
 	private JButton restart = new JButton("Restart");
 	
 	/**
-	 * Creates a new window with a panel that you type in, and a menu bar
+	 * Creates a new window with a panel that you type in, and a menu bar.
 	 */
 	public MainWindow() {
 		super();
@@ -154,7 +154,7 @@ public class MainWindow extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == restart)
-				mtp.resetPanel();
+				mtp.restart();
 		}
 	}
 }

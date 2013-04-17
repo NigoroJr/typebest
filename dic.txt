@@ -1,1 +1,4 @@
-hello
+While I don't know if this is your problem, you should use
+KeyEvent.VK_ESCAPE instead of 27. IIRC, 27 will not necessarily
+always map to the same value on a keyboard if the keyboard is for a
+different language.
