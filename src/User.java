@@ -81,4 +81,7 @@ public class User {
 		// return s.clone()
 		return r;
 	}
+	
+	public void writeSettings() {
+	}
 }

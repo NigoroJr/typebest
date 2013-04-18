@@ -21,6 +21,7 @@ public class Settings {
     // The number of digits to show after decimal point
 	private int speedFractionDigit = 8;
 	private int timeFractionDigit = 9;
+	private boolean shuffled = true;
 	
 	/**
 	 * Creates a new Settings instance with the default settings value and
@@ -100,6 +101,14 @@ public class Settings {
 	}
 	
 	/**
+	 * Returns whether the words in the dictionary file should be shuffled or not.
+	 * When this is true, the words will be shuffled using the Collections.shuffle() method.
+	 */
+	public boolean isShuffled() {
+		return shuffled;
+	}
+	
+	/**
 	 * Returns a String representation of the user's settings. It can be used for printing the information
 	 * to a file, as well as debugging.
 	 */
@@ -112,6 +121,7 @@ public class Settings {
 	    ret += String.format("defaultFont\n%s %s %d\n", defaultFont.getFamily(), defaultFont.getStyle(), defaultFont.getSize());
 	    ret += String.format("speedFractionDigit\n%d\n", speedFractionDigit);
 	    ret += String.format("timeFractionDigit\n%d\n", timeFractionDigit);
+	    ret += String.format("shuffled\n%s\n", shuffled);
 		return ret;
 	}
 }

@@ -7,10 +7,13 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -20,6 +23,8 @@ import java.awt.FlowLayout;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,14 +48,15 @@ public class MainTypePanel extends JPanel {
 	public static final String LAST_USER = "lastUser.dat";
 	private User user;
     
-    // I didn't make these final so that the user can change it later
+    // These are not made final so that the user can change it later
     private Color toBeTyped;
     private Color alreadyTyped;
     private Color backgroundColor;
     private Font defaultFont;
-    // The number of digits to show after decimal point
+    // The number of maximum digits to show after decimal point
 	private int speedFractionDigit;
 	private int timeFractionDigit;
+	private boolean shuffled;
     
     private ArrayList<String> words = new ArrayList<String>();
 	private ArrayList<JPanel> wordPanels = new ArrayList<JPanel>();
@@ -70,7 +76,6 @@ public class MainTypePanel extends JPanel {
         
         setSize(800, 400);
         setLayout(new FlowLayout(FlowLayout.LEADING));
-
     }
 
     public void processPressedKey(char pressed) {
@@ -125,17 +130,13 @@ public class MainTypePanel extends JPanel {
         	
         	DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance();
         	df.setMaximumFractionDigits(timeFractionDigit);
-        	// df.setMinimumFractionDigits(timeFractionDigit);
         	double duration = (double)(endTime - startTime) / 1000000000;
         	String message = "Time: " + df.format(duration) + " sec\n";
         	
         	message += "Miss: " + miss + "\n";
         	
         	df.setMaximumFractionDigits(speedFractionDigit);
-        	// df.setMinimumFractionDigits(speedFractionDigit);
         	message += "Speed: " + df.format(totalNumOfLetters / duration) + " keys/sec\n";
-//            message += String.format("Speed: %.8f keys/sec\n",
-//            		totalNumOfLetters / duration);
             		
             JOptionPane.showMessageDialog(null, message,
                      "Result", JOptionPane.INFORMATION_MESSAGE);
@@ -218,10 +219,13 @@ public class MainTypePanel extends JPanel {
 		defaultFont = s.getDefaultFont();
 		speedFractionDigit = s.getSpeedFractionDigit();
 		timeFractionDigit = s.getTimeFractionDigit();
+		shuffled = s.isShuffled();
 	}
 	
 	/**
 	 * Reads in words from a dictionary file and store them into an ArrayList.
+	 * The total number of words is also counted so that it can be used when determining
+	 * when the user successfully finished typing by comparing it with the number of "correctKeyStrokes".
 	 * TODO: Add shuffle and make the words appear randomly
 	 */
 	public void readDic() {
@@ -236,12 +240,15 @@ public class MainTypePanel extends JPanel {
 	    	JOptionPane.showMessageDialog(null, "No dictionary file was found",
 	    			"No Dictionary file", JOptionPane.OK_OPTION);
 	    }
+	    
+	    // Shuffle the order of appearance of words when it is set to do so.
+	    if (shuffled)
+		    Collections.shuffle(words);
 	
 	    // Find out the total number of letters in the dictionary file
 	    // Add 1 for the white space after the word
 	    for (int i = 0; i < words.size(); i++)
 	    	totalNumOfLetters += words.get(i).length() + 1;
-	
 	}
 
 	/**
@@ -300,5 +307,21 @@ public class MainTypePanel extends JPanel {
 		// Note: Only revalidate() works here
 		// repaint();
 		revalidate();
+	}
+	
+	/**
+	 * Shows a dialog so that the user can change the default font.
+	 * The values will then be passed to the user's Settings instance and finally,
+	 * printed to the file so that the user doesn't have to change every time.
+	 * TODO: 2 options, Apply and Save
+	 */
+	public void changeFont() {
+		JDialog j = new JDialog();
+		j.setSize(300, 600);
+		j.setVisible(true);
+		j.setLocationRelativeTo(null);
+		j.setLayout(new FlowLayout(FlowLayout.CENTER));
+		j.add(new JButton("OK"));
+		j.add(new JButton("Apply"));
 	}
 }
