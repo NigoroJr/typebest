@@ -19,8 +19,9 @@ import javax.swing.SpringLayout;
 
 public class MainWindow extends JFrame {
 	private MainTypePanel mtp = new MainTypePanel();
-	private JButton restart = new JButton("Restart");
     private ClickResponder cr = new ClickResponder();
+	private JButton restart = new JButton("Restart");
+	private JMenuItem changeUser, changePracticeMode, changeFont;
 	
 	/**
 	 * Creates a new window with a panel that you type in, and a menu bar.
@@ -71,14 +72,14 @@ public class MainWindow extends JFrame {
 	 * Adds a menu bar to the main panel.
 	 */
 	public void menuBar() {
-		// TODO: Think what kind of menus to add
 		JMenuBar menu = new JMenuBar();
+		// TODO: Think what kind of menus to add
 		JMenu change = new JMenu("Change");
-		JMenuItem changeUser = new JMenuItem("Change User");
+		changeUser = new JMenuItem("Change User");
 		changeUser.addActionListener(cr);
-		JMenuItem changePracticeMode = new JMenuItem("Change Practice Mode");
+		changePracticeMode = new JMenuItem("Change Practice Mode");
 		changePracticeMode.addActionListener(cr);
-		JMenuItem changeFont = new JMenuItem("Change Font");
+		changeFont = new JMenuItem("Change Font");
 		changeFont.addActionListener(cr);
 		
 		change.add(changeUser);
@@ -116,8 +117,13 @@ public class MainWindow extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == restart)
 				mtp.restart();
-			else
-				System.out.println(e.getActionCommand());
+			// TODO: Actions when selecting various menu items
+			else if (e.getSource() == changeUser)
+				;
+			else if (e.getSource() == changePracticeMode)
+				;
+			else if (e.getSource() == changeFont)
+				mtp.changeFont();
 		}
 	}
 

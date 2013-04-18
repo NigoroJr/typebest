@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -306,5 +307,21 @@ public class MainTypePanel extends JPanel {
 		// Note: Only revalidate() works here
 		// repaint();
 		revalidate();
+	}
+	
+	/**
+	 * Shows a dialog so that the user can change the default font.
+	 * The values will then be passed to the user's Settings instance and finally,
+	 * printed to the file so that the user doesn't have to change every time.
+	 * TODO: 2 options, Apply and Save
+	 */
+	public void changeFont() {
+		JDialog j = new JDialog();
+		j.setSize(300, 600);
+		j.setVisible(true);
+		j.setLocationRelativeTo(null);
+		j.setLayout(new FlowLayout(FlowLayout.CENTER));
+		j.add(new JButton("OK"));
+		j.add(new JButton("Apply"));
 	}
 }
