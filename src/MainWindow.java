@@ -1,5 +1,3 @@
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,6 +20,7 @@ import javax.swing.SpringLayout;
 public class MainWindow extends JFrame {
 	private MainTypePanel mtp = new MainTypePanel();
 	private JButton restart = new JButton("Restart");
+    private ClickResponder cr = new ClickResponder();
 	
 	/**
 	 * Creates a new window with a panel that you type in, and a menu bar.
@@ -48,8 +47,8 @@ public class MainWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.EAST, restart, -8, SpringLayout.EAST, mainPanel);
         springLayout.putConstraint(SpringLayout.SOUTH, restart, -8, SpringLayout.SOUTH, mainPanel);
         
-        ButtonResponder br = new ButtonResponder();
-        restart.addActionListener(br);
+//        ClickResponder cr = new ClickResponder();
+        restart.addActionListener(cr);
         // When this is true, all the typing gets redirected to the button
         restart.setFocusable(false);
 		
@@ -74,11 +73,19 @@ public class MainWindow extends JFrame {
 	public void menuBar() {
 		// TODO: Think what kind of menus to add
 		JMenuBar menu = new JMenuBar();
-		JMenu open = new JMenu("Open");
-		open.add(new JMenuItem("Change user"));
-		open.add(new JMenuItem("Change Practice Mode"));
+		JMenu change = new JMenu("Change");
+		JMenuItem changeUser = new JMenuItem("Change User");
+		changeUser.addActionListener(cr);
+		JMenuItem changePracticeMode = new JMenuItem("Change Practice Mode");
+		changePracticeMode.addActionListener(cr);
+		JMenuItem changeFont = new JMenuItem("Change Font");
+		changeFont.addActionListener(cr);
 		
-		menu.add(open);
+		change.add(changeUser);
+		change.add(changePracticeMode);
+		change.add(changeFont);
+		
+		menu.add(change);
 		setJMenuBar(menu);
 	}
 	
@@ -103,12 +110,14 @@ public class MainWindow extends JFrame {
 	/**
 	 * Determines what to do when a button is pressed.
 	 */
-	public class ButtonResponder implements ActionListener {
+	public class ClickResponder implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == restart)
 				mtp.restart();
+			else
+				System.out.println(e.getActionCommand());
 		}
 	}
 
