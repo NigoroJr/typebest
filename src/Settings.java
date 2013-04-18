@@ -99,9 +99,19 @@ public class Settings {
 		return timeFractionDigit;
 	}
 	
+	/**
+	 * Returns a String representation of the user's settings. It can be used for printing the information
+	 * to a file, as well as debugging.
+	 */
 	@Override
 	public String toString() {
-		// TODO: Write toString method
-		return "have to write something here";
+		String ret = "";
+	    ret += String.format("toBeTyped\n%d\n", toBeTyped.getRGB());
+	    ret += String.format("alreadyTyped\n%d\n", alreadyTyped.getRGB());
+	    ret += String.format("backgroundColor\n%d\n", backgroundColor.getRGB());
+	    ret += String.format("defaultFont\n%s %s %d\n", defaultFont.getFamily(), defaultFont.getStyle(), defaultFont.getSize());
+	    ret += String.format("speedFractionDigit\n%d\n", speedFractionDigit);
+	    ret += String.format("timeFractionDigit\n%d\n", timeFractionDigit);
+		return ret;
 	}
 }

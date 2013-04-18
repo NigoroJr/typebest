@@ -38,7 +38,7 @@ import java.io.PrintWriter;
 
 public class MainTypePanel extends JPanel {
 
-    public static final String FILENAME = "dic.txt";
+	public static final String FILENAME = "dic.txt";
     
 	public static final String LAST_USER = "lastUser.dat";
 	private User user;
@@ -125,14 +125,14 @@ public class MainTypePanel extends JPanel {
         	
         	DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance();
         	df.setMaximumFractionDigits(timeFractionDigit);
-        	df.setMinimumFractionDigits(timeFractionDigit);
+        	// df.setMinimumFractionDigits(timeFractionDigit);
         	double duration = (double)(endTime - startTime) / 1000000000;
         	String message = "Time: " + df.format(duration) + " sec\n";
         	
         	message += "Miss: " + miss + "\n";
         	
         	df.setMaximumFractionDigits(speedFractionDigit);
-        	df.setMinimumFractionDigits(speedFractionDigit);
+        	// df.setMinimumFractionDigits(speedFractionDigit);
         	message += "Speed: " + df.format(totalNumOfLetters / duration) + " keys/sec\n";
 //            message += String.format("Speed: %.8f keys/sec\n",
 //            		totalNumOfLetters / duration);
@@ -144,87 +144,6 @@ public class MainTypePanel extends JPanel {
     }
 
     /**
-     * Clears the words and prepares for a new round.
-     */
-	public void restart() {
-		// Clear everything
-		this.removeAll();
-		
-		// Set everything to default value
-		finished = false;
-		cnt = 0;
-		words_cnt = 0;
-		miss = 0;
-		totalNumOfLetters = 0;
-		correctKeyStrokes = 0;
-		startTime = -1;
-		
-		words.clear();
-		wordPanels.clear();
-		readDic();
-		tokenize();
-		
-		// Note: Only revalidate() works here
-		// repaint();
-		revalidate();
-	}
-	
-	/**
-	 * Reads in words from a dictionary file and store them into an ArrayList.
-	 * TODO: Add shuffle and make the words appear randomly
-	 */
-	public void readDic() {
-        // Add words from dictionary
-        try {
-            Scanner input = new Scanner(new File(FILENAME));
-            while (input.hasNext())
-                words.add(input.next());
-        }
-        catch (FileNotFoundException e) {
-        	JOptionPane.showMessageDialog(null, "No dictionary file was found",
-        			"No Dictionary file", JOptionPane.OK_OPTION);
-        }
-
-        // Find out the total number of letters in the dictionary file
-        // Add 1 for the white space after the word
-        for (int i = 0; i < words.size(); i++)
-        	totalNumOfLetters += words.get(i).length() + 1;
-
-	}
-	
-	/**
-	 * Tokenize the words into chunks of letters that will then be set to the color "toBeTyped".
-	 * Words will first be added to a JPanel so that the word will not be separated when coming to a new line.
-	 */
-	public void tokenize() {
-        // Separate the words into chunks of letters
-        for (int w = 0; w < words.size(); w++) {
-            String word = words.get(w);
-            JPanel oneWordPanel = new JPanel();
-            oneWordPanel.setBackground(backgroundColor);
-            for (int i = 0; i < word.length(); i++) {
-                oneWordPanel.add(new JLabel(Character.toString(word.charAt(i))));
-            }
-            oneWordPanel.add(new JLabel(" "));
-            
-            wordPanels.add(oneWordPanel);
-        }
-        
-        // Add all the elements in the ArrayList to "this" after setting font and color
-        for (int i = 0; i < wordPanels.size(); i++) {
-        	JPanel p = wordPanels.get(i);
-        	for (Component c : p.getComponents()) {
-	        	JLabel l = (JLabel)c;
-	        	l.setFont(defaultFont);
-	        	l.setForeground(toBeTyped);
-	        	// Checking whether the letters are separated
-	        	// l.setForeground(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
-        	}
-        	this.add(p);
-        }
-	}
-	
-	/**
 	 * Loads the data where the user exited last time from a
 	 * file named lastUser.dat and put that to the window.
 	 * lastUser.dat contains which user last used, and another file with
@@ -286,7 +205,6 @@ public class MainTypePanel extends JPanel {
         readDic();
         // Tokenize the words read from the file
         tokenize();
-        
 	}
 
 	/**
@@ -301,5 +219,87 @@ public class MainTypePanel extends JPanel {
 		defaultFont = s.getDefaultFont();
 		speedFractionDigit = s.getSpeedFractionDigit();
 		timeFractionDigit = s.getTimeFractionDigit();
+	}
+
+	/**
+	 * Reads in words from a dictionary file and store them into an ArrayList.
+	 * TODO: Add shuffle and make the words appear randomly
+	 */
+	public void readDic() {
+	    // Add words from dictionary
+	    try {
+	        Scanner input = new Scanner(new File(FILENAME));
+	        while (input.hasNext())
+	            words.add(input.next());
+	        input.close();
+	    }
+	    catch (FileNotFoundException e) {
+	    	JOptionPane.showMessageDialog(null, "No dictionary file was found",
+	    			"No Dictionary file", JOptionPane.OK_OPTION);
+	    }
+	
+	    // Find out the total number of letters in the dictionary file
+	    // Add 1 for the white space after the word
+	    for (int i = 0; i < words.size(); i++)
+	    	totalNumOfLetters += words.get(i).length() + 1;
+	
+	}
+
+	/**
+	 * Tokenize the words into chunks of letters that will then be set to the color "toBeTyped".
+	 * Words will first be added to a JPanel so that the word will not be separated when coming to a new line.
+	 */
+	public void tokenize() {
+	    // Separate the words into chunks of letters
+	    for (int w = 0; w < words.size(); w++) {
+	        String word = words.get(w);
+	        JPanel oneWordPanel = new JPanel();
+	        oneWordPanel.setBackground(backgroundColor);
+	        for (int i = 0; i < word.length(); i++) {
+	            oneWordPanel.add(new JLabel(Character.toString(word.charAt(i))));
+	        }
+	        oneWordPanel.add(new JLabel(" "));
+	        
+	        wordPanels.add(oneWordPanel);
+	    }
+	    
+	    // Add all the elements in the ArrayList to "this" after setting font and color
+	    for (int i = 0; i < wordPanels.size(); i++) {
+	    	JPanel p = wordPanels.get(i);
+	    	for (Component c : p.getComponents()) {
+	        	JLabel l = (JLabel)c;
+	        	l.setFont(defaultFont);
+	        	l.setForeground(toBeTyped);
+	        	// Checking whether the letters are separated
+	        	// l.setForeground(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
+	    	}
+	    	this.add(p);
+	    }
+	}
+
+	/**
+	 * Clears the words and prepares for a new round.
+	 */
+	public void restart() {
+		// Clear everything
+		this.removeAll();
+		
+		// Set everything to default value
+		finished = false;
+		cnt = 0;
+		words_cnt = 0;
+		miss = 0;
+		totalNumOfLetters = 0;
+		correctKeyStrokes = 0;
+		startTime = -1;
+		
+		words.clear();
+		wordPanels.clear();
+		readDic();
+		tokenize();
+		
+		// Note: Only revalidate() works here
+		// repaint();
+		revalidate();
 	}
 }
