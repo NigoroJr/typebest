@@ -197,7 +197,6 @@ public class MainTypePanel extends JPanel {
 		// The settings for the user is read/created when an User instance is created.
 		// Thus, we can get the settings and change the values in this class accordingly
 		importSettings(user.getSettings());
-		// TODO: Create importRecords() method
 		
 		// Set the panel's background to whatever the user specified
         setBackground(backgroundColor);
@@ -220,7 +219,7 @@ public class MainTypePanel extends JPanel {
 		speedFractionDigit = s.getSpeedFractionDigit();
 		timeFractionDigit = s.getTimeFractionDigit();
 	}
-
+	
 	/**
 	 * Reads in words from a dictionary file and store them into an ArrayList.
 	 * TODO: Add shuffle and make the words appear randomly
