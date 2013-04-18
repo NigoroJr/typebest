@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 
 /**
@@ -39,14 +40,17 @@ public class MainTypePanel extends JPanel {
 
     public static final String FILENAME = "dic.txt";
     
+	public static final String LAST_USER = "lastUser.dat";
+	private User user;
+    
     // I didn't make these final so that the user can change it later
-    private Color toBeTyped = Color.BLUE;
-    private Color alreadyTyped = Color.RED;
-    private Color backGroundColor = Color.GRAY;
-    private Font defaultFont = new Font("Arial", Font.PLAIN, 30);
+    private Color toBeTyped;
+    private Color alreadyTyped;
+    private Color backgroundColor;
+    private Font defaultFont;
     // The number of digits to show after decimal point
-	private int speedFractionDigit = 8;
-	private int timeFractionDigit = 9;
+	private int speedFractionDigit;
+	private int timeFractionDigit;
     
     private ArrayList<String> words = new ArrayList<String>();
 	private ArrayList<JPanel> wordPanels = new ArrayList<JPanel>();
@@ -63,15 +67,9 @@ public class MainTypePanel extends JPanel {
 
     public MainTypePanel() {
         super();
-
+        
         setSize(800, 400);
         setLayout(new FlowLayout(FlowLayout.LEADING));
-        setBackground(backGroundColor);
-        // Read from dictionary file
-        readDic();
-
-        // Tokenize the words read from the file
-        tokenize();
 
     }
 
@@ -203,7 +201,7 @@ public class MainTypePanel extends JPanel {
         for (int w = 0; w < words.size(); w++) {
             String word = words.get(w);
             JPanel oneWordPanel = new JPanel();
-            oneWordPanel.setBackground(backGroundColor);
+            oneWordPanel.setBackground(backgroundColor);
             for (int i = 0; i < word.length(); i++) {
                 oneWordPanel.add(new JLabel(Character.toString(word.charAt(i))));
             }
@@ -224,5 +222,84 @@ public class MainTypePanel extends JPanel {
         	}
         	this.add(p);
         }
+	}
+	
+	/**
+	 * Loads the data where the user exited last time from a
+	 * file named lastUser.dat and put that to the window.
+	 * lastUser.dat contains which user last used, and another file with
+	 * the user's name as a file name will be loaded.
+	 * For example, if the name John was in lastUser.dat, then
+	 * John_settings.dat and John_records.dat will be loaded (if they exist).
+	 */
+	public void loadPreviousSession() {
+		File lastUserFile = new File(LAST_USER);
+		if (!(lastUserFile.exists())) {
+				
+				String userName = JOptionPane.showInputDialog("What's your user name?");
+				user = new User(userName);
+				
+				// Write the previous user name to the file
+				try {
+					PrintWriter pw = new PrintWriter(lastUserFile);
+					pw.println(userName);
+					pw.flush();
+					pw.close();
+				}
+				catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+		}
+		else {
+			Scanner read = null;
+			try {
+				read = new Scanner(lastUserFile);
+				String lastUser = read.nextLine();
+				// Create a current user from the previous session
+				user = new User(lastUser);
+				
+				read.close();
+			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// Do the things that needs to be done after loading the previous user
+		afterLoadingPreviousSession();
+	}
+	
+	/**
+	 * These are the things that needs to be done after the previous user's data has been retrieved.
+	 * Importing the settings and the records, reading from the dictionary  and tokenizing
+	 * to prepare for a new round are some of the things.
+	 */
+	private void afterLoadingPreviousSession() {
+		// The settings for the user is read/created when an User instance is created.
+		// Thus, we can get the settings and change the values in this class accordingly
+		importSettings(user.getSettings());
+		// TODO: Create importRecords() method
+		
+		// Set the panel's background to whatever the user specified
+        setBackground(backgroundColor);
+        // Read from dictionary file
+        readDic();
+        // Tokenize the words read from the file
+        tokenize();
+        
+	}
+
+	/**
+	 * Changes the values in this class according to the user's customized (and/or the default
+	 * value used in the data field in Settings class) settings.
+	 * @param s A Settings instance that contains the user's settings.
+	 */
+	public void importSettings(Settings s) {
+		toBeTyped = s.getToBeTyped();
+		alreadyTyped = s.getAlreadyTyped();
+		backgroundColor = s.getBackgroundColor();
+		defaultFont = s.getDefaultFont();
+		speedFractionDigit = s.getSpeedFractionDigit();
+		timeFractionDigit = s.getTimeFractionDigit();
 	}
 }

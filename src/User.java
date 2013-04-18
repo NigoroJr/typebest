@@ -17,26 +17,29 @@ import javax.swing.JOptionPane;
 
 public class User {
 	private String userName;
-	// TODO: Add instance variables for the records and settings
+	private Settings s;
+	private Records r;
 	
 	public User(String userName) {
 		this.userName = userName;
 		
 		// Read settings
-		Settings s = null;
-		readSettings(s);
+		readSettings();
 		
 		// Read records
-		Records r = null;
-		readRecords(r);
+		readRecords();
 		// TODO: Store the data into a new object
-		
 	}
 	
-	public void readSettings(Settings s) {
+	/**
+	 * Reads the user's settings (if there are any) and store it to the instance variable "s".
+	 * The filename is {userName}_settings.dat
+	 */
+	public void readSettings() {
 		try {
-			// TODO: Read data
 			Scanner read = new Scanner(new File(userName + "_settings.dat"));
+			// TODO: Read data from the given file
+			s = new Settings(userName, read);
 		}
 		catch (FileNotFoundException e) {
 			int choice = JOptionPane.showConfirmDialog(null,
@@ -66,7 +69,11 @@ public class User {
 		}	// End of catch when no setting file exists
 	}
 	
-	public void readRecords(Records r) {
+	/**
+	 * Reads the user's record from a file that has a filename {userName}_records.dat and
+	 * store it to the instance variable "r".
+	 */
+	public void readRecords() {
 		try {
 			Scanner read = new Scanner(new File(userName + "_records.dat"));
 			// TODO: Read data
@@ -75,5 +82,14 @@ public class User {
 			// Not doing anything because a file can be made once there is a new record.
 			// TODO: Add an instance variable in the Records class that indicates whether it's a completely new record or not.
 		}
+	}
+	
+	/**
+	 * Returns the setting instance for this user.
+	 * TODO: make a clone method in Settings (as well as Records)
+	 */
+	public Settings getSettings() {
+		// return s.clone()
+		return s;
 	}
 }

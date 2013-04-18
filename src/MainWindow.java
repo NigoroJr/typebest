@@ -16,10 +16,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+/**
+ * This class adds the necessary components and creates the window.
+ * All the other stuff such as reading/writing data etc. are left to MainTypePanel class.
+ * @author Naoki Mizuno
+ *
+ */
 
 public class MainWindow extends JFrame {
-	public static final String LAST_USER = "lastUser.dat";
-	private User user;
 	private MainTypePanel mtp = new MainTypePanel();
 	private JButton restart = new JButton("Restart");
 	
@@ -64,50 +68,9 @@ public class MainWindow extends JFrame {
 		setSize(800, 400);
 		
 		// Load the previous user's data
-		loadPreviousSession();
+		mtp.loadPreviousSession();
 	}
 	
-	/**
-	 * Loads the data where the user exited last time from a
-	 * file named lastUser.dat and put that to the window.
-	 * lastUser.dat contains which user last used, and another file with
-	 * the user's name as a file name will be loaded.
-	 * For example, if the name John was in lastUser.dat, then
-	 * John_settings.dat and John_records.dat will be loaded (if they exist).
-	 */
-	public void loadPreviousSession() {
-		File lastUserFile = new File(LAST_USER);
-		if (!(lastUserFile.exists())) {
-				
-				String userName = JOptionPane.showInputDialog("What's your user name?");
-				user = new User(userName);
-				
-				// Write the previous user name to the file
-				try {
-					PrintWriter pw = new PrintWriter(lastUserFile);
-					pw.println(userName);
-					pw.flush();
-					pw.close();
-				}
-				catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-		}
-		else {
-			Scanner read = null;
-			try {
-				read = new Scanner(lastUserFile);
-				String lastUser = read.nextLine();
-				// Create a current user from the previous session
-				user = new User(lastUser);
-				
-				read.close();
-			}
-			catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 	
 	/**
 	 * Adds a menu bar to the main panel.
@@ -121,11 +84,10 @@ public class MainWindow extends JFrame {
 		
 		menu.add(open);
 		setJMenuBar(menu);
-		
 	}
 	
 	/**
-	 * When a key is pressed, check if it's the right key
+	 * When a key is pressed, pass it to the method in MainTypePanel that determines what to do.
 	 */
 	public class TypingResponder implements KeyListener {
 		@Override
@@ -142,13 +104,9 @@ public class MainWindow extends JFrame {
 		}
 	}
 	
-	public static void main(String[] args) {
-		MainWindow mw = new MainWindow();
-		mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mw.setLocationRelativeTo(null);
-		mw.setVisible(true);
-	}
-
+	/**
+	 * Determines what to do when a button is pressed.
+	 */
 	public class ButtonResponder implements ActionListener {
 
 		@Override
@@ -156,5 +114,12 @@ public class MainWindow extends JFrame {
 			if (e.getSource() == restart)
 				mtp.restart();
 		}
+	}
+
+	public static void main(String[] args) {
+		MainWindow mw = new MainWindow();
+		mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mw.setLocationRelativeTo(null);
+		mw.setVisible(true);
 	}
 }
