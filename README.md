@@ -17,8 +17,7 @@ will become an online game.
 
 Practice Modes
 --------------
-The user can choose from "time", "number of characters", "alphabet(s)",  
-or by "My Least Favorite".  
+The user can choose from "time", "number of characters", "alphabet(s)", or by "My Least Favorite".  
 
 ToDo
 ----
