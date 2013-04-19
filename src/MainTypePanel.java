@@ -45,17 +45,11 @@ public class MainTypePanel extends JPanel {
 	public static final String LAST_USER = "lastUser.dat";
 	private User user;
     
-    // These are not made final so that the user can change it later
-	public static final String LAST_USER = "lastUser.dat";
-	private User user;
-    
     private Color toBeTyped;
     private Color alreadyTyped;
     private Color backgroundColor;
+    private Color missTypeColor;
     private Font defaultFont;
-    // The number of maximum digits to show after decimal point
-	private int speedFractionDigit;
-	private int timeFractionDigit;
 	private boolean shuffled;
     // The number of digits to show after decimal point
 	private int speedFractionDigit;
@@ -106,12 +100,18 @@ public class MainTypePanel extends JPanel {
             if (startTime == -1)
             	startTime = System.nanoTime();
             
-            if (pressed == s.charAt(0)) {
+        	// Don't hilight spaces
+        	if (s.charAt(0) == '_' && pressed == ' ') {
+        		l.setForeground(backgroundColor);
+        		correctKeyStrokes++;
+        	}
+        	else if (pressed == s.charAt(0)) {
                 l.setForeground(alreadyTyped);
                 correctKeyStrokes++;
             }
             else {
             	miss++;
+            	l.setForeground(missTypeColor);
             	// This is supposed to emit a beep sound
             	// Toolkit.getDefaultToolkit().beep();
                 return;
@@ -219,6 +219,7 @@ public class MainTypePanel extends JPanel {
 		toBeTyped = s.getToBeTyped();
 		alreadyTyped = s.getAlreadyTyped();
 		backgroundColor = s.getBackgroundColor();
+		missTypeColor = s.getMissTypeColor();
 		defaultFont = s.getDefaultFont();
 		speedFractionDigit = s.getSpeedFractionDigit();
 		timeFractionDigit = s.getTimeFractionDigit();
@@ -267,7 +268,7 @@ public class MainTypePanel extends JPanel {
 	        for (int i = 0; i < word.length(); i++) {
 	            oneWordPanel.add(new JLabel(Character.toString(word.charAt(i))));
 	        }
-	        oneWordPanel.add(new JLabel(" "));
+	        oneWordPanel.add(new JLabel("_"));
 	        
 	        wordPanels.add(oneWordPanel);
 	    }
@@ -277,8 +278,13 @@ public class MainTypePanel extends JPanel {
 	    	JPanel p = wordPanels.get(i);
 	    	for (Component c : p.getComponents()) {
 	        	JLabel l = (JLabel)c;
+	        	// Hide '_' by making it the same as the background color
+	        	if (l.getText().charAt(0) == '_')
+	        		l.setForeground(backgroundColor);
+	        	else
+		        	l.setForeground(toBeTyped);
+	        	
 	        	l.setFont(defaultFont);
-	        	l.setForeground(toBeTyped);
 	        	// Checking whether the letters are separated
 	        	// l.setForeground(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
 	    	}
@@ -328,15 +334,4 @@ public class MainTypePanel extends JPanel {
 		j.add(new JButton("Apply"));
     }
 
-	 * value used in the data field in Settings class) settings.
-	 * @param s A Settings instance that contains the user's settings.
-	 */
-	public void importSettings(Settings s) {
-		toBeTyped = s.getToBeTyped();
-		alreadyTyped = s.getAlreadyTyped();
-		backgroundColor = s.getBackgroundColor();
-		defaultFont = s.getDefaultFont();
-		speedFractionDigit = s.getSpeedFractionDigit();
-		timeFractionDigit = s.getTimeFractionDigit();
-	}
 }

@@ -17,6 +17,7 @@ public class Settings {
     private Color toBeTyped = Color.BLUE;
     private Color alreadyTyped = Color.RED;
     private Color backgroundColor = Color.GRAY;
+    private Color missTypeColor = Color.CYAN;
     private Font defaultFont = new Font("Arial", Font.PLAIN, 30);
     // The number of digits to show after decimal point
 	private int speedFractionDigit = 8;
@@ -72,6 +73,14 @@ public class Settings {
 	 */
 	public Color getBackgroundColor() {
 		return backgroundColor;
+	}
+	
+	/**
+	 * Returns the color the letters become hilighted when the user miss types.
+	 * @return The color that the letters become when there is a miss type.
+	 */
+	public Color getMissTypeColor() {
+		return missTypeColor;
 	}
 	
 	/**
