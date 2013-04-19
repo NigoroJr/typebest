@@ -64,6 +64,14 @@ public class User {
 	}
 	
 	/**
+	 * Returns the user name of this user.
+	 * @return The user name of this user in String.
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	
+	/**
 	 * Returns the setting instance for this user.
 	 * TODO: make a clone method in Settings
 	 */

@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -42,7 +43,8 @@ public class MainTypePanel extends JPanel {
 
 	public static final String FILENAME = "dic.txt";
     
-	public static final String LAST_USER = "lastUser.dat";
+	// public static final String LAST_USER = "lastUser.dat";
+	public static final File lastUserFile = new File("lastUser.dat");
 	private User user;
     
     private Color toBeTyped;
@@ -82,8 +84,10 @@ public class MainTypePanel extends JPanel {
     	
 		// Restart when ESCAPE key is pressed twice-in-a-row
 		if (pressed == KeyEvent.VK_ESCAPE) {
-			if (restartFlag)
+			if (restartFlag) {
+				restartFlag = false;
 				restart();
+			}
 			else
 				restartFlag = true;
 			return;
@@ -155,31 +159,12 @@ public class MainTypePanel extends JPanel {
 	 * For example, if the name John was in lastUser.dat, then
 	 * John_settings.dat and John_records.dat will be loaded (if they exist).
 	 */
-	public void loadPreviousSession() {
-		File lastUserFile = new File(LAST_USER);
-		if (!(lastUserFile.exists())) {
-				
-				String userName = JOptionPane.showInputDialog("What's your user name?");
-				user = new User(userName);
-				
-				// Write the previous user name to the file
-				try {
-					PrintWriter pw = new PrintWriter(lastUserFile);
-					pw.println(userName);
-					pw.flush();
-					pw.close();
-				}
-				catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-		}
-		else {
-			Scanner read = null;
+	public void loadLastUser() {
+		// Read from the file if it exists
+		if (lastUserFile.exists()) {
 			try {
-				read = new Scanner(lastUserFile);
-				String lastUser = read.nextLine();
-				// Create a current user from the previous session
-				user = new User(lastUser);
+				Scanner read = new Scanner(lastUserFile);
+				changeUser(read.nextLine());
 				
 				read.close();
 			}
@@ -187,9 +172,13 @@ public class MainTypePanel extends JPanel {
 				e.printStackTrace();
 			}
 		}
+		else {
+			// Prompt the user for a user name using changeUser method, which then passes the input to loadLastUser(String)
+			changeUser();
+		}
 		
 		// Do the things that needs to be done after loading the previous user
-		afterLoadingPreviousSession();
+		afterLoadingPreviousUser();
 	}
 	
 	/**
@@ -197,7 +186,7 @@ public class MainTypePanel extends JPanel {
 	 * Importing the settings and the records, reading from the dictionary  and tokenizing
 	 * to prepare for a new round are some of the things.
 	 */
-	private void afterLoadingPreviousSession() {
+	private void afterLoadingPreviousUser() {
 		// The settings for the user is read/created when an User instance is created.
 		// Thus, we can get the settings and change the values in this class accordingly
 		importSettings(user.getSettings());
@@ -326,12 +315,47 @@ public class MainTypePanel extends JPanel {
 	 */
 	public void changeFont() {
 		JDialog j = new JDialog();
-		j.setSize(300, 600);
+		j.setSize(400, 150);
 		j.setVisible(true);
 		j.setLocationRelativeTo(null);
-		j.setLayout(new FlowLayout(FlowLayout.CENTER));
-		j.add(new JButton("OK"));
-		j.add(new JButton("Apply"));
+		j.setLayout(new BorderLayout());
+		
+		JPanel buttons = new JPanel();
+		buttons.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		buttons.add(new JButton("Save as default"));
+		buttons.add(new JButton("Apply for now"));
+		buttons.add(new JButton("Cancel"));
+		
+		j.add(buttons, BorderLayout.SOUTH);
     }
+	
+	/**
+	 * Changes the current user to the given user name. Also updates the lastUserFile, which contains the name
+	 * of the last user (creates one when it's not found).
+	 * @param userName The new user name that will be switched to.
+	 */
+	public void changeUser(String userName) {
+		user = new User(userName);
+		
+		try {
+			PrintWriter pw = new PrintWriter(lastUserFile);
+			pw.println(userName);
+			pw.flush();
+			pw.close();
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
+	/**
+	 * Shows an input dialog and changes the current user to the input. 
+	 */
+	public void changeUser() {
+		String newUser = "";
+		// Don't accept empty string
+		while (newUser == null || newUser.trim().equals(""))
+			newUser = JOptionPane.showInputDialog("Current user is: " + user.getUserName() + "\nEnter new user:");
+		changeUser(newUser);
+	}
 }

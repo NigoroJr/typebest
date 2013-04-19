@@ -64,7 +64,7 @@ public class MainWindow extends JFrame {
 		setSize(800, 400);
 		
 		// Load the previous user's data
-		mtp.loadPreviousSession();
+		mtp.loadLastUser();
 	}
 	
 	
@@ -118,8 +118,10 @@ public class MainWindow extends JFrame {
 			if (e.getSource() == restart)
 				mtp.restart();
 			// TODO: Actions when selecting various menu items
-			else if (e.getSource() == changeUser)
-				;
+			else if (e.getSource() == changeUser) {
+				mtp.changeUser();
+				mtp.restart();
+			}
 			else if (e.getSource() == changePracticeMode)
 				;
 			else if (e.getSource() == changeFont)
