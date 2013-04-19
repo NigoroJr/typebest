@@ -3,19 +3,30 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.FlowLayout;
@@ -311,22 +322,9 @@ public class MainTypePanel extends JPanel {
 	 * Shows a dialog so that the user can change the default font.
 	 * The values will then be passed to the user's Settings instance and finally,
 	 * printed to the file so that the user doesn't have to change every time.
-	 * TODO: 2 options, Apply and Save
 	 */
 	public void changeFont() {
-		JDialog j = new JDialog();
-		j.setSize(400, 150);
-		j.setVisible(true);
-		j.setLocationRelativeTo(null);
-		j.setLayout(new BorderLayout());
-		
-		JPanel buttons = new JPanel();
-		buttons.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		buttons.add(new JButton("Save as default"));
-		buttons.add(new JButton("Apply for now"));
-		buttons.add(new JButton("Cancel"));
-		
-		j.add(buttons, BorderLayout.SOUTH);
+		user.getSettings().changeFont();
     }
 	
 	/**
@@ -353,9 +351,11 @@ public class MainTypePanel extends JPanel {
 	 */
 	public void changeUser() {
 		String newUser = "";
-		// Don't accept empty string
-		while (newUser == null || newUser.trim().equals(""))
-			newUser = JOptionPane.showInputDialog("Current user is: " + user.getUserName() + "\nEnter new user:");
-		changeUser(newUser);
+		newUser = JOptionPane.showInputDialog("Current user is: " + user.getUserName() + "\nEnter new user:");
+		// Change the user name if it's a valid value
+		if (newUser != null && !newUser.trim().equals("")) {
+			changeUser(newUser);
+			restart();
+		}
 	}
 }
