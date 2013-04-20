@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -30,8 +31,6 @@ import javax.swing.event.ChangeListener;
  */
 
 public class Settings {
-	private String userName;
-	
     private Color toBeTyped = Color.BLUE;
     private Color alreadyTyped = Color.RED;
     private Color backgroundColor = Color.GRAY;
@@ -41,33 +40,6 @@ public class Settings {
 	private int speedFractionDigit = 8;
 	private int timeFractionDigit = 9;
 	private boolean shuffled = true;
-	
-	/**
-	 * Creates a new Settings instance with the default settings value and
-	 * an user name of "Anonymous".
-	 */
-	public Settings() {
-		this("Anonymous");
-	}
-	
-	/**
-	 * Creates a new Settings instance with the default value and the given user name.
-	 * @param userName The user's name, which will be used in the filename.
-	 */
-	public Settings(String userName) {
-		this.userName = userName;
-	}
-	
-	/**
-	 * Creates a new Settings instance with the default value and read the data from the
-	 * file given as a Scanner object. The file contains the settings that were changed
-	 * from the default value.
-	 * @param userName The user's name, which will be used in the filename.
-	 * @param read A Scanner object to read from the file containing settings.
-	 */
-	public Settings(String userName, Scanner read) {
-		// TODO: Write loops and setters that read settings
-	}
 	
 	/**
 	 * Returns the color of the letters that are not yet typed.
@@ -136,6 +108,13 @@ public class Settings {
 	}
 	
 	/**
+	 * Reads the user's settings from the given file.
+	 */
+	public void readSettings(Scanner input) {
+		// TODO: Read settings from file
+	}
+	
+	/**
 	 * Shows a dialog that allows the user to change the font. The user can change
 	 * the font family(Arial, MS Gothic, etc.), style (bold, italic), and the size in points.
 	 * It uses a JComboBox for the family, JCheckBox for style, and a JSlider for the size.
@@ -145,7 +124,6 @@ public class Settings {
 	public void changeFont() {
 		final JDialog dialog = new JDialog();
 		dialog.setSize(280, 150);
-		dialog.setVisible(true);
 		dialog.setLocationRelativeTo(null);
 		dialog.setLayout(new BorderLayout());
 		
@@ -156,6 +134,7 @@ public class Settings {
 		// Get all the fonts available in that environment
 		String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 		final JComboBox fontNameComboBox = new JComboBox(fonts);
+		fontNameComboBox.setSelectedItem(defaultFont.getFamily());
 		fontNameComboBox.setPreferredSize(new Dimension(170, fontNameComboBox.getPreferredSize().height));
 		fontSetting.add(fontNameComboBox);
 		
@@ -163,14 +142,14 @@ public class Settings {
 		JPanel fontStyle = new JPanel();
 		fontStyle.setLayout(new GridLayout(0, 1));
 		
-		final JCheckBox bold = new JCheckBox("Bold");
-		final JCheckBox italic = new JCheckBox("Italic");
+		final JCheckBox bold = new JCheckBox("Bold", defaultFont.isBold());
+		final JCheckBox italic = new JCheckBox("Italic", defaultFont.isItalic());
 		fontStyle.add(bold);
 		fontStyle.add(italic);
 		fontSetting.add(fontStyle);
 		
-		// Slider to set the size with the default value of 30
-		final JSlider sizeSlider = new JSlider(5, 80, 30);
+		// Slider to set the size with the default value of the current point size
+		final JSlider sizeSlider = new JSlider(5, 80, defaultFont.getSize());
 		sizeSlider.setMajorTickSpacing(15);
 		sizeSlider.setMinorTickSpacing(5);
 		sizeSlider.setPreferredSize(new Dimension(200, 30));
@@ -190,27 +169,15 @@ public class Settings {
 		
 		// OK, Apply, and Cancel buttons, each having their own ActionListener
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
-		buttons.add(new JButton("Save") {{
-			this.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					int choice = JOptionPane.showConfirmDialog(null, "Set this as the default font?", null, JOptionPane.CANCEL_OPTION);
-					if (choice == 0) {
-						// Save it and close
-						// TODO: Write to file
-						dialog.setVisible(false);
-					}
-				}
-			});
-		}});
-		buttons.add(new JButton("Apply") {{
-			this.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
+		final ActionListener click = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// add
+				if (e.getActionCommand() == "Save" ||
+					e.getActionCommand() == "Apply") {
 					// Change the font
 					// Get font name
-					String selected = (String)fontNameComboBox.getSelectedItem();
+					String name = (String)fontNameComboBox.getSelectedItem();
 					// Get style
 					int style;
 					if (bold.isSelected() && italic.isSelected())
@@ -221,22 +188,54 @@ public class Settings {
 						style = Font.ITALIC;
 					else
 						style = Font.PLAIN;
+					
+					int size = sizeSlider.getValue();
+					
+					// change font
+					setDefaultFont(name, style, size);
+					
+					if (e.getActionCommand() == "Save") {
+						int choice = JOptionPane.showConfirmDialog(null, "Set this as the default font?", null, JOptionPane.CANCEL_OPTION);
+						if (choice == 0) {
+							// Save it and close
+							// TODO: Write to file
+							dialog.setVisible(false);
+						}
+					}
+						
 				}
-			});
-		}});
-		buttons.add(new JButton("Cancel") {{
-			this.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
+				if (e.getActionCommand() == "Close")
 					// Close the dialog
 					dialog.setVisible(false);
-				}
-			});
+			}
+		};
+		buttons.add(new JButton("Save") {{
+			this.addActionListener(click);
+		}});
+		buttons.add(new JButton("Apply") {{
+			this.addActionListener(click);
+		}});
+		buttons.add(new JButton("Close") {{
+			this.addActionListener(click);
 		}});
 		
 		// Finally, add all the components
 		dialog.add(fontSetting);
 		dialog.add(buttons, BorderLayout.SOUTH);
+		// Prevent other codes from running while the dialog is open
+		dialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+		dialog.setVisible(true);
+	}
+	
+	/**
+	 * Changes the default font to the given font. This method accepts the family name, style, and the size.
+	 * This method should be used with the changeFont method in this class.
+	 * @param name The family name of the font in String
+	 * @param style The style of the font. Font.PLAIN = 0, Font.BOLD = 1, Font.ITALIC = 2. BOLD + ITALIC is 3.
+	 * @param size The point size of the font as an integer.
+	 */
+	public void setDefaultFont(String name, int style, int size) {
+		defaultFont = new Font(name, style, size);
 	}
 	
 	/**

@@ -80,6 +80,9 @@ public class MainTypePanel extends JPanel {
     
     private long startTime = -1;
 
+    // Change the color of the each letter
+	private boolean fun = false;
+
 
     public MainTypePanel() {
         super();
@@ -281,12 +284,13 @@ public class MainTypePanel extends JPanel {
 	        	// Hide '_' by making it the same as the background color
 	        	if (l.getText().charAt(0) == '_')
 	        		l.setForeground(backgroundColor);
+	        	// Randomize the color of the letters
+	        	else if (fun)
+		        	l.setForeground(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
 	        	else
 		        	l.setForeground(toBeTyped);
 	        	
 	        	l.setFont(defaultFont);
-	        	// Checking whether the letters are separated
-	        	// l.setForeground(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
 	    	}
 	    	this.add(p);
 	    }
@@ -313,8 +317,7 @@ public class MainTypePanel extends JPanel {
 		readDic();
 		tokenize();
 		
-		// Note: Only revalidate() works here
-		// repaint();
+		repaint();
 		revalidate();
 	}
 	
@@ -324,7 +327,12 @@ public class MainTypePanel extends JPanel {
 	 * printed to the file so that the user doesn't have to change every time.
 	 */
 	public void changeFont() {
-		user.getSettings().changeFont();
+		Settings s = user.getSettings();
+		s.changeFont();
+		importSettings(s);
+		// It's questionable whether to re-shuffle the words or not
+		// restart();
+		tokenize();
     }
 	
 	/**

@@ -36,14 +36,16 @@ public class User {
 	 * The filename is {userName}_settings.dat
 	 */
 	public void readSettings() {
-		try {
-			Scanner read = new Scanner(new File(userName + "_settings.dat"));
-			// TODO: Read data from the given file
-			s = new Settings(userName, read);
-		}
-		catch (FileNotFoundException e) {
-			// TODO: Will actually write to a file when there is a change. Otherwise, it means the user is using the default settings.
-			s = new Settings(userName);
+		s = new Settings();
+		File settingsFile = new File(userName + "_settings.dat");
+		if (settingsFile.exists()) {
+			try {
+				Scanner read = new Scanner(settingsFile);
+				s.readSettings(read);
+			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

@@ -48,7 +48,6 @@ public class MainWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.EAST, restart, -8, SpringLayout.EAST, mainPanel);
         springLayout.putConstraint(SpringLayout.SOUTH, restart, -8, SpringLayout.SOUTH, mainPanel);
         
-//        ClickResponder cr = new ClickResponder();
         restart.addActionListener(cr);
         // When this is true, all the typing gets redirected to the button
         restart.setFocusable(false);
