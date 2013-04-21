@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -17,56 +18,43 @@ import javax.swing.JOptionPane;
 
 public class User {
 	private String userName;
-	// TODO: Add instance variables for the records and settings
+	private Settings s;
+	private Records r;
 	
 	public User(String userName) {
 		this.userName = userName;
+		s = new Settings(userName + "_settings.dat");
+		r = new Records(userName + "_records.dat");
 		
 		// Read settings
-		Settings s = null;
-		readSettings(s);
+		readSettings();
 		
 		// Read records
-		Records r = null;
-		readRecords(r);
+		readRecords();
 		// TODO: Store the data into a new object
-		
 	}
 	
-	public void readSettings(Settings s) {
-		try {
-			// TODO: Read data
-			Scanner read = new Scanner(new File(userName + "_settings.dat"));
-		}
-		catch (FileNotFoundException e) {
-			int choice = JOptionPane.showConfirmDialog(null,
-					"No settings found.\nCreate a new setting file?", "No setting file found",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			
-			// Can't proceed without creating a setting file
-			if (choice == 1)
-				System.exit(0);
-			
-			// TODO: Write default settings or write to a file when there is a change in the setting?
-			// Create a new Settings object with the default settings with only the userName
-			s = new Settings(userName);
-			BufferedWriter bw;
-			try {
-				bw = new BufferedWriter(new FileWriter(userName + "_settings.dat"));
-				
-				bw.write(s.toString());
-				
-				bw.flush();
-				bw.close();
-			}
-			catch (IOException newSettings) {
-				JOptionPane.showMessageDialog(null, "Failed to create a new settings file.");
-				System.exit(0);
-			}
-		}	// End of catch when no setting file exists
+	/**
+	 * Reads the user's settings (if there are any) and store it to the instance variable "s".
+	 * The filename is {userName}_settings.dat
+	 */
+	public void readSettings() {
+		s.readSettings();
 	}
 	
-	public void readRecords(Records r) {
+	/**
+	 * Writes the user's settings data to a file.
+	 */
+	public void writeSettings() {
+		s.writeSettings();
+	}
+	
+	/**
+	 * Reads the user's record from a file that has a filename {userName}_records.dat and
+	 * store it to the instance variable "r".
+	 * NOTE: make this method abstract and do everything in the Records class?
+	 */
+	public void readRecords() {
 		try {
 			Scanner read = new Scanner(new File(userName + "_records.dat"));
 			// TODO: Read data
@@ -75,5 +63,32 @@ public class User {
 			// Not doing anything because a file can be made once there is a new record.
 			// TODO: Add an instance variable in the Records class that indicates whether it's a completely new record or not.
 		}
+	}
+	
+	/**
+	 * Returns the user name of this user.
+	 * @return The user name of this user in String.
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	
+	/**
+	 * Returns the setting instance for this user.
+	 * TODO: make a clone method in Settings
+	 */
+	public Settings getSettings() {
+		// return s.clone()
+		return s;
+	}
+	
+	/**
+	 * Returns the records instance for this user.
+	 * TODO: make a clone method in Records
+	 * NOTE: Is this really necessary? The Records class is used only to store records.
+	 */
+	public Records getRecords() {
+		// return s.clone()
+		return r;
 	}
 }

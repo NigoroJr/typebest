@@ -15,12 +15,15 @@ However, there is some possibility that online ranking function may be available
 Practice Modes
 --------------
 The user can choose from "time", "number of characters", "alphabet(s)", or by "My Least Favorite".  
+<<<<<<< HEAD
+=======
+Although the default is set to shuffle the words in the dictionary file, you can choose to not do that.  
 
 Tips
 ----
-You can restart that round by clicking the restart button on the botton right corner.  
+You can restart that round by clicking the restart button on the botton left corner.  
 Another way is to press the "Escape key" twice.  
-Although the default is set to shuffle the words in the dictionary file, you can choose to not do that.  
+>>>>>>> prototype
 
 ToDo
 ----
