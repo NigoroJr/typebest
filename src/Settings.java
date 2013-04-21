@@ -128,6 +128,34 @@ public class Settings {
 	}
 	
 	/**
+	 * Sets the color of toBeTyped to the given Color.
+	 */
+	public void setToBeTyped(Color c) {
+		toBeTyped = c;
+	}
+	
+	/**
+	 * Sets the color of alreadyTyped to the given Color.
+	 */
+	public void setAlreadyTyped(Color c) {
+		alreadyTyped = c;
+	}
+	
+	/**
+	 * Sets the color of missTypeColor to the given Color.
+	 */
+	public void setMissTypeColor(Color c) {
+		missTypeColor = c;
+	}
+	
+	/**
+	 * Sets the color of backgroundColor to the given Color.
+	 */
+	public void setBackgroundColor(Color c) {
+		backgroundColor = c;
+	}
+	
+	/**
 	 * Reads the user's settings from the given file. In order to increase readability and accuracy,
 	 * it checks for a complete match with the variable name.
 	 */
@@ -269,7 +297,9 @@ public class Settings {
 					setDefaultFont(name, style, size);
 					
 					if (e.getActionCommand() == "Save") {
-						int choice = JOptionPane.showConfirmDialog(null, "Set this as the default font?", null, JOptionPane.CANCEL_OPTION);
+						int choice = JOptionPane.showConfirmDialog(null,
+								"Set this as the default font?\n(Other settings will also be saved)",
+								null, JOptionPane.CANCEL_OPTION);
 						if (choice == 0) {
 							// Save it and close
 							writeSettings();
