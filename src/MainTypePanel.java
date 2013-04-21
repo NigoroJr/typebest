@@ -1,35 +1,19 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.FlowLayout;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -47,7 +31,6 @@ import java.io.PrintWriter;
  * @author Naoki Mizuno
  *
  */
-// TODO: Get rid of the duplicate instance variables
 // TODO: Create menu
 // TODO: Settings for shuffle, color
 // TODO: Change the changeUser method so that it shows the existing users (like in the keyboard layout)
@@ -59,17 +42,6 @@ public class MainTypePanel extends JPanel {
 	// public static final String LAST_USER = "lastUser.dat";
 	public static final File lastUserFile = new File("lastUser.dat");
 	private User user;
-    
-    private Color toBeTyped;
-    private Color alreadyTyped;
-    private Color backgroundColor;
-    private Color missTypeColor;
-    private Font defaultFont;
-	private boolean shuffled;
-    // The number of digits to show after decimal point
-	private int speedFractionDigit;
-	private int timeFractionDigit;
-	private String keyboardLayout;
     
     private ArrayList<String> words = new ArrayList<String>();
 	private ArrayList<JPanel> wordPanels = new ArrayList<JPanel>();
@@ -123,16 +95,16 @@ public class MainTypePanel extends JPanel {
             
         	// Don't hilight spaces
         	if (s.charAt(0) == '_' && pressed == ' ') {
-        		l.setForeground(backgroundColor);
+        		l.setForeground(user.getSettings().getBackgroundColor());
         		correctKeyStrokes++;
         	}
         	else if (pressed == s.charAt(0)) {
-                l.setForeground(alreadyTyped);
+                l.setForeground(user.getSettings().getAlreadyTyped());
                 correctKeyStrokes++;
             }
             else {
             	miss++;
-            	l.setForeground(missTypeColor);
+            	l.setForeground(user.getSettings().getMissTypeColor());
             	// This is supposed to emit a beep sound
             	// Toolkit.getDefaultToolkit().beep();
                 return;
@@ -153,13 +125,13 @@ public class MainTypePanel extends JPanel {
         	long endTime = System.nanoTime();
         	
         	DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance();
-        	df.setMaximumFractionDigits(timeFractionDigit);
+        	df.setMaximumFractionDigits(user.getSettings().getTimeFractionDigit());
         	double duration = (double)(endTime - startTime) / 1000000000;
         	String message = "Time: " + df.format(duration) + " sec\n";
         	
         	message += "Miss: " + miss + "\n";
         	
-        	df.setMaximumFractionDigits(speedFractionDigit);
+        	df.setMaximumFractionDigits(user.getSettings().getSpeedFractionDigit());
         	message += "Speed: " + df.format(totalNumOfLetters / duration) + " keys/sec\n";
             		
             JOptionPane.showMessageDialog(null, message,
@@ -203,37 +175,14 @@ public class MainTypePanel extends JPanel {
 	 * to prepare for a new round are some of the things.
 	 */
 	private void afterLoadingUser() {
-		// The settings for the user is read/created AND read when an User instance is created.
-		// Thus, we don't have to worry about the settings not being created.
-		importSettings();
-		
 		// Set the panel's background to whatever the user specified
-        setBackground(backgroundColor);
+        setBackground(user.getSettings().getBackgroundColor());
         // Read from dictionary file
         readDic();
         // Tokenize the words read from the file
         tokenize();
 	}
 
-	/**
-	 * Changes the values in this class according to the user's customized (and/or the default
-	 * value used in the data field in Settings class) settings.
-	 * @param s A Settings instance that contains the user's settings.
-	 */
-	public void importSettings() {
-		Settings s = user.getSettings();
-		
-		toBeTyped = s.getToBeTyped();
-		alreadyTyped = s.getAlreadyTyped();
-		backgroundColor = s.getBackgroundColor();
-		missTypeColor = s.getMissTypeColor();
-		defaultFont = s.getDefaultFont();
-		speedFractionDigit = s.getSpeedFractionDigit();
-		timeFractionDigit = s.getTimeFractionDigit();
-		shuffled = s.isShuffled();
-		keyboardLayout = s.getKeyboardLayout();
-	}
-	
 	/**
 	 * Reads in words from a dictionary file and store them into an ArrayList.
 	 * The total number of words is also counted so that it can be used when determining
@@ -254,7 +203,7 @@ public class MainTypePanel extends JPanel {
 	    }
 	    
 	    // Shuffle the order of appearance of words when it is set to do so.
-	    if (shuffled)
+	    if (user.getSettings().isShuffled())
 		    Collections.shuffle(words);
 	
 	    // Find out the total number of letters in the dictionary file
@@ -271,11 +220,15 @@ public class MainTypePanel extends JPanel {
 	public void tokenize() {
 		// First, clear all the words that are currently on the panel
 		removeAll();
+		wordPanels.clear();
+		
+		// Then, change the background color
+		this.setBackground(user.getSettings().getBackgroundColor());
 	    // Separate the words into chunks of letters
 	    for (int w = 0; w < words.size(); w++) {
 	        String word = words.get(w);
 	        JPanel oneWordPanel = new JPanel();
-	        oneWordPanel.setBackground(backgroundColor);
+	        oneWordPanel.setBackground(user.getSettings().getBackgroundColor());
 	        for (int i = 0; i < word.length(); i++) {
 	            oneWordPanel.add(new JLabel(Character.toString(word.charAt(i))));
 	        }
@@ -287,18 +240,19 @@ public class MainTypePanel extends JPanel {
 	    // Add all the elements in the ArrayList to "this" after setting font and color
 	    for (int i = 0; i < wordPanels.size(); i++) {
 	    	JPanel p = wordPanels.get(i);
+        	p.setBackground(user.getSettings().getBackgroundColor());
 	    	for (Component c : p.getComponents()) {
 	        	JLabel l = (JLabel)c;
 	        	// Hide '_' by making it the same as the background color
 	        	if (l.getText().charAt(0) == '_')
-	        		l.setForeground(backgroundColor);
+	        		l.setForeground(user.getSettings().getBackgroundColor());
 	        	// Randomize the color of the letters
 	        	else if (fun)
 		        	l.setForeground(new Color((int)(Math.random() * 256), (int)(Math.random() * 256), (int)(Math.random() * 256)));
 	        	else
-		        	l.setForeground(toBeTyped);
+		        	l.setForeground(user.getSettings().getToBeTyped());
 	        	
-	        	l.setFont(defaultFont);
+	        	l.setFont(user.getSettings().getDefaultFont());
 	    	}
 	    	this.add(p);
 	    }
@@ -337,7 +291,6 @@ public class MainTypePanel extends JPanel {
 	 */
 	public void changeFont() {
 		user.getSettings().changeFont();
-		importSettings();
 		// It's questionable whether to re-shuffle the words or not
 		// restart();
 		tokenize();
@@ -384,5 +337,72 @@ public class MainTypePanel extends JPanel {
 		// TODO: Create the method in the settings class
 		JOptionPane.showMessageDialog(null, "Currently under development...Sorry!");
 		restart();
+	}
+	
+	/**
+	 * Shows a dialog that allows user to change the color. A dialog that asks the user which color
+	 * to change is shown first. Then, according to the selection, another dialog appears that allows
+	 * the user to change the selected color. Clicking on cancel will make no changes.
+	 */
+	public void changeColor() {
+		
+		final JDialog dialog = new JDialog();
+		dialog.setTitle("Change color of");
+		dialog.setLocationRelativeTo(null);
+		dialog.setSize(190, 70);
+		dialog.setLayout(new GridLayout(0, 1));
+		
+		// Ask which color the user wants to change
+		final String[] choices = {"Untyped Letters", "Typed Letters", "Misstypes", "Background"};
+		final JComboBox choose = new JComboBox(choices);
+		
+		JPanel buttons = new JPanel() {{
+			final ActionListener click = new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (e.getActionCommand().equals("OK")) {
+						dialog.setVisible(false);
+						String choice = (String)choose.getSelectedItem();
+						// Change the selected
+						Color selected;
+						if (choice.equals(choices[0]) && (selected = ColorDialog.chooseColor(user.getSettings().getToBeTyped())) != null)
+							user.getSettings().setToBeTyped(selected);
+						else if (choice.equals(choices[1]) && (selected = ColorDialog.chooseColor(user.getSettings().getAlreadyTyped())) != null)
+							user.getSettings().setAlreadyTyped(selected);
+						else if (choice.equals(choices[2]) && (selected = ColorDialog.chooseColor(user.getSettings().getMissTypeColor())) != null)
+							user.getSettings().setMissTypeColor(selected);
+						else if (choice.equals(choices[3]) && (selected = ColorDialog.chooseColor(user.getSettings().getBackgroundColor())) != null)
+							user.getSettings().setBackgroundColor(selected);
+					}
+					else if (e.getActionCommand().equals("Cancel"))
+						dialog.setVisible(false);
+				}
+			};
+			this.add(new JButton("OK") {{
+				this.addActionListener(click);
+			}});
+			this.add(new JButton("Cancel") {{
+				this.addActionListener(click);
+			}});
+		}};
+		
+		dialog.add(choose);
+		dialog.add(buttons);
+		
+		dialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+		dialog.setVisible(true);
+		
+		tokenize();
+	}
+	
+	/**
+	 * Saves the settings to the user's settings file.
+	 */
+	public void saveSettings() {
+		int choice = JOptionPane.showConfirmDialog(null,
+				"Save settings to a file?", null, JOptionPane.YES_OPTION);
+
+		if (choice == 0)
+			user.getSettings().writeSettings();
 	}
 }

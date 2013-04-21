@@ -2,6 +2,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -21,12 +23,7 @@ public class MainWindow extends JFrame {
 	private MainTypePanel mtp = new MainTypePanel();
     private ClickResponder cr = new ClickResponder();
 	private JButton restart = new JButton("Restart");
-	private JMenuItem[] menuItemsChange = {
-			new JMenuItem("Change User"),
-			new JMenuItem("Change Practice Mode"),
-			new JMenuItem("Change Font"),
-			new JMenuItem("Change Keyboard Layout"),
-	};
+	HashMap<String, JMenuItem> menuItem = new HashMap<String, JMenuItem>();
 	
 	/**
 	 * Creates a new window with a panel that you type in, and a menu bar.
@@ -38,6 +35,14 @@ public class MainWindow extends JFrame {
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(springLayout);
+		
+		// Add items to menu
+		menuItem.put("ch_user", new JMenuItem("Change User"));
+		menuItem.put("ch_mode", new JMenuItem("Change Practice Mode"));
+		menuItem.put("ch_font", new JMenuItem("Change Font"));
+		menuItem.put("ch_layout", new JMenuItem("Change Keyboard Layout"));
+		menuItem.put("ch_color", new JMenuItem("Change Color"));
+		// NOTE: "Save Settings" will be added separately
 		
 		// Add the menu bar
 		menuBar();
@@ -78,13 +83,17 @@ public class MainWindow extends JFrame {
 	public void menuBar() {
 		JMenuBar menu = new JMenuBar();
 		// TODO: Think what kind of menus to add
-		JMenu change = new JMenu("Change");
-		for (int i = 0; i < menuItemsChange.length; i++) {
-			menuItemsChange[i].addActionListener(cr);
-			change.add(menuItemsChange[i]);
+		JMenu settings = new JMenu("Settings");
+		for (String key : menuItem.keySet()) {
+			menuItem.get(key).addActionListener(cr);
+			settings.add(menuItem.get(key));
 		}
+		// This item is added separately so that it shows up at the last of the list
+		JMenuItem save = new JMenuItem("Save Current Settings");
+		save.addActionListener(cr);
+		settings.add(save);
 		
-		menu.add(change);
+		menu.add(settings);
 		setJMenuBar(menu);
 	}
 	
@@ -116,15 +125,19 @@ public class MainWindow extends JFrame {
 			if (e.getSource() == restart)
 				mtp.restart();
 			// TODO: Actions when selecting various menu items
-			else if (e.getSource() == menuItemsChange[0])
+			else if (e.getSource() == menuItem.get("ch_user"))
 				mtp.changeUser();
-			else if (e.getSource() == menuItemsChange[1])
+			else if (e.getSource() == menuItem.get("ch_mode"))
 				// TODO: Change practice mode
 				;
-			else if (e.getSource() == menuItemsChange[2])
+			else if (e.getSource() == menuItem.get("ch_font"))
 				mtp.changeFont();
-			else if (e.getSource() == menuItemsChange[3])
+			else if (e.getSource() == menuItem.get("ch_layout"))
 				mtp.changeKeyboardLayout();
+			else if (e.getSource() == menuItem.get("ch_color"))
+				mtp.changeColor();
+			else if (e.getActionCommand() == "Save Current Settings")
+				mtp.saveSettings();
 		}
 	}
 
