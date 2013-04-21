@@ -1,3 +1,5 @@
+import java.io.File;
+
 /**
  * This class stores information about the user's record
  * @author Naoki Mizuno
@@ -7,15 +9,11 @@
 // TODO: Make the file a binary file so that the data can't be edited easily
 
 public class Records {
-	private String userName;
 	private boolean first = false;
+	private File recordsFile;
 	
-	public Records() {
-		this("Anonymous");
-	}
-	
-	public Records(String userName) {
-		this.userName = userName;
+	public Records(String recordsFileName) {
+		recordsFile = new File(recordsFileName);
 	}
 	
 	/**

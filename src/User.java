@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -22,6 +23,8 @@ public class User {
 	
 	public User(String userName) {
 		this.userName = userName;
+		s = new Settings(userName + "_settings.dat");
+		r = new Records(userName + "_records.dat");
 		
 		// Read settings
 		readSettings();
@@ -36,17 +39,14 @@ public class User {
 	 * The filename is {userName}_settings.dat
 	 */
 	public void readSettings() {
-		s = new Settings();
-		File settingsFile = new File(userName + "_settings.dat");
-		if (settingsFile.exists()) {
-			try {
-				Scanner read = new Scanner(settingsFile);
-				s.readSettings(read);
-			}
-			catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
+		s.readSettings();
+	}
+	
+	/**
+	 * Writes the user's settings data to a file.
+	 */
+	public void writeSettings() {
+		s.writeSettings();
 	}
 	
 	/**
@@ -90,8 +90,5 @@ public class User {
 	public Records getRecords() {
 		// return s.clone()
 		return r;
-	}
-	
-	public void writeSettings() {
 	}
 }

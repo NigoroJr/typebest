@@ -8,6 +8,9 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -40,6 +43,16 @@ public class Settings {
 	private int speedFractionDigit = 8;
 	private int timeFractionDigit = 9;
 	private boolean shuffled = true;
+	private String keyboardLayout = "Qwerty";
+	
+	private File settingsFile;
+	
+	/**
+	 * Creates a new Settings object with the information of the filename where the settings are stored.
+	 */
+	public Settings(String settingsFileName) {
+		settingsFile = new File(settingsFileName);
+	}
 	
 	/**
 	 * Returns the color of the letters that are not yet typed.
@@ -108,10 +121,71 @@ public class Settings {
 	}
 	
 	/**
-	 * Reads the user's settings from the given file.
+	 * Returns the keyboard layout in String.
 	 */
-	public void readSettings(Scanner input) {
-		// TODO: Read settings from file
+	public String getKeyboardLayout() {
+		return keyboardLayout;
+	}
+	
+	/**
+	 * Reads the user's settings from the given file. In order to increase readability and accuracy,
+	 * it checks for a complete match with the variable name.
+	 */
+	public void readSettings() {
+		if (settingsFile.exists()) {
+			try {
+				Scanner file = new Scanner(settingsFile);
+				String key, value;
+				while (file.hasNext()) {
+					
+					// Checks for the validity of the key and value
+					// It will use the default settings after a fail while reading the file.
+					if (((key  = file.nextLine()) == null || !file.hasNext() || (value = file.nextLine()) == null ||
+							key.equals("") || value.equals("")))
+						break;
+					
+					else if (key.equals("toBeTyped"))
+						toBeTyped = new Color(Integer.parseInt(value));
+					else if (key.equals("alreadyTyped"))
+						alreadyTyped = new Color(Integer.parseInt(value));
+					else if (key.equals("backgroundColor"))
+						backgroundColor = new Color(Integer.parseInt(value));
+					else if (key.equals("missTypeColor"))
+						missTypeColor = new Color(Integer.parseInt(value));
+					else if (key.equals("defaultFont"))
+						defaultFont = new Font(value,
+								Integer.parseInt(file.nextLine()), Integer.parseInt(file.nextLine()));
+					else if (key.equals("speedFractionDigit"))
+						speedFractionDigit = Integer.parseInt(value);
+					else if (key.equals("timeFractionDigit"))
+						timeFractionDigit = Integer.parseInt(value);
+					else if (key.equals("shuffled"))
+						shuffled = Boolean.parseBoolean(value);
+					else if (key.equals("keyboardLayout"))
+						keyboardLayout = value;
+				}
+			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * Writes the user's settings to the file using the given PrintWriter.
+	 * Uses the toString method to get all the information about the instance variables.
+	 * @param pw PrintWriter object containing the file information.
+	 */
+	public void writeSettings() {
+		try {
+			PrintWriter pw = new PrintWriter(settingsFile);
+			pw.print(toString());
+			pw.flush();
+			pw.close();
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -198,7 +272,7 @@ public class Settings {
 						int choice = JOptionPane.showConfirmDialog(null, "Set this as the default font?", null, JOptionPane.CANCEL_OPTION);
 						if (choice == 0) {
 							// Save it and close
-							// TODO: Write to file
+							writeSettings();
 							dialog.setVisible(false);
 						}
 					}
@@ -248,10 +322,12 @@ public class Settings {
 	    ret += String.format("toBeTyped\n%d\n", toBeTyped.getRGB());
 	    ret += String.format("alreadyTyped\n%d\n", alreadyTyped.getRGB());
 	    ret += String.format("backgroundColor\n%d\n", backgroundColor.getRGB());
-	    ret += String.format("defaultFont\n%s %s %d\n", defaultFont.getFamily(), defaultFont.getStyle(), defaultFont.getSize());
+	    ret += String.format("defaultFont\n%s\n%d\n%d\n", defaultFont.getFamily(),
+	    		defaultFont.getStyle(), defaultFont.getSize());
 	    ret += String.format("speedFractionDigit\n%d\n", speedFractionDigit);
 	    ret += String.format("timeFractionDigit\n%d\n", timeFractionDigit);
 	    ret += String.format("shuffled\n%s\n", shuffled);
+	    ret += String.format("keyboardLayout\n%s\n", keyboardLayout);
 		return ret;
     }
 }

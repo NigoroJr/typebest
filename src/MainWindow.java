@@ -21,7 +21,12 @@ public class MainWindow extends JFrame {
 	private MainTypePanel mtp = new MainTypePanel();
     private ClickResponder cr = new ClickResponder();
 	private JButton restart = new JButton("Restart");
-	private JMenuItem changeUser, changePracticeMode, changeFont;
+	private JMenuItem[] menuItemsChange = {
+			new JMenuItem("Change User"),
+			new JMenuItem("Change Practice Mode"),
+			new JMenuItem("Change Font"),
+			new JMenuItem("Change Keyboard Layout"),
+	};
 	
 	/**
 	 * Creates a new window with a panel that you type in, and a menu bar.
@@ -74,16 +79,10 @@ public class MainWindow extends JFrame {
 		JMenuBar menu = new JMenuBar();
 		// TODO: Think what kind of menus to add
 		JMenu change = new JMenu("Change");
-		changeUser = new JMenuItem("Change User");
-		changeUser.addActionListener(cr);
-		changePracticeMode = new JMenuItem("Change Practice Mode");
-		changePracticeMode.addActionListener(cr);
-		changeFont = new JMenuItem("Change Font");
-		changeFont.addActionListener(cr);
-		
-		change.add(changeUser);
-		change.add(changePracticeMode);
-		change.add(changeFont);
+		for (int i = 0; i < menuItemsChange.length; i++) {
+			menuItemsChange[i].addActionListener(cr);
+			change.add(menuItemsChange[i]);
+		}
 		
 		menu.add(change);
 		setJMenuBar(menu);
@@ -117,12 +116,15 @@ public class MainWindow extends JFrame {
 			if (e.getSource() == restart)
 				mtp.restart();
 			// TODO: Actions when selecting various menu items
-			else if (e.getSource() == changeUser)
+			else if (e.getSource() == menuItemsChange[0])
 				mtp.changeUser();
-			else if (e.getSource() == changePracticeMode)
+			else if (e.getSource() == menuItemsChange[1])
+				// TODO: Change practice mode
 				;
-			else if (e.getSource() == changeFont)
+			else if (e.getSource() == menuItemsChange[2])
 				mtp.changeFont();
+			else if (e.getSource() == menuItemsChange[3])
+				mtp.changeKeyboardLayout();
 		}
 	}
 

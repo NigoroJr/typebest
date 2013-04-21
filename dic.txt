@@ -1,1 +1,3 @@
 hello world this is a test in order to check whether the shuffle function is working correctly
+most popular dictionary and with definitions
+easy to understand dictionary with example sentences outline available

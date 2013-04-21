@@ -47,12 +47,14 @@ import java.io.PrintWriter;
  * @author Naoki Mizuno
  *
  */
-// TODO: UPDATE JAVADOC!!!!!
+// TODO: Get rid of the duplicate instance variables
 // TODO: Create menu
+// TODO: Settings for shuffle, color
+// TODO: Change the changeUser method so that it shows the existing users (like in the keyboard layout)
 
 public class MainTypePanel extends JPanel {
 
-	public static final String FILENAME = "dic.txt";
+	public static final String DIC_FILENAME = "dic.txt";
     
 	// public static final String LAST_USER = "lastUser.dat";
 	public static final File lastUserFile = new File("lastUser.dat");
@@ -67,6 +69,7 @@ public class MainTypePanel extends JPanel {
     // The number of digits to show after decimal point
 	private int speedFractionDigit;
 	private int timeFractionDigit;
+	private String keyboardLayout;
     
     private ArrayList<String> words = new ArrayList<String>();
 	private ArrayList<JPanel> wordPanels = new ArrayList<JPanel>();
@@ -179,7 +182,6 @@ public class MainTypePanel extends JPanel {
 			try {
 				Scanner read = new Scanner(lastUserFile);
 				changeUser(read.nextLine());
-				
 				read.close();
 			}
 			catch (FileNotFoundException e) {
@@ -192,7 +194,7 @@ public class MainTypePanel extends JPanel {
 		}
 		
 		// Do the things that needs to be done after loading the previous user
-		afterLoadingPreviousUser();
+		afterLoadingUser();
 	}
 	
 	/**
@@ -200,10 +202,10 @@ public class MainTypePanel extends JPanel {
 	 * Importing the settings and the records, reading from the dictionary  and tokenizing
 	 * to prepare for a new round are some of the things.
 	 */
-	private void afterLoadingPreviousUser() {
-		// The settings for the user is read/created when an User instance is created.
-		// Thus, we can get the settings and change the values in this class accordingly
-		importSettings(user.getSettings());
+	private void afterLoadingUser() {
+		// The settings for the user is read/created AND read when an User instance is created.
+		// Thus, we don't have to worry about the settings not being created.
+		importSettings();
 		
 		// Set the panel's background to whatever the user specified
         setBackground(backgroundColor);
@@ -218,7 +220,9 @@ public class MainTypePanel extends JPanel {
 	 * value used in the data field in Settings class) settings.
 	 * @param s A Settings instance that contains the user's settings.
 	 */
-	public void importSettings(Settings s) {
+	public void importSettings() {
+		Settings s = user.getSettings();
+		
 		toBeTyped = s.getToBeTyped();
 		alreadyTyped = s.getAlreadyTyped();
 		backgroundColor = s.getBackgroundColor();
@@ -227,6 +231,7 @@ public class MainTypePanel extends JPanel {
 		speedFractionDigit = s.getSpeedFractionDigit();
 		timeFractionDigit = s.getTimeFractionDigit();
 		shuffled = s.isShuffled();
+		keyboardLayout = s.getKeyboardLayout();
 	}
 	
 	/**
@@ -238,7 +243,7 @@ public class MainTypePanel extends JPanel {
 	public void readDic() {
 	    // Add words from dictionary
 	    try {
-	        Scanner input = new Scanner(new File(FILENAME));
+	        Scanner input = new Scanner(new File(DIC_FILENAME));
 	        while (input.hasNext())
 	            words.add(input.next());
 	        input.close();
@@ -261,8 +266,11 @@ public class MainTypePanel extends JPanel {
 	/**
 	 * Tokenize the words into chunks of letters that will then be set to the color "toBeTyped".
 	 * Words will first be added to a JPanel so that the word will not be separated when coming to a new line.
+	 * This method will update the panel to the newest state after adding everything to the panel.
 	 */
 	public void tokenize() {
+		// First, clear all the words that are currently on the panel
+		removeAll();
 	    // Separate the words into chunks of letters
 	    for (int w = 0; w < words.size(); w++) {
 	        String word = words.get(w);
@@ -294,10 +302,14 @@ public class MainTypePanel extends JPanel {
 	    	}
 	    	this.add(p);
 	    }
+	    
+	    repaint();
+	    revalidate();
 	}
 
 	/**
 	 * Clears the words and prepares for a new round.
+	 * It will shuffle the words in the dictionary file (of course it depends on the "shuffle" parameter).
 	 */
 	public void restart() {
 		// Clear everything
@@ -316,9 +328,6 @@ public class MainTypePanel extends JPanel {
 		wordPanels.clear();
 		readDic();
 		tokenize();
-		
-		repaint();
-		revalidate();
 	}
 	
 	/**
@@ -327,9 +336,8 @@ public class MainTypePanel extends JPanel {
 	 * printed to the file so that the user doesn't have to change every time.
 	 */
 	public void changeFont() {
-		Settings s = user.getSettings();
-		s.changeFont();
-		importSettings(s);
+		user.getSettings().changeFont();
+		importSettings();
 		// It's questionable whether to re-shuffle the words or not
 		// restart();
 		tokenize();
@@ -363,7 +371,18 @@ public class MainTypePanel extends JPanel {
 		// Change the user name if it's a valid value
 		if (newUser != null && !newUser.trim().equals("")) {
 			changeUser(newUser);
+			afterLoadingUser();
 			restart();
 		}
+	}
+	
+	/**
+	 * Changes the keyboard layout to a new layout. The records are stored separately among each layout.
+	 */
+	public void changeKeyboardLayout() {
+		// TODO: Use JComboBox and input field so that the use can choose from the existing layouts or create a new one
+		// TODO: Create the method in the settings class
+		JOptionPane.showMessageDialog(null, "Currently under development...Sorry!");
+		restart();
 	}
 }
