@@ -1,28 +1,37 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+import javax.swing.Timer;
 
 /**
  * This class adds the necessary components and creates the window.
  * All the other stuff such as reading/writing data etc. are left to MainTypePanel class.
  * @author Naoki Mizuno
- *
+ * TODO: Make the timer work!!!
  */
 
 public class MainWindow extends JFrame {
 	private MainTypePanel mtp = new MainTypePanel();
     private ClickResponder cr = new ClickResponder();
 	private JButton restart = new JButton("Restart");
+	private Timer timer;
+	private long startTime = -1;
 	HashMap<String, JMenuItem> menuItem = new HashMap<String, JMenuItem>();
 	
 	/**
@@ -47,8 +56,26 @@ public class MainWindow extends JFrame {
 		// Add the menu bar
 		menuBar();
 		
+		// Box that shows how much time has elapsed
+		final JLabel timeElapsed = new JLabel("0.0", JLabel.RIGHT);
+		timeElapsed.setFont(new Font("Arial", Font.BOLD, 30));
+		timeElapsed.setOpaque(true);
+		timeElapsed.setPreferredSize(new Dimension(80, 34));
+		timeElapsed.setBorder(BorderFactory.createLoweredBevelBorder());
+		springLayout.putConstraint(SpringLayout.SOUTH, timeElapsed, -5, SpringLayout.NORTH, mtp);
+		springLayout.putConstraint(SpringLayout.EAST, timeElapsed, -15, SpringLayout.EAST, mtp);
+		timer = new Timer(10, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DecimalFormat df = new DecimalFormat();
+				df.setMaximumFractionDigits(1);
+				df.setMinimumFractionDigits(1);
+				timeElapsed.setText(df.format((System.currentTimeMillis() - startTime) / 1000.0));
+			}
+		});
+		
 		// Window to type in
-		springLayout.putConstraint(SpringLayout.NORTH, mtp, 15, SpringLayout.NORTH, mainPanel);
+		springLayout.putConstraint(SpringLayout.NORTH, mtp, 50, SpringLayout.NORTH, mainPanel);
 		springLayout.putConstraint(SpringLayout.SOUTH, mtp, -40, SpringLayout.SOUTH, mainPanel);
 		springLayout.putConstraint(SpringLayout.WEST, mtp, 5, SpringLayout.WEST, mainPanel);
 		springLayout.putConstraint(SpringLayout.EAST, mtp, -5, SpringLayout.EAST, mainPanel);
@@ -63,6 +90,7 @@ public class MainWindow extends JFrame {
         restart.setFocusable(false);
 		
         // Add things to the main panel
+        mainPanel.add(timeElapsed);
 		mainPanel.add(restart);
 		mainPanel.add(mtp);
 		
@@ -111,6 +139,10 @@ public class MainWindow extends JFrame {
 	
 		@Override
 		public void keyTyped(KeyEvent e) {
+			if (startTime == -1) {
+				startTime = System.currentTimeMillis();
+				timer.start();
+			}
 			mtp.processPressedKey(e.getKeyChar());
 		}
 	}
