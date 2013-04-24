@@ -1,15 +1,19 @@
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog.ModalityType;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +57,8 @@ public class MainTypePanel extends JPanel {
     private boolean finished = false;
     private boolean restartFlag = false;
     
+    private JLabel timeElapsed;
+    private Timer timer;
     private long startTime = -1;
 
     // Change the color of the each letter
@@ -62,6 +68,22 @@ public class MainTypePanel extends JPanel {
     public MainTypePanel() {
         super();
         
+        // Set up timer for the main window
+		timeElapsed = new JLabel("0.0", JLabel.RIGHT);
+		timeElapsed.setFont(new Font("Arial", Font.BOLD, 30));
+		timeElapsed.setOpaque(true);
+		timeElapsed.setPreferredSize(new Dimension(80, 34));
+		timeElapsed.setBorder(BorderFactory.createLoweredBevelBorder());
+	    timer = new Timer(10, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DecimalFormat df = new DecimalFormat();
+				df.setMaximumFractionDigits(1);
+				df.setMinimumFractionDigits(1);
+				timeElapsed.setText(df.format((System.nanoTime() - startTime) / 1000000000.0));
+			}
+		});
+	    
         setSize(800, 400);
         setLayout(new FlowLayout(FlowLayout.LEADING));
     }
@@ -90,8 +112,11 @@ public class MainTypePanel extends JPanel {
         String s;
         if ((s = l.getText()) != null) {
             // Start timer
-            if (startTime == -1)
+            if (startTime == -1) {
+            	// Start timer on the MainWindow
+            	timer.start();
             	startTime = System.nanoTime();
+            }
             
         	// Don't hilight spaces
         	if (s.charAt(0) == '_' && pressed == ' ') {
@@ -123,6 +148,12 @@ public class MainTypePanel extends JPanel {
         if (correctKeyStrokes == totalNumOfLetters  - 1) {
         	// Record the time it took
         	long endTime = System.nanoTime();
+        	
+        	// Stop the timer in the main window
+        	timer.stop();
+        	
+        	// Set finished to true
+        	finished = true;
         	
         	DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance();
         	df.setMaximumFractionDigits(user.getSettings().getTimeFractionDigit());
@@ -269,6 +300,11 @@ public class MainTypePanel extends JPanel {
 		// Clear everything
 		this.removeAll();
 		
+		// Reset the timer
+		timer.stop();
+		// Sets text of the JLabel (timeElapsed) to "0.0"
+		timeElapsed.setText("0.0");
+		
 		// Set everything to default value
 		finished = false;
 		cnt = 0;
@@ -333,9 +369,8 @@ public class MainTypePanel extends JPanel {
 	 * Changes the keyboard layout to a new layout. The records are stored separately among each layout.
 	 */
 	public void changeKeyboardLayout() {
-		// TODO: Use JComboBox and input field so that the use can choose from the existing layouts or create a new one
-		// TODO: Create the method in the settings class
-		JOptionPane.showMessageDialog(null, "Currently under development...Sorry!");
+		user.getSettings().changeKeyboardLayout();
+		
 		restart();
 	}
 	
@@ -404,5 +439,13 @@ public class MainTypePanel extends JPanel {
 
 		if (choice == 0)
 			user.getSettings().writeSettings();
+	}
+	
+	/**
+	 * Returns the JLabel that has the text showing how much time has passed since the user started typing.
+	 * @return The JLabel containing information about the time it passed since the start.
+	 */
+	public JLabel getTimeElapsedLabel() {
+		return timeElapsed;
 	}
 }

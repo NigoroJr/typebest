@@ -343,6 +343,19 @@ public class Settings {
 	}
 	
 	/**
+	 * Shows a dialog to change the keyboard layout.
+	 */
+	public void changeKeyboardLayout() {
+		JDialog dialog = new JDialog();
+		dialog.setSize(300, 200);
+		dialog.setLocationRelativeTo(null);
+		// TODO: Use JComboBox and input field so that the use can choose from the existing layouts or create a new one
+		
+		dialog.setModalityType(ModalityType.TOOLKIT_MODAL);
+		dialog.setVisible(true);
+	}
+	
+	/**
 	 * Returns a String representation of the user's settings. It can be used for printing the information
 	 * to a file, as well as debugging.
 	 */
