@@ -156,6 +156,14 @@ public class Settings {
 	}
 	
 	/**
+	 * Sets whether the words read from the dictionary file should be shuffled or not.
+	 * @param shuffled True if the words should be shuffled, false if not.
+	 */
+	public void setShuffled(boolean shuffled) {
+		this.shuffled = shuffled;
+	}
+	
+	/**
 	 * Reads the user's settings from the given file. In order to increase readability and accuracy,
 	 * it checks for a complete match with the variable name.
 	 */
@@ -350,6 +358,7 @@ public class Settings {
 		dialog.setSize(300, 200);
 		dialog.setLocationRelativeTo(null);
 		// TODO: Use JComboBox and input field so that the use can choose from the existing layouts or create a new one
+		// Create an ArrayList in the Records class and read it from there
 		
 		dialog.setModalityType(ModalityType.TOOLKIT_MODAL);
 		dialog.setVisible(true);

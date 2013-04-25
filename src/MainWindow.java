@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -31,6 +32,8 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		super();
 		
+		setTitle("TypeBest");
+		
 		SpringLayout springLayout = new SpringLayout();
 		
 		JPanel mainPanel = new JPanel();
@@ -42,6 +45,8 @@ public class MainWindow extends JFrame {
 		menuItem.put("ch_font", new JMenuItem("Change Font"));
 		menuItem.put("ch_layout", new JMenuItem("Change Keyboard Layout"));
 		menuItem.put("ch_color", new JMenuItem("Change Color"));
+		menuItem.put("ch_noShuffle", new JCheckBoxMenuItem("Don't Shuffle Words"));
+		menuItem.put("ch_fun", new JCheckBoxMenuItem("Fun"));
 		// NOTE: "Save Settings" will be added separately
 		
 		// Add the menu bar
@@ -142,6 +147,11 @@ public class MainWindow extends JFrame {
 				mtp.changeKeyboardLayout();
 			else if (e.getSource() == menuItem.get("ch_color"))
 				mtp.changeColor();
+			else if (e.getSource() == menuItem.get("ch_noShuffle"))
+				// If selected, don't shuffle
+				mtp.changeShuffled(!menuItem.get("ch_noShuffle").isSelected());
+			else if (e.getSource() == menuItem.get("ch_fun"))
+				mtp.changeFun(menuItem.get("ch_fun").isSelected());
 			else if (e.getActionCommand() == "Save Current Settings")
 				mtp.saveSettings();
 		}

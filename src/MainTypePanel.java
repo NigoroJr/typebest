@@ -36,7 +36,6 @@ import java.io.PrintWriter;
  *
  */
 // TODO: Create menu
-// TODO: Settings for shuffle, color
 // TODO: Change the changeUser method so that it shows the existing users (like in the keyboard layout)
 
 public class MainTypePanel extends JPanel {
@@ -427,6 +426,26 @@ public class MainTypePanel extends JPanel {
 		dialog.setModalityType(ModalityType.DOCUMENT_MODAL);
 		dialog.setVisible(true);
 		
+		tokenize();
+	}
+	
+	/**
+	 * Changes whether to shuffle the words from the dictionary.
+	 * Restarts a new round after changing the settings.
+	 * @param Whether the check box is selected or not.
+	 */
+	public void changeShuffled(boolean isSelected) {
+		user.getSettings().setShuffled(isSelected);
+		restart();
+	}
+	
+	/**
+	 * Change the "fun" parameter in the Settings class. This randomizes the color of the each letters.
+	 * Re-tokenizes the words (so that the change is reflected immediately without restarting).
+	 * @param fun True if "fun", which changes the color of the letters randomly, is on.
+	 */
+	public void changeFun(boolean fun) {
+		this.fun = fun;
 		tokenize();
 	}
 	
