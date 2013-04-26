@@ -1,40 +1,109 @@
-import java.io.File;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * This class stores information about the user's record
  * @author Naoki Mizuno
- *
+ * 
  */
-
-// TODO: Make the file a binary file so that the data can't be edited easily
+// TODO: Add "mode" parameter
 
 public class Records {
-	private boolean first = false;
-	private File recordsFile;
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	private String recordsFileName;
+	
+	// private ArrayList<String> names = new ArrayList<String>();
+	private ArrayList<Result> records = new ArrayList<Result>();
 	
 	public Records(String recordsFileName) {
-		recordsFile = new File(recordsFileName);
+		this.recordsFileName = recordsFileName;
 	}
 	
 	/**
-	 * Sets the instance variable first to the given value.
-	 * This will be used when reading the records file, and will be set to true
-	 * if no records file was found.
-	 * I made this because the settings file can be used to store information about how the user
-	 * changed the settings from the default setting. In other words, storing just the diff
-	 * will probably be easier to read and write instead of reading/writing all the settings
-	 * even though they are default values.
-	 * @param first True if it's the first time for the user to use this record.
+	 * Reads the user's records from the binary file. The binary file consists of:
+	 * double (time), int (miss), String (user name), Calendar (date added), String (keyboard layout)
+	 * It stores the records into an ArrayList of arrays.
 	 */
-	public void setIsFirst(boolean first) {
-		this.first = first;
+	public void readRecords() {
+		try {
+			in = new ObjectInputStream(new FileInputStream(recordsFileName));
+			// Make an infinite loop because it will throw an exception and be caught when reaching EOF
+			while (true) {
+				Result result = new Result(in.readDouble(), in.readInt(),
+						in.readUTF(), (Calendar)in.readObject(), in.readUTF());
+				
+				records.add(result);
+			}
+		}
+		catch (FileNotFoundException e) {
+			// When there's not file found
+			return;
+		}
+		catch (EOFException e) {
+			// Do nothing when reaching the end of file
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
-	 * Returns whether it's the first time to use this software (= has a record or not)
-	 * @return True if it is the first time, false (default) if not
+	 * Writes the record to a binary file with the name {user name}_records.dat
+	 * The schema is double, int, String, Calendar, String.
+	 * When the file already exists, the results will be appended by re-writing all the previous results
+	 * that is stored in the array at the beginning when reading.
+	 * This uses method overloading and gives the parameters to the writeRecords method that accepts Result
+	 * instance as a parameter.
+	 * @param time The time in double that the user took to type all the words.
+	 * @param miss The miss types the user had.
+	 * @param userName The user name in case of records list of all the existing users.
+	 * @param date The date and time the record was added.
+	 * @param keyboardLayout The keyboard layout used when this record was created.
 	 */
-	public boolean isFirst() {
-		return first;
+	public void writeRecords(double time, int miss, String userName, Calendar date, String keyboardLayout) {
+		Result result = new Result(time, miss, userName, date, keyboardLayout);
+		writeRecords(result);
+	}
+	
+	/**
+	 * Write the result to a binary file.
+	 * Accepts a Result instance and write that result to the binary file named {user name}_records.dat
+	 * This method first adds the given result to the ArrayList of Result, and then writes the whole
+	 * ArrayList, overwriting if a file with the same name exists.
+	 * @param result A Result instance representing the result of a round.
+	 */
+	public void writeRecords(Result result) {
+		records.add(result);
+		
+		try {
+			out = new ObjectOutputStream(new FileOutputStream(recordsFileName));
+			
+			// Write the results in the ArrayList (which contains the result of this round)
+			for (int i = 0; i < records.size(); i++) {
+				out.writeDouble(records.get(i).getTime());
+				out.writeInt(records.get(i).getMiss());
+				out.writeUTF(records.get(i).getUserName());
+				out.writeObject(records.get(i).getDate());
+				out.writeUTF(records.get(i).getKeyboardLayout());
+			}
+			
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -1,12 +1,6 @@
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 
 /**
  * This class is for storing the user's information such as
@@ -55,14 +49,7 @@ public class User {
 	 * NOTE: make this method abstract and do everything in the Records class?
 	 */
 	public void readRecords() {
-		try {
-			Scanner read = new Scanner(new File(userName + "_records.dat"));
-			// TODO: Read data
-		}
-		catch (FileNotFoundException e) {
-			// Not doing anything because a file can be made once there is a new record.
-			// TODO: Add an instance variable in the Records class that indicates whether it's a completely new record or not.
-		}
+		r.readRecords();
 	}
 	
 	/**

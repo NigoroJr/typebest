@@ -21,8 +21,10 @@ import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.TimeZone;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -88,10 +90,6 @@ public class MainTypePanel extends JPanel {
     }
 
     public void processPressedKey(char pressed) {
-    	// Don't go any further if it's done
-    	if (finished)
-    		return;
-    	
 		// Restart when ESCAPE key is pressed twice-in-a-row
 		if (pressed == KeyEvent.VK_ESCAPE) {
 			if (restartFlag) {
@@ -105,6 +103,10 @@ public class MainTypePanel extends JPanel {
 		else
 			restartFlag = false;
 
+    	// Don't go any further if it's done
+    	if (finished)
+    		return;
+    	
 		
     	JPanel p = wordPanels.get(words_cnt);
     	JLabel l = (JLabel)(p.getComponent(cnt));
@@ -163,7 +165,13 @@ public class MainTypePanel extends JPanel {
         	
         	df.setMaximumFractionDigits(user.getSettings().getSpeedFractionDigit());
         	message += "Speed: " + df.format(totalNumOfLetters / duration) + " keys/sec\n";
-            		
+        	
+        	// Create a Result instance for this round and write (append) to a binary file
+        	Result result = new Result(duration, miss, user.getUserName(),
+        			Calendar.getInstance(TimeZone.getDefault()), user.getSettings().getKeyboardLayout());
+        	user.getRecords().writeRecords(result);
+        	
+        	// Show the result
             JOptionPane.showMessageDialog(null, message,
                      "Result", JOptionPane.INFORMATION_MESSAGE);
         }

@@ -43,7 +43,7 @@ public class Settings {
 	private int speedFractionDigit = 8;
 	private int timeFractionDigit = 9;
 	private boolean shuffled = true;
-	private String keyboardLayout = "Qwerty";
+	private String keyboardLayout = "QWERTY";
 	
 	private File settingsFile;
 	
