@@ -57,6 +57,11 @@ public class MainWindow extends JFrame {
 		springLayout.putConstraint(SpringLayout.SOUTH, timeElapsed, -5, SpringLayout.NORTH, mtp);
 		springLayout.putConstraint(SpringLayout.EAST, timeElapsed, -15, SpringLayout.EAST, mtp);
 		
+		// JLabel that shows the current keyboard layout
+		JLabel currentKeyboardLayout = mtp.getCurrentKeyboardLayout();
+		springLayout.putConstraint(SpringLayout.SOUTH, currentKeyboardLayout, -5, SpringLayout.NORTH, mtp);
+		springLayout.putConstraint(SpringLayout.WEST, currentKeyboardLayout, 15, SpringLayout.WEST, mtp);
+		
 		// Window to type in
 		springLayout.putConstraint(SpringLayout.NORTH, mtp, 50, SpringLayout.NORTH, mainPanel);
 		springLayout.putConstraint(SpringLayout.SOUTH, mtp, -40, SpringLayout.SOUTH, mainPanel);
@@ -73,6 +78,7 @@ public class MainWindow extends JFrame {
         restart.setFocusable(false);
 		
         // Add things to the main panel
+        mainPanel.add(currentKeyboardLayout);
         mainPanel.add(timeElapsed);
 		mainPanel.add(restart);
 		mainPanel.add(mtp);

@@ -4,6 +4,8 @@ import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -39,6 +41,7 @@ import java.io.PrintWriter;
  */
 // TODO: Create menu
 // TODO: Change the changeUser method so that it shows the existing users (like in the keyboard layout)
+// TODO: Add JLable to the main panel that shows which layout the user is currently using
 
 public class MainTypePanel extends JPanel {
 
@@ -58,6 +61,8 @@ public class MainTypePanel extends JPanel {
     private boolean finished = false;
     private boolean restartFlag = false;
     
+    // Not make it null because it will cause a NullPointerException when using SpringLayout
+    private JLabel currentKeyboardLayout = new JLabel("");
     private JLabel timeElapsed;
     private Timer timer;
     private long startTime = -1;
@@ -71,9 +76,9 @@ public class MainTypePanel extends JPanel {
         
         // Set up timer for the main window
 		timeElapsed = new JLabel("0.0", JLabel.RIGHT);
-		timeElapsed.setFont(new Font("Arial", Font.BOLD, 30));
+		timeElapsed.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
 		timeElapsed.setOpaque(true);
-		timeElapsed.setPreferredSize(new Dimension(80, 34));
+		timeElapsed.setPreferredSize(new Dimension(90, 34));
 		timeElapsed.setBorder(BorderFactory.createLoweredBevelBorder());
 	    timer = new Timer(10, new ActionListener() {
 			@Override
@@ -168,7 +173,7 @@ public class MainTypePanel extends JPanel {
         	
         	// Create a Result instance for this round and write (append) to a binary file
         	Result result = new Result(duration, miss, user.getUserName(),
-        			Calendar.getInstance(TimeZone.getDefault()), user.getSettings().getKeyboardLayout());
+        			user.getSettings().getKeyboardLayout(), Calendar.getInstance(TimeZone.getDefault()));
         	user.getRecords().writeRecords(result);
         	
         	// Show the result
@@ -203,6 +208,13 @@ public class MainTypePanel extends JPanel {
 			changeUser();
 		}
 		
+        // Add a JLabel that shows what keyboard layout is currently selected
+		// This can only be done after the user has been read,
+		// because we don't know what keyboard layout the last user used.
+        currentKeyboardLayout.setText(user.getSettings().getKeyboardLayout());
+        // Uses the default font's family but set the style and size to specified.
+        currentKeyboardLayout.setFont(new Font(user.getSettings().getDefaultFont().getFamily(), Font.PLAIN, 30)); 
+        
 		// Do the things that needs to be done after loading the previous user
 		afterLoadingUser();
 	}
@@ -374,11 +386,20 @@ public class MainTypePanel extends JPanel {
 	
 	/**
 	 * Changes the keyboard layout to a new layout. The records are stored separately among each layout.
+	 * It makes a copy of the previous layout and compare it with the new layout.
+	 * After successfully changing the keyboard layout, it re-reads the records and starts a new round.
 	 */
 	public void changeKeyboardLayout() {
-		user.getSettings().changeKeyboardLayout();
+		String previous = user.getSettings().getKeyboardLayout();
 		
-		restart();
+		user.getSettings().changeKeyboardLayout(user.getRecords().getExistingKeyboardLayouts());
+		
+		String current = user.getSettings().getKeyboardLayout();
+		
+		if (!current.equals(previous)) {
+			currentKeyboardLayout.setText(current);
+			restart();
+		}
 	}
 	
 	/**
@@ -474,5 +495,12 @@ public class MainTypePanel extends JPanel {
 	 */
 	public JLabel getTimeElapsedLabel() {
 		return timeElapsed;
+	}
+	
+	/**
+	 * Returns the JLabel that shows the current keyboard layout.
+	 */
+	public JLabel getCurrentKeyboardLayout() {
+		return currentKeyboardLayout;
 	}
 }

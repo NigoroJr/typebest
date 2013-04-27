@@ -20,7 +20,7 @@ public class Records {
 	private ObjectOutputStream out;
 	private String recordsFileName;
 	
-	// private ArrayList<String> names = new ArrayList<String>();
+	private ArrayList<String> existingKeyboardLayouts = new ArrayList<String>();
 	private ArrayList<Result> records = new ArrayList<Result>();
 	
 	public Records(String recordsFileName) {
@@ -29,7 +29,7 @@ public class Records {
 	
 	/**
 	 * Reads the user's records from the binary file. The binary file consists of:
-	 * double (time), int (miss), String (user name), Calendar (date added), String (keyboard layout)
+	 * double (time), int (miss), String (user name), String (keyboard layout), Calendar (date added)
 	 * It stores the records into an ArrayList of arrays.
 	 */
 	public void readRecords() {
@@ -38,7 +38,19 @@ public class Records {
 			// Make an infinite loop because it will throw an exception and be caught when reaching EOF
 			while (true) {
 				Result result = new Result(in.readDouble(), in.readInt(),
-						in.readUTF(), (Calendar)in.readObject(), in.readUTF());
+						in.readUTF(), in.readUTF(), (Calendar)in.readObject());
+				// DEBUG
+				//System.out.println("Read:");
+				//System.out.println("  Time: " + result.getTime());
+				//System.out.println("  Miss: " + result.getMiss());
+				//System.out.println("  User: " + result.getUserName());
+				//System.out.println("  Layout: " + result.getKeyboardLayout());
+				//System.out.println("  Date: " + result.getDate().getTime());
+				//System.out.println();
+				
+				// Also, add to the ArrayList that keeps track of the keyboard layouts at this time.
+				if (!existingKeyboardLayouts.contains(result.getKeyboardLayout()))
+					existingKeyboardLayouts.add(result.getKeyboardLayout());
 				
 				records.add(result);
 			}
@@ -71,8 +83,8 @@ public class Records {
 	 * @param date The date and time the record was added.
 	 * @param keyboardLayout The keyboard layout used when this record was created.
 	 */
-	public void writeRecords(double time, int miss, String userName, Calendar date, String keyboardLayout) {
-		Result result = new Result(time, miss, userName, date, keyboardLayout);
+	public void writeRecords(double time, int miss, String userName, String keyboardLayout, Calendar date) {
+		Result result = new Result(time, miss, userName, keyboardLayout, date);
 		writeRecords(result);
 	}
 	
@@ -84,18 +96,18 @@ public class Records {
 	 * @param result A Result instance representing the result of a round.
 	 */
 	public void writeRecords(Result result) {
-		records.add(result);
 		
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(recordsFileName));
 			
 			// Write the results in the ArrayList (which contains the result of this round)
+			records.add(result);
 			for (int i = 0; i < records.size(); i++) {
 				out.writeDouble(records.get(i).getTime());
 				out.writeInt(records.get(i).getMiss());
 				out.writeUTF(records.get(i).getUserName());
-				out.writeObject(records.get(i).getDate());
 				out.writeUTF(records.get(i).getKeyboardLayout());
+				out.writeObject(records.get(i).getDate());
 			}
 			
 		}
@@ -106,4 +118,15 @@ public class Records {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Returns the ArrayList of keyboard layouts that the user has used in the past.
+	 * It should be used in the changeKeyboardLayout() method in the MainTypePanel class, for showing
+	 * a list of the keyboard layouts when showing the dialog for changing the keyboard layout.
+	 * @return An ArrayList containing the keyboard layouts that has been used in String.
+	 */
+	public ArrayList<String> getExistingKeyboardLayouts() {
+		return existingKeyboardLayouts;
+	}
+	
 }

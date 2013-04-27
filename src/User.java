@@ -20,12 +20,13 @@ public class User {
 		s = new Settings(userName + "_settings.dat");
 		r = new Records(userName + "_records.dat");
 		
+		// Read records
+		// NOTE: This has to be before reading settings in order to set
+		// the keyboard layout to the layout that was used in the last round.
+		readRecords();
+		
 		// Read settings
 		readSettings();
-		
-		// Read records
-		readRecords();
-		// TODO: Store the data into a new object
 	}
 	
 	/**
@@ -34,6 +35,9 @@ public class User {
 	 */
 	public void readSettings() {
 		s.readSettings();
+		
+		// Make the current keyboard the same as the layout that was used in the last round.
+		s.setKeyboardLayout(r.getExistingKeyboardLayouts().get(r.getExistingKeyboardLayouts().size() - 1));
 	}
 	
 	/**
@@ -45,11 +49,19 @@ public class User {
 	
 	/**
 	 * Reads the user's record from a file that has a filename {userName}_records.dat and
-	 * store it to the instance variable "r".
+	 * store it to an instance variable.
+	 * Because the Records class is unable to access the default keyboard that the user is using,
+	 * it will be added here to the ArrayList of existing keyboards.
+	 * This will be effective when there is no records file and the Records class can't read any existing
+	 * keyboard layouts.
 	 * NOTE: make this method abstract and do everything in the Records class?
 	 */
 	public void readRecords() {
 		r.readRecords();
+		
+		// Add the default keyboard layout if it doesn't exist in the ArrayList in the Records class.
+		if (!r.getExistingKeyboardLayouts().contains(s.getKeyboardLayout()))
+			r.getExistingKeyboardLayouts().add(s.getKeyboardLayout());
 	}
 	
 	/**

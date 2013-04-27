@@ -13,15 +13,25 @@ public class Result {
 	private double time;
 	private int miss;
 	private String userName;
-	private Calendar date;
 	private String keyboardLayout;
+	private Calendar date;
 	
-	public Result(double time, int miss, String userName, Calendar date, String keyboardLayout) {
+	/**
+	 * Creates a new Result instance with the given parameters.
+	 * ObjectOutputStream does not work correctly when putting the Calendar object at the last (= writing
+	 * an Object at the last) so be careful when adding something to the class.
+	 * @param time The time it took for the user to finish typing all the letters correctly.
+	 * @param miss The total miss types the user made.
+	 * @param userName The user name of the user.
+	 * @param keyboardLayout The keyboard layout the user used in this round.
+	 * @param date The date that the record was created.
+	 */
+	public Result(double time, int miss, String userName, String keyboardLayout, Calendar date) {
 		this.time = time;
 		this.miss = miss;
 		this.userName = userName;
-		this.date = date;
 		this.keyboardLayout = keyboardLayout;
+		this.date = date;
 	}
 	
 	/**
