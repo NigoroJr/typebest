@@ -171,9 +171,10 @@ public class MainTypePanel extends JPanel {
         	df.setMaximumFractionDigits(user.getSettings().getSpeedFractionDigit());
         	message += "Speed: " + df.format(totalNumOfLetters / duration) + " keys/sec\n";
         	
-        	// Create a Result instance for this round and write (append) to a binary file
+        	// Create a Result instance for this round and write to a binary file
         	Result result = new Result(duration, miss, user.getUserName(),
-        			user.getSettings().getKeyboardLayout(), Calendar.getInstance(TimeZone.getDefault()));
+        			user.getSettings().getKeyboardLayout(),
+        			Calendar.getInstance(TimeZone.getDefault()).getTimeInMillis());
         	user.getRecords().writeRecords(result);
         	
         	// Show the result

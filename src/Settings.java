@@ -376,6 +376,7 @@ public class Settings {
 		// Remove the message from the ArrayList
 		existingLayouts.remove(unselectedMessage);
 		existing.setSelectedItem(unselectedMessage);
+		
 		selectAndInput.add(new JPanel() {{
 			this.add(existing);
 		}});

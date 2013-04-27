@@ -54,13 +54,20 @@ public class User {
 	 * it will be added here to the ArrayList of existing keyboards.
 	 * This will be effective when there is no records file and the Records class can't read any existing
 	 * keyboard layouts.
-	 * NOTE: make this method abstract and do everything in the Records class?
+	 * However, it must check the size, not whether the default keyboard layout (which is QWERTY) is
+	 * in the ArrayList. IF you somehow want the default keyboard to always be in the candidate,
+	 * BE CAREFUL to add it to the FIRST element of the ArrayList. Otherwise, this method will override the
+	 * last element that was read from the Records file, forcing the keyboard layout to be the default and
+	 * not the one that the user last used.
 	 */
 	public void readRecords() {
 		r.readRecords();
 		
-		// Add the default keyboard layout if it doesn't exist in the ArrayList in the Records class.
-		if (!r.getExistingKeyboardLayouts().contains(s.getKeyboardLayout()))
+		// Add the default keyboard layout if it nothing exist in the ArrayList in the Records class.
+		// If you want the default keyboard layout to always be in the candidate, use the following instead.
+		// if (!r.getExistingKeyboardLayouts().contains(s.getKeyboardLayout()))
+		//	r.getExistingKeyboardLayouts().add(0, s.getKeyboardLayout());
+		if (r.getExistingKeyboardLayouts().size() == 0)
 			r.getExistingKeyboardLayouts().add(s.getKeyboardLayout());
 	}
 	

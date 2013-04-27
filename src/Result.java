@@ -1,4 +1,6 @@
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * This class represents the result of 1 round.
@@ -26,12 +28,13 @@ public class Result {
 	 * @param keyboardLayout The keyboard layout the user used in this round.
 	 * @param date The date that the record was created.
 	 */
-	public Result(double time, int miss, String userName, String keyboardLayout, Calendar date) {
+	public Result(double time, int miss, String userName, String keyboardLayout, long date) {
 		this.time = time;
 		this.miss = miss;
 		this.userName = userName;
 		this.keyboardLayout = keyboardLayout;
-		this.date = date;
+		this.date = Calendar.getInstance(TimeZone.getDefault());
+		this.date.setTimeInMillis(date);
 	}
 	
 	/**

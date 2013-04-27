@@ -1,3 +1,5 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,8 +18,8 @@ import java.util.Calendar;
 // TODO: Add "mode" parameter
 
 public class Records {
-	private ObjectInputStream in;
-	private ObjectOutputStream out;
+	private DataInputStream in;
+	private DataOutputStream out;
 	private String recordsFileName;
 	
 	private ArrayList<String> existingKeyboardLayouts = new ArrayList<String>();
@@ -29,16 +31,17 @@ public class Records {
 	
 	/**
 	 * Reads the user's records from the binary file. The binary file consists of:
-	 * double (time), int (miss), String (user name), String (keyboard layout), Calendar (date added)
+	 * double (time), int (miss), String (user name), String (keyboard layout), long (date added)
+	 * The last "long" should then be converted to Calendar using new Calendar(new Date(long_data))
 	 * It stores the records into an ArrayList of arrays.
 	 */
 	public void readRecords() {
 		try {
-			in = new ObjectInputStream(new FileInputStream(recordsFileName));
+			in = new DataInputStream(new FileInputStream(recordsFileName));
 			// Make an infinite loop because it will throw an exception and be caught when reaching EOF
 			while (true) {
 				Result result = new Result(in.readDouble(), in.readInt(),
-						in.readUTF(), in.readUTF(), (Calendar)in.readObject());
+						in.readUTF(), in.readUTF(), in.readLong());
 				// DEBUG
 				//System.out.println("Read:");
 				//System.out.println("  Time: " + result.getTime());
@@ -65,14 +68,11 @@ public class Records {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	/**
 	 * Writes the record to a binary file with the name {user name}_records.dat
-	 * The schema is double, int, String, Calendar, String.
+	 * The schema is double, int, String, String, long.
 	 * When the file already exists, the results will be appended by re-writing all the previous results
 	 * that is stored in the array at the beginning when reading.
 	 * This uses method overloading and gives the parameters to the writeRecords method that accepts Result
@@ -83,7 +83,7 @@ public class Records {
 	 * @param date The date and time the record was added.
 	 * @param keyboardLayout The keyboard layout used when this record was created.
 	 */
-	public void writeRecords(double time, int miss, String userName, String keyboardLayout, Calendar date) {
+	public void writeRecords(double time, int miss, String userName, String keyboardLayout, long date) {
 		Result result = new Result(time, miss, userName, keyboardLayout, date);
 		writeRecords(result);
 	}
@@ -98,7 +98,7 @@ public class Records {
 	public void writeRecords(Result result) {
 		
 		try {
-			out = new ObjectOutputStream(new FileOutputStream(recordsFileName));
+			out = new DataOutputStream(new FileOutputStream(recordsFileName));
 			
 			// Write the results in the ArrayList (which contains the result of this round)
 			records.add(result);
@@ -107,7 +107,7 @@ public class Records {
 				out.writeInt(records.get(i).getMiss());
 				out.writeUTF(records.get(i).getUserName());
 				out.writeUTF(records.get(i).getKeyboardLayout());
-				out.writeObject(records.get(i).getDate());
+				out.writeLong(records.get(i).getDate().getTimeInMillis());
 			}
 			
 		}
