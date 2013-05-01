@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+
 
 /**
  * This class is for storing the user's information such as
@@ -81,7 +79,7 @@ public class User {
 	
 	/**
 	 * Returns the setting instance for this user.
-	 * TODO: make a clone method in Settings
+	 * @return The Settings instance of this user.
 	 */
 	public Settings getSettings() {
 		// return s.clone()
@@ -90,8 +88,7 @@ public class User {
 	
 	/**
 	 * Returns the records instance for this user.
-	 * TODO: make a clone method in Records
-	 * NOTE: Is this really necessary? The Records class is used only to store records.
+	 * @return The Records instance of this user.
 	 */
 	public Records getRecords() {
 		// return s.clone()

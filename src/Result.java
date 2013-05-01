@@ -1,5 +1,4 @@
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -11,7 +10,7 @@ import java.util.TimeZone;
  *
  */
 
-public class Result {
+public class Result implements Comparable {
 	private double time;
 	private int miss;
 	private String userName;
@@ -114,5 +113,49 @@ public class Result {
 	 */
 	public void setKeyboardLayout(String keyboardLayout) {
 		this.keyboardLayout = keyboardLayout;
+	}
+
+	/**
+	 * Compares this result with the given object and see if the given Result, which should be non-null, is
+	 * a better result. If the given Result is better (comes earlier when sorting), it returns -1.
+	 * It first checks the time, then if the time is the same, the number of miss types,
+	 * and if, although very unlikely, those are also the same, it compares the date from recent to oldest
+	 * and then, although very VERY unlikely, if those are also the same, it will return 0 indicating that
+	 * the 2 results are completely identical.
+	 * @param that The Result that will be compared to this result.
+	 * @return -1 if the given Result is in front of this result, 1 if it's the other way, and 0 if same.
+	 */
+	@Override
+	public int compareTo(Object o) {
+		final int BETTER = -1;
+		final int EQUAL = 0;
+		final int WORSE = 1;
+		
+		if (!(o instanceof Result))
+			throw new IllegalArgumentException();
+		
+		Result that = (Result)o;
+		
+		// When given time is better than this
+		if (that.time < this.time)
+			return BETTER;
+		if (that.time > this.time)
+			return WORSE;
+		
+		// When given miss is less than this
+		if (that.miss < this.miss)
+			return BETTER;
+		if (that.miss > this.miss)
+			return WORSE;
+			
+		// If the 2 above are the same, compare the dates
+		int comparison = this.date.compareTo(that.date);
+		if (comparison < 0)
+			return BETTER;
+		if (comparison > 0)
+			return WORSE;
+		
+		// Finally, if they are identical, return EQUAL
+		return EQUAL;
 	}
 }
