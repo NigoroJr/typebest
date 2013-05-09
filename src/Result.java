@@ -137,25 +137,41 @@ public class Result implements Comparable {
 		Result that = (Result)o;
 		
 		// When given time is better than this
-		if (that.time < this.time)
+		if (this.time < that.time)
 			return BETTER;
-		if (that.time > this.time)
+		if (this.time > that.time)
 			return WORSE;
 		
 		// When given miss is less than this
-		if (that.miss < this.miss)
+		if (this.miss < that.miss)
 			return BETTER;
-		if (that.miss > this.miss)
+		if (this.miss > that.miss)
 			return WORSE;
 			
 		// If the 2 above are the same, compare the dates
 		int comparison = this.date.compareTo(that.date);
-		if (comparison < 0)
-			return BETTER;
 		if (comparison > 0)
+			return BETTER;
+		if (comparison < 0)
 			return WORSE;
 		
 		// Finally, if they are identical, return EQUAL
 		return EQUAL;
+	}
+	
+	/**
+	 * Returns a String representation of this result which contains the time, miss, user name, keyboard layout,
+	 * and the date that the record was added.
+	 * @return A String containing information about this result.
+	 */
+	@Override
+	public String toString() {
+		String ret = "";
+		ret += userName + " with " + keyboardLayout + "\n";
+		ret += "Time: " + time + "\n";
+		ret += "Miss: " + miss + "\n";
+		ret += "Date: " + date.getTime() + "\n";
+		
+		return ret;
 	}
 }

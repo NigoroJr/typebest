@@ -180,6 +180,9 @@ public class MainTypePanel extends JPanel {
         	// Show the result
             JOptionPane.showMessageDialog(null, message,
                      "Result", JOptionPane.INFORMATION_MESSAGE);
+            
+            // Then, show the list of results and where this round falls into
+            user.getRecords().showListOfRecords();
         }
         repaint();
     }

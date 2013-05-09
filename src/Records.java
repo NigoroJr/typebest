@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 /**
  * This class stores information about the user's record
@@ -33,7 +34,8 @@ public class Records {
 	 * Reads the user's records from the binary file. The binary file consists of:
 	 * double (time), int (miss), String (user name), String (keyboard layout), long (date added)
 	 * The last "long" should then be converted to Calendar using new Calendar(new Date(long_data))
-	 * It stores the records into an ArrayList of arrays.
+	 * It stores the records into an ArrayList of arrays, which will be used when showing the list of records
+	 * in the showListOfRecords method.
 	 */
 	public void readRecords() {
 		try {
@@ -127,6 +129,15 @@ public class Records {
 	 */
 	public ArrayList<String> getExistingKeyboardLayouts() {
 		return existingKeyboardLayouts;
+	}
+	
+	/**
+	 * Shows a list of records using the ShowRecords class, which will display a new JFrame that contains
+	 * the time, miss, user, keyboard layout, and date of all the records that is stored in the file.
+	 * TODO: Overload with String representing filter (e.g. "username" will show only the specified user name)
+	 */
+	public void showListOfRecords() {
+		ShowRecords list = new ShowRecords(records);
 	}
 	
 }
