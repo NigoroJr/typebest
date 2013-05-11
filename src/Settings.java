@@ -357,7 +357,7 @@ public class Settings {
 	 */
 	public void changeKeyboardLayout(final ArrayList<String> existingLayouts) {
 		final JDialog dialog = new JDialog();
-		dialog.setSize(250, 130);
+		dialog.setSize(250, 160);
 		dialog.setLocationRelativeTo(null);
 		dialog.setLayout(new BorderLayout());
 		

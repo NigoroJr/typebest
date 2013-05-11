@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -21,8 +22,13 @@ public class ShowRecords {
 		Collections.sort(records);
 		
 		// TODO: Add panels with the records to listOfResult (or the frame)
-		for (int i = 0; i < records.size(); i++)
-			System.out.println(records.get(i).toString());
+		for (int i = 0; i < records.size(); i++) {
+			Result r = records.get(i);
+			String resultText = String.format("%-3d %10f          %2d          %s          %s          %s", i + 1, r.getTime(), r.getMiss(), r.getUserName(), r.getKeyboardLayout(),r.getDate().getTime());
+			//System.out.println(records.get(i).toString());
+			JLabel label = new JLabel(resultText);
+			frame.add(label);
+		}
 		
 		frame.setLocationRelativeTo(null);
 		frame.setSize(800, 400);
