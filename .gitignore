@@ -1,5 +1,8 @@
 *.class
 
+# Settings and binary files
+*.dat
+
 # Package Files #
 *.jar
 *.war

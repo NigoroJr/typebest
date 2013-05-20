@@ -1,15 +1,21 @@
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog.ModalityType;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,8 +23,10 @@ import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.TimeZone;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -32,8 +40,8 @@ import java.io.PrintWriter;
  *
  */
 // TODO: Create menu
-// TODO: Settings for shuffle, color
 // TODO: Change the changeUser method so that it shows the existing users (like in the keyboard layout)
+// TODO: Add JLable to the main panel that shows which layout the user is currently using
 
 public class MainTypePanel extends JPanel {
 
@@ -53,6 +61,10 @@ public class MainTypePanel extends JPanel {
     private boolean finished = false;
     private boolean restartFlag = false;
     
+    // Not make it null because it will cause a NullPointerException when using SpringLayout
+    private JLabel currentKeyboardLayout = new JLabel("");
+    private JLabel timeElapsed;
+    private Timer timer;
     private long startTime = -1;
 
     // Change the color of the each letter
@@ -62,15 +74,27 @@ public class MainTypePanel extends JPanel {
     public MainTypePanel() {
         super();
         
+        // Set up timer for the main window
+		timeElapsed = new JLabel("0.0", JLabel.RIGHT);
+		timeElapsed.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
+		timeElapsed.setOpaque(true);
+		timeElapsed.setPreferredSize(new Dimension(90, 34));
+		timeElapsed.setBorder(BorderFactory.createLoweredBevelBorder());
+	    timer = new Timer(10, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DecimalFormat df = new DecimalFormat();
+				df.setMaximumFractionDigits(1);
+				df.setMinimumFractionDigits(1);
+				timeElapsed.setText(df.format((System.nanoTime() - startTime) / 1000000000.0));
+			}
+		});
+	    
         setSize(800, 400);
         setLayout(new FlowLayout(FlowLayout.LEADING));
     }
 
     public void processPressedKey(char pressed) {
-    	// Don't go any further if it's done
-    	if (finished)
-    		return;
-    	
 		// Restart when ESCAPE key is pressed twice-in-a-row
 		if (pressed == KeyEvent.VK_ESCAPE) {
 			if (restartFlag) {
@@ -84,14 +108,21 @@ public class MainTypePanel extends JPanel {
 		else
 			restartFlag = false;
 
+    	// Don't go any further if it's done
+    	if (finished)
+    		return;
+    	
 		
     	JPanel p = wordPanels.get(words_cnt);
     	JLabel l = (JLabel)(p.getComponent(cnt));
         String s;
         if ((s = l.getText()) != null) {
             // Start timer
-            if (startTime == -1)
+            if (startTime == -1) {
+            	// Start timer on the MainWindow
+            	timer.start();
             	startTime = System.nanoTime();
+            }
             
         	// Don't hilight spaces
         	if (s.charAt(0) == '_' && pressed == ' ') {
@@ -124,6 +155,12 @@ public class MainTypePanel extends JPanel {
         	// Record the time it took
         	long endTime = System.nanoTime();
         	
+        	// Stop the timer in the main window
+        	timer.stop();
+        	
+        	// Set finished to true
+        	finished = true;
+        	
         	DecimalFormat df = (DecimalFormat)NumberFormat.getNumberInstance();
         	df.setMaximumFractionDigits(user.getSettings().getTimeFractionDigit());
         	double duration = (double)(endTime - startTime) / 1000000000;
@@ -133,9 +170,19 @@ public class MainTypePanel extends JPanel {
         	
         	df.setMaximumFractionDigits(user.getSettings().getSpeedFractionDigit());
         	message += "Speed: " + df.format(totalNumOfLetters / duration) + " keys/sec\n";
-            		
+        	
+        	// Create a Result instance for this round and write to a binary file
+        	Result result = new Result(duration, miss, user.getUserName(),
+        			user.getSettings().getKeyboardLayout(),
+        			Calendar.getInstance(TimeZone.getDefault()).getTimeInMillis());
+        	user.getRecords().writeRecords(result);
+        	
+        	// Show the result
             JOptionPane.showMessageDialog(null, message,
                      "Result", JOptionPane.INFORMATION_MESSAGE);
+            
+            // Then, show the list of results and where this round falls into
+            user.getRecords().showListOfRecords();
         }
         repaint();
     }
@@ -165,6 +212,13 @@ public class MainTypePanel extends JPanel {
 			changeUser();
 		}
 		
+        // Add a JLabel that shows what keyboard layout is currently selected
+		// This can only be done after the user has been read,
+		// because we don't know what keyboard layout the last user used.
+        currentKeyboardLayout.setText(user.getSettings().getKeyboardLayout());
+        // Uses the default font's family but set the style and size to specified.
+        currentKeyboardLayout.setFont(new Font(user.getSettings().getDefaultFont().getFamily(), Font.PLAIN, 30)); 
+        
 		// Do the things that needs to be done after loading the previous user
 		afterLoadingUser();
 	}
@@ -269,6 +323,11 @@ public class MainTypePanel extends JPanel {
 		// Clear everything
 		this.removeAll();
 		
+		// Reset the timer
+		timer.stop();
+		// Sets text of the JLabel (timeElapsed) to "0.0"
+		timeElapsed.setText("0.0");
+		
 		// Set everything to default value
 		finished = false;
 		cnt = 0;
@@ -331,12 +390,20 @@ public class MainTypePanel extends JPanel {
 	
 	/**
 	 * Changes the keyboard layout to a new layout. The records are stored separately among each layout.
+	 * It makes a copy of the previous layout and compare it with the new layout.
+	 * After successfully changing the keyboard layout, it re-reads the records and starts a new round.
 	 */
 	public void changeKeyboardLayout() {
-		// TODO: Use JComboBox and input field so that the use can choose from the existing layouts or create a new one
-		// TODO: Create the method in the settings class
-		JOptionPane.showMessageDialog(null, "Currently under development...Sorry!");
-		restart();
+		String previous = user.getSettings().getKeyboardLayout();
+		
+		user.getSettings().changeKeyboardLayout(user.getRecords().getExistingKeyboardLayouts());
+		
+		String current = user.getSettings().getKeyboardLayout();
+		
+		if (!current.equals(previous)) {
+			currentKeyboardLayout.setText(current);
+			restart();
+		}
 	}
 	
 	/**
@@ -396,6 +463,26 @@ public class MainTypePanel extends JPanel {
 	}
 	
 	/**
+	 * Changes whether to shuffle the words from the dictionary.
+	 * Restarts a new round after changing the settings.
+	 * @param Whether the check box is selected or not.
+	 */
+	public void changeShuffled(boolean isSelected) {
+		user.getSettings().setShuffled(isSelected);
+		restart();
+	}
+	
+	/**
+	 * Change the "fun" parameter in the Settings class. This randomizes the color of the each letters.
+	 * Re-tokenizes the words (so that the change is reflected immediately without restarting).
+	 * @param fun True if "fun", which changes the color of the letters randomly, is on.
+	 */
+	public void changeFun(boolean fun) {
+		this.fun = fun;
+		tokenize();
+	}
+	
+	/**
 	 * Saves the settings to the user's settings file.
 	 */
 	public void saveSettings() {
@@ -404,5 +491,20 @@ public class MainTypePanel extends JPanel {
 
 		if (choice == 0)
 			user.getSettings().writeSettings();
+	}
+	
+	/**
+	 * Returns the JLabel that has the text showing how much time has passed since the user started typing.
+	 * @return The JLabel containing information about the time it passed since the start.
+	 */
+	public JLabel getTimeElapsedLabel() {
+		return timeElapsed;
+	}
+	
+	/**
+	 * Returns the JLabel that shows the current keyboard layout.
+	 */
+	public JLabel getCurrentKeyboardLayout() {
+		return currentKeyboardLayout;
 	}
 }

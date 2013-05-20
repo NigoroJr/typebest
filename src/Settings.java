@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -43,7 +45,7 @@ public class Settings {
 	private int speedFractionDigit = 8;
 	private int timeFractionDigit = 9;
 	private boolean shuffled = true;
-	private String keyboardLayout = "Qwerty";
+	private String keyboardLayout = "QWERTY";
 	
 	private File settingsFile;
 	
@@ -153,6 +155,14 @@ public class Settings {
 	 */
 	public void setBackgroundColor(Color c) {
 		backgroundColor = c;
+	}
+	
+	/**
+	 * Sets whether the words read from the dictionary file should be shuffled or not.
+	 * @param shuffled True if the words should be shuffled, false if not.
+	 */
+	public void setShuffled(boolean shuffled) {
+		this.shuffled = shuffled;
 	}
 	
 	/**
@@ -340,6 +350,83 @@ public class Settings {
 	 */
 	public void setDefaultFont(String name, int style, int size) {
 		defaultFont = new Font(name, style, size);
+	}
+	
+	/**
+	 * Shows a dialog to change the keyboard layout.
+	 */
+	public void changeKeyboardLayout(final ArrayList<String> existingLayouts) {
+		final JDialog dialog = new JDialog();
+		dialog.setSize(250, 160);
+		dialog.setLocationRelativeTo(null);
+		dialog.setLayout(new BorderLayout());
+		
+		// Create an ArrayList in the Records class and read it from there
+		JPanel selectAndInput = new JPanel();
+		selectAndInput.setLayout(new GridLayout(0, 1));
+		selectAndInput.add(new JPanel() {{
+			this.add(new JLabel("Current: " + keyboardLayout));
+		}});
+		
+		// Add the initial data in case the user wants to input a new layout by text
+		final String unselectedMessage = "-Select or Input";
+		if (!existingLayouts.contains(unselectedMessage))
+			existingLayouts.add(0, unselectedMessage);
+		final JComboBox existing = new JComboBox(existingLayouts.toArray());
+		// Remove the message from the ArrayList
+		existingLayouts.remove(unselectedMessage);
+		existing.setSelectedItem(unselectedMessage);
+		
+		selectAndInput.add(new JPanel() {{
+			this.add(existing);
+		}});
+		// A JTextField in case the user couldn't find the desired layout and wants to add a new layout
+		final JTextField input = new JTextField();
+		input.setPreferredSize(new Dimension(100, input.getPreferredSize().height));
+		selectAndInput.add(new JPanel() {{
+			this.add(input);
+		}});
+		
+		// Add OK, Cancel buttons
+		JPanel buttons = new JPanel();
+		final ActionListener al = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getActionCommand().equals("OK")) {
+					String selected = (String)existing.getSelectedItem();
+					// Meaning the user decided to input as text
+					if (selected.equals(unselectedMessage) && !input.getText().trim().equals("")) {
+						existingLayouts.add(input.getText().trim());
+						keyboardLayout = input.getText().trim();
+					}
+					else if (!selected.equals(unselectedMessage))
+						keyboardLayout = selected;
+					dialog.setVisible(false);
+				}
+				else if (e.getActionCommand().equals("Cancel"))
+					dialog.setVisible(false);
+			}
+		};
+		buttons.add(new JButton("OK") {{
+			this.addActionListener(al);
+		}});
+		buttons.add(new JButton("Cancel") {{
+			this.addActionListener(al);
+		}});
+		
+		dialog.add(selectAndInput);
+		dialog.add(buttons, BorderLayout.SOUTH);
+		
+		dialog.setModalityType(ModalityType.TOOLKIT_MODAL);
+		dialog.setVisible(true);
+	}
+	
+	/**
+	 * Sets the keyboard layout to the given String.
+	 * @param newLayout The new keyboard layout the user is going to use.
+	 */
+	public void setKeyboardLayout(String newLayout) {
+		this.keyboardLayout = newLayout;
 	}
 	
 	/**
