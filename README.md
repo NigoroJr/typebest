@@ -15,6 +15,7 @@ However, there is some possibility that online ranking function may be available
 Practice Modes
 --------------
 The user can choose from "time", "number of characters", "alphabet(s)", or by "My Least Favorite".  
+This function is yet to be implemented.  
 
 Tips
 ----
@@ -24,9 +25,7 @@ Although the default is set to shuffle the words in the dictionary file, you can
 
 ToDo
 ----
-Create an UML diagram  
 All the function in [TypeWell](http://members.jcom.home.ne.jp/gangas2/download.html)  
-Record results according to keyboard layout (Qwerty, Dvorak)  
-Store more than 100 records (about 10,000)  
+Show results according to keyboard layout (Qwerty, Dvorak)  
 Separate dictionary files for each alphabet letter  
 Allow user to choose which letter(s) in the alphabet  
