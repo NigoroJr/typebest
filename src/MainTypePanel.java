@@ -4,8 +4,6 @@ import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -208,8 +206,9 @@ public class MainTypePanel extends JPanel {
 			}
 		}
 		else {
-			// Prompt the user for a user name using changeUser method, which then passes the input to loadLastUser(String)
-			changeUser();
+			// Prompt for a user name
+			String newUser = JOptionPane.showInputDialog("It looks like it's the first time this program has been used.\nEnter your user name:");
+			changeUser(newUser);
 		}
 		
         // Add a JLabel that shows what keyboard layout is currently selected
