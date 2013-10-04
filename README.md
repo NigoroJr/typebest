@@ -29,3 +29,5 @@ All the function in [TypeWell](http://members.jcom.home.ne.jp/gangas2/download.h
 Show results according to keyboard layout (Qwerty, Dvorak)  
 Separate dictionary files for each alphabet letter  
 Allow user to choose which letter(s) in the alphabet  
+Add endless mode  
+Add ignore mistype mode  
