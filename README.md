@@ -25,9 +25,16 @@ Although the default is set to shuffle the words in the dictionary file, you can
 
 ToDo
 ----
+Re-design the whole software!!!
+
 All the function in [TypeWell](http://members.jcom.home.ne.jp/gangas2/download.html)  
 Show results according to keyboard layout (Qwerty, Dvorak)  
 Separate dictionary files for each alphabet letter  
 Allow user to choose which letter(s) in the alphabet  
 Add endless mode  
 Add ignore mistype mode  
+
+Credit
+------
+Many thanks to [Gangas](http://www.twfan.com/) for providing me the dictionary
+file!  
