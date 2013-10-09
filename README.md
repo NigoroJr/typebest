@@ -36,5 +36,5 @@ Add ignore mistype mode
 
 Credit
 ------
-Many thanks to [Gangas](http://www.twfan.com/) for providing me the dictionary
+Many thanks to [Gangas](http://www.twfan.com/) for providing me with the dictionary
 file!  
