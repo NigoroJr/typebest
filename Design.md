@@ -21,6 +21,8 @@ keyboard layout | LAYOUT | varchar(50)
 
 User Pref
 ---------
+What | key | type
+---|---|---
 user ID | USER_ID | int
 Username | USERNAME | varchar(100)
 default layout (add current?) | LAYOUT | varchar(50)
@@ -31,6 +33,8 @@ last mode used | LAST_MODE | int or varchar(50)
 
 System pref
 -----------
+What | key | type
+---|---|---
 last user (might be better to use file I/O | LAST_USER | varchar(100)
 dictionary file location | DIC_LOC | varchar(150)
 file name (file I/O?) | DIC_NAME | varchar(150)
