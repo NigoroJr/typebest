@@ -31,6 +31,7 @@ Re-design the whole software!!!
 * Allow user to choose which letter(s) in the alphabet
 * Add endless mode
 * Add ignore mistype mode
+* Dialog where you can set number of letters/words and/or the time. ie, a quick config dialog.
 
 Credit
 ------
