@@ -13,3 +13,5 @@
 .classpath
 .metadata
 .project
+
+*.log
