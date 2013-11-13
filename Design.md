@@ -9,25 +9,28 @@ Note that [Apache Derby](http://db.apache.org/derby/) is needed for development.
 
 Records
 -------
-* Username
-* time (record)
-* date
-* miss-type counts
-* keyboard layout
-* user ID
-* record ID
+What | key | type
+---|---|---
+user ID | USER_ID | int
+record ID | RECORD_ID | int
+Username (is it necessary?) | USERNAME | varchar(100)
+record (in nanosec) | RECORD | int
+date | DATE | timestamp
+miss-type counts | MISS | int
+keyboard layout | LAYOUT | varchar(50)
 
 User Pref
 ---------
-* Username
-* default keyboard layout
-* font family
-* font color
-* font size
-* last mode used
-* user ID
+user ID | USER_ID | int
+Username | USERNAME | varchar(100)
+default layout (add current?) | LAYOUT | varchar(50)
+font family | FONT_FAMILY | varchar(50)
+font color | FONT_COLOR | int or varchar(50)
+font size | FONT_SIZE | int
+last mode used | LAST_MODE | int or varchar(50)
 
 System pref
 -----------
-* last user
-* dictionary file location, file name
+last user (might be better to use file I/O | LAST_USER | varchar(100)
+dictionary file location | DIC_LOC | varchar(150)
+file name (file I/O?) | DIC_NAME | varchar(150)

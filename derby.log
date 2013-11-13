@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Nov 12 18:05:14 EST 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (???): instance a816c00e-0142-4e8f-c614-0000069199b8 
+on database directory /home/naoki/src/java/typebest/TestDB.d with class loader sun.misc.Launcher$AppClassLoader@6fd7bd04 
+Loaded from file:/home/naoki/Bin/eclipse/plugins/org.apache.derby.core_10.10.1/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_25-b30
+user.dir=/home/naoki/src/java/typebest
+os.name=Linux
+os.arch=amd64
+os.version=3.8.0-33-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

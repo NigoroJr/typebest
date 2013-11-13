@@ -29,6 +29,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  * This is the panel that the the user types in whatever is shown. It shows the
  * untyped words in blue and the correctly typed words in red.
@@ -41,6 +46,7 @@ import java.io.PrintWriter;
 // in the keyboard layout)
 // TODO: Add JLable to the main panel that shows which layout the user is
 // currently using
+// TODO: Change how the words are displayed so that it can be more flexible.
 
 public class MainTypePanel extends JPanel {
 
