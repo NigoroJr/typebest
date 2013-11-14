@@ -535,14 +535,18 @@ public class MainTypePanel extends JPanel {
 	 * since the user started typing.
 	 * 
 	 * @return The JLabel containing information about the time it passed since
-	 *         the start.
+	 *         the start. TODO: Modify this to get information from the database
+	 *         and then create a JLabel and return that. TODO: Maybe make a
+	 *         method that "creates a JLabel"
 	 */
 	public JLabel getTimeElapsedLabel() {
 		return timeElapsed;
 	}
 
 	/**
-	 * Returns the JLabel that shows the current keyboard layout.
+	 * Returns the JLabel that shows the current keyboard layout. TODO: Modify
+	 * this to get information from the database and then create a JLabel and
+	 * return that.
 	 */
 	public JLabel getCurrentKeyboardLayout() {
 		return currentKeyboardLayout;

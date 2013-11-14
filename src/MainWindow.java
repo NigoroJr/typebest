@@ -15,85 +15,97 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 /**
- * This class adds the necessary components and creates the window.
- * All the other stuff such as reading/writing data etc. are left to MainTypePanel class.
+ * This class adds the necessary components and creates the window. All the
+ * other stuff such as reading/writing data etc. are left to MainTypePanel
+ * class.
+ * 
  * @author Naoki Mizuno
  */
 
 public class MainWindow extends JFrame {
 	private MainTypePanel mtp = new MainTypePanel();
-    private ClickResponder cr = new ClickResponder();
+	private ClickResponder cr = new ClickResponder();
 	private JButton restart = new JButton("Restart");
 	HashMap<String, JMenuItem> menuItem = new HashMap<String, JMenuItem>();
-	
+
 	/**
 	 * Creates a new window with a panel that you type in, and a menu bar.
 	 */
 	public MainWindow() {
 		super();
-		
+
 		setTitle("TypeBest");
-		
+
 		SpringLayout springLayout = new SpringLayout();
-		
+
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(springLayout);
-		
+
 		// Add items to menu
 		menuItem.put("ch_user", new JMenuItem("Change User"));
 		menuItem.put("ch_mode", new JMenuItem("Change Practice Mode"));
 		menuItem.put("ch_font", new JMenuItem("Change Font"));
 		menuItem.put("ch_layout", new JMenuItem("Change Keyboard Layout"));
 		menuItem.put("ch_color", new JMenuItem("Change Color"));
-		menuItem.put("ch_noShuffle", new JCheckBoxMenuItem("Don't Shuffle Words"));
+		menuItem.put("ch_noShuffle", new JCheckBoxMenuItem(
+				"Don't Shuffle Words"));
 		menuItem.put("ch_fun", new JCheckBoxMenuItem("Fun"));
 		// NOTE: "Save Settings" will be added separately
-		
+
 		// Add the menu bar
 		menuBar();
-		
+
 		// Box that shows how much time has elapsed
 		JLabel timeElapsed = mtp.getTimeElapsedLabel();
-		springLayout.putConstraint(SpringLayout.SOUTH, timeElapsed, -5, SpringLayout.NORTH, mtp);
-		springLayout.putConstraint(SpringLayout.EAST, timeElapsed, -15, SpringLayout.EAST, mtp);
-		
+		springLayout.putConstraint(SpringLayout.SOUTH, timeElapsed, -5,
+				SpringLayout.NORTH, mtp);
+		springLayout.putConstraint(SpringLayout.EAST, timeElapsed, -15,
+				SpringLayout.EAST, mtp);
+
 		// JLabel that shows the current keyboard layout
 		JLabel currentKeyboardLayout = mtp.getCurrentKeyboardLayout();
-		springLayout.putConstraint(SpringLayout.SOUTH, currentKeyboardLayout, -5, SpringLayout.NORTH, mtp);
-		springLayout.putConstraint(SpringLayout.WEST, currentKeyboardLayout, 15, SpringLayout.WEST, mtp);
-		
+		springLayout.putConstraint(SpringLayout.SOUTH, currentKeyboardLayout,
+				-5, SpringLayout.NORTH, mtp);
+		springLayout.putConstraint(SpringLayout.WEST, currentKeyboardLayout,
+				15, SpringLayout.WEST, mtp);
+
 		// Window to type in
-		springLayout.putConstraint(SpringLayout.NORTH, mtp, 50, SpringLayout.NORTH, mainPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, mtp, -40, SpringLayout.SOUTH, mainPanel);
-		springLayout.putConstraint(SpringLayout.WEST, mtp, 5, SpringLayout.WEST, mainPanel);
-		springLayout.putConstraint(SpringLayout.EAST, mtp, -5, SpringLayout.EAST, mainPanel);
-		
-        addKeyListener(new TypingResponder());
-		
-        springLayout.putConstraint(SpringLayout.EAST, restart, -8, SpringLayout.EAST, mainPanel);
-        springLayout.putConstraint(SpringLayout.SOUTH, restart, -8, SpringLayout.SOUTH, mainPanel);
-        
-        restart.addActionListener(cr);
-        // When this is true, all the typing gets redirected to the button
-        restart.setFocusable(false);
-		
-        // Add things to the main panel
-        mainPanel.add(currentKeyboardLayout);
-        mainPanel.add(timeElapsed);
+		springLayout.putConstraint(SpringLayout.NORTH, mtp, 50,
+				SpringLayout.NORTH, mainPanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, mtp, -40,
+				SpringLayout.SOUTH, mainPanel);
+		springLayout.putConstraint(SpringLayout.WEST, mtp, 5,
+				SpringLayout.WEST, mainPanel);
+		springLayout.putConstraint(SpringLayout.EAST, mtp, -5,
+				SpringLayout.EAST, mainPanel);
+
+		addKeyListener(new TypingResponder());
+
+		springLayout.putConstraint(SpringLayout.EAST, restart, -8,
+				SpringLayout.EAST, mainPanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, restart, -8,
+				SpringLayout.SOUTH, mainPanel);
+
+		restart.addActionListener(cr);
+		// When this is true, all the typing gets redirected to the button
+		restart.setFocusable(false);
+
+		// Add things to the main panel
+		mainPanel.add(currentKeyboardLayout);
+		mainPanel.add(timeElapsed);
 		mainPanel.add(restart);
 		mainPanel.add(mtp);
-		
-        // Add to the frame
+
+		// Add to the frame
 		getContentPane().add(mainPanel);
-		
+
 		// The size of the main window
 		setSize(800, 400);
-		
+
 		// Load the previous user's data
 		mtp.loadLastUser();
 	}
-	
-	
+
 	/**
 	 * Adds a menu bar to the main panel.
 	 */
@@ -105,33 +117,35 @@ public class MainWindow extends JFrame {
 			menuItem.get(key).addActionListener(cr);
 			settings.add(menuItem.get(key));
 		}
-		// This item is added separately so that it shows up at the last of the list
+		// This item is added separately so that it shows up at the last of the
+		// list
 		JMenuItem save = new JMenuItem("Save Current Settings");
 		save.addActionListener(cr);
 		settings.add(save);
-		
+
 		menu.add(settings);
 		setJMenuBar(menu);
 	}
-	
+
 	/**
-	 * When a key is pressed, pass it to the method in MainTypePanel that determines what to do.
+	 * When a key is pressed, pass it to the method in MainTypePanel that
+	 * determines what to do.
 	 */
 	public class TypingResponder implements KeyListener {
 		@Override
 		public void keyPressed(KeyEvent e) {
 		}
-	
+
 		@Override
 		public void keyReleased(KeyEvent e) {
 		}
-	
+
 		@Override
 		public void keyTyped(KeyEvent e) {
 			mtp.processPressedKey(e.getKeyChar());
 		}
 	}
-	
+
 	/**
 	 * Determines what to do when a button is pressed.
 	 */
@@ -162,7 +176,7 @@ public class MainWindow extends JFrame {
 				mtp.saveSettings();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		MainWindow mw = new MainWindow();
 		mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
