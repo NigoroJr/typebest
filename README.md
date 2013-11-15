@@ -32,6 +32,7 @@ Re-design the whole software!!!
 * Add endless mode
 * Add ignore mistype mode
 * Dialog where you can set number of letters/words and/or the time. ie, a quick config dialog.
+* Add "programming" dictionary
 
 Credit
 ------
