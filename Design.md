@@ -7,6 +7,17 @@ How the database will be structured.
 
 Note that [Apache Derby](http://db.apache.org/derby/) is needed for development. See [my website](http://nigorojr.com/tips/index.php?id=30) for installation of plug-in.
 
+Basic Ideas
+-----------
+The type area consists of lines of words. There is (will be) a "Word" class,
+which is a collection of letters that make up a single word, and there is also
+a "Line" class that is a collection of words. It is not decided yet whether
+the lines will always disappear when the user finishes typing the line, or
+only when the words go over the boundry. When the words go over the boundry,
+i.e. not all the words are visible, the finished line will be "popped"
+(animation is a todo). This will allow modes such as "infinite typing" to be
+implemented fairly easily.
+
 Records
 -------
 What | key | type

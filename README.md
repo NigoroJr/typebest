@@ -33,6 +33,8 @@ Re-design the whole software!!!
 * Add ignore mistype mode
 * Dialog where you can set number of letters/words and/or the time. ie, a quick config dialog.
 * Add "programming" dictionary
+* Add option which the user can choose whether to type all letters of the last
+  word or finish when he/she reaches 400 letters
 
 Credit
 ------

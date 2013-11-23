@@ -105,10 +105,12 @@ public class MainTypePanel extends JPanel {
 			if (restartFlag) {
 				restartFlag = false;
 				restart();
-			} else
+			}
+			else
 				restartFlag = true;
 			return;
-		} else
+		}
+		else
 			restartFlag = false;
 
 		// Don't go any further if it's done

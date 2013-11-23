@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 
 /**
@@ -96,12 +98,17 @@ public class MainWindow extends JFrame {
 		mainPanel.add(restart);
 		mainPanel.add(mtp);
 
+		// Make the MainTypePanel scrollable (experimental)
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(mtp);
+
 		// Add to the frame
-		getContentPane().add(mainPanel);
+		//getContentPane().add(mainPanel);
+		getContentPane().add(scrollPane);
 
 		// The size of the main window
 		setSize(800, 400);
-
+		
 		// Load the previous user's data
 		mtp.loadLastUser();
 	}
