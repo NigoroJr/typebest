@@ -1,3 +1,5 @@
+package com.nigorojr.typebest;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +16,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 
-public class ColorDialog extends JDialog {
+public class ColorSelector extends JDialog {
 	private static Color selectedColor;
 	
 	private static JSlider redSlider;
@@ -28,7 +30,7 @@ public class ColorDialog extends JDialog {
 	/**
 	 * Shows a new color selection dialog with the current (default values) being black.
 	 */
-	public ColorDialog() {
+	public ColorSelector() {
 		this(Color.BLACK);
 	}
 	
@@ -39,7 +41,7 @@ public class ColorDialog extends JDialog {
 	 * respectively and the right preview window will update itself as the user slides the slider.
 	 * @param current The color that will be set as the default value.
 	 */
-	public ColorDialog(final Color current) {
+	public ColorSelector(final Color current) {
 		this.setSize(300, 200);
 		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
@@ -136,7 +138,7 @@ public class ColorDialog extends JDialog {
 	}
 	
 	public static Color chooseColor(Color c) {
-		ColorDialog dialog = new ColorDialog(c);
+		ColorSelector dialog = new ColorSelector(c);
 		return selectedColor;
 	}
 }

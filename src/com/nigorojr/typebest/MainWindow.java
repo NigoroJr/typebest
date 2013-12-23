@@ -1,3 +1,5 @@
+package com.nigorojr.typebest;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,10 +27,12 @@ import javax.swing.SpringLayout;
  */
 
 public class MainWindow extends JFrame {
-	private MainTypePanel mtp = new MainTypePanel();
-	private ClickResponder cr = new ClickResponder();
-	private JButton restart = new JButton("Restart");
-	HashMap<String, JMenuItem> menuItem = new HashMap<String, JMenuItem>();
+	private TypePanel typePanel = new TypePanel();
+	private ClickResponder clickResponder = new ClickResponder();
+	private JButton restartButton = new JButton("Restart");
+	private HashMap<String, JMenuItem> menuItem = new HashMap<String, JMenuItem>();
+	
+	private boolean restartFlag = false;
 
 	/**
 	 * Creates a new window with a panel that you type in, and a menu bar.
@@ -58,49 +62,49 @@ public class MainWindow extends JFrame {
 		menuBar();
 
 		// Box that shows how much time has elapsed
-		JLabel timeElapsed = mtp.getTimeElapsedLabel();
+		JLabel timeElapsed = typePanel.getTimeElapsedLabel();
 		springLayout.putConstraint(SpringLayout.SOUTH, timeElapsed, -5,
-				SpringLayout.NORTH, mtp);
+				SpringLayout.NORTH, typePanel);
 		springLayout.putConstraint(SpringLayout.EAST, timeElapsed, -15,
-				SpringLayout.EAST, mtp);
+				SpringLayout.EAST, typePanel);
 
 		// JLabel that shows the current keyboard layout
-		JLabel currentKeyboardLayout = mtp.getCurrentKeyboardLayout();
+		JLabel currentKeyboardLayout = typePanel.getCurrentKeyboardLayout();
 		springLayout.putConstraint(SpringLayout.SOUTH, currentKeyboardLayout,
-				-5, SpringLayout.NORTH, mtp);
+				-5, SpringLayout.NORTH, typePanel);
 		springLayout.putConstraint(SpringLayout.WEST, currentKeyboardLayout,
-				15, SpringLayout.WEST, mtp);
+				15, SpringLayout.WEST, typePanel);
 
 		// Window to type in
-		springLayout.putConstraint(SpringLayout.NORTH, mtp, 50,
+		springLayout.putConstraint(SpringLayout.NORTH, typePanel, 50,
 				SpringLayout.NORTH, mainPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, mtp, -40,
+		springLayout.putConstraint(SpringLayout.SOUTH, typePanel, -40,
 				SpringLayout.SOUTH, mainPanel);
-		springLayout.putConstraint(SpringLayout.WEST, mtp, 5,
+		springLayout.putConstraint(SpringLayout.WEST, typePanel, 5,
 				SpringLayout.WEST, mainPanel);
-		springLayout.putConstraint(SpringLayout.EAST, mtp, -5,
+		springLayout.putConstraint(SpringLayout.EAST, typePanel, -5,
 				SpringLayout.EAST, mainPanel);
 
 		addKeyListener(new TypingResponder());
 
-		springLayout.putConstraint(SpringLayout.EAST, restart, -8,
+		springLayout.putConstraint(SpringLayout.EAST, restartButton, -8,
 				SpringLayout.EAST, mainPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, restart, -8,
+		springLayout.putConstraint(SpringLayout.SOUTH, restartButton, -8,
 				SpringLayout.SOUTH, mainPanel);
 
-		restart.addActionListener(cr);
+		restartButton.addActionListener(clickResponder);
 		// When this is true, all the typing gets redirected to the button
-		restart.setFocusable(false);
+		restartButton.setFocusable(false);
 
 		// Add things to the main panel
 		mainPanel.add(currentKeyboardLayout);
 		mainPanel.add(timeElapsed);
-		mainPanel.add(restart);
-		mainPanel.add(mtp);
+		mainPanel.add(restartButton);
+		mainPanel.add(typePanel);
 
 		// Make the MainTypePanel scrollable (experimental)
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportView(mtp);
+		scrollPane.setViewportView(typePanel);
 
 		// Add to the frame
 		//getContentPane().add(mainPanel);
@@ -110,7 +114,7 @@ public class MainWindow extends JFrame {
 		setSize(800, 400);
 		
 		// Load the previous user's data
-		mtp.loadLastUser();
+		typePanel.loadLastUser();
 	}
 
 	/**
@@ -121,17 +125,21 @@ public class MainWindow extends JFrame {
 		// TODO: Think what kind of menus to add
 		JMenu settings = new JMenu("Settings");
 		for (String key : menuItem.keySet()) {
-			menuItem.get(key).addActionListener(cr);
+			menuItem.get(key).addActionListener(clickResponder);
 			settings.add(menuItem.get(key));
 		}
 		// This item is added separately so that it shows up at the last of the
 		// list
 		JMenuItem save = new JMenuItem("Save Current Settings");
-		save.addActionListener(cr);
+		save.addActionListener(clickResponder);
 		settings.add(save);
 
 		menu.add(settings);
 		setJMenuBar(menu);
+	}
+	
+	public void restart() {
+		typePanel.restart();
 	}
 
 	/**
@@ -149,7 +157,19 @@ public class MainWindow extends JFrame {
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			mtp.processPressedKey(e.getKeyChar());
+			// Restart when ESCAPE key is pressed twice-in-a-row
+			if (e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+				if (restartFlag) {
+					restartFlag = false;
+					restart();
+				}
+				else
+					restartFlag = true;
+			}
+			else {
+				restartFlag = false;
+				typePanel.processPressedKey(e.getKeyChar());
+			}
 		}
 	}
 
@@ -160,27 +180,27 @@ public class MainWindow extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == restart)
-				mtp.restart();
+			if (e.getSource() == restartButton)
+				typePanel.restart();
 			// TODO: Actions when selecting various menu items
 			else if (e.getSource() == menuItem.get("ch_user"))
-				mtp.changeUser();
+				typePanel.changeUser();
 			else if (e.getSource() == menuItem.get("ch_mode"))
 				// TODO: Change practice mode
 				;
 			else if (e.getSource() == menuItem.get("ch_font"))
-				mtp.changeFont();
+				typePanel.changeFont();
 			else if (e.getSource() == menuItem.get("ch_layout"))
-				mtp.changeKeyboardLayout();
+				typePanel.changeKeyboardLayout();
 			else if (e.getSource() == menuItem.get("ch_color"))
-				mtp.changeColor();
+				typePanel.changeColor();
 			else if (e.getSource() == menuItem.get("ch_noShuffle"))
 				// If selected, don't shuffle
-				mtp.changeShuffled(!menuItem.get("ch_noShuffle").isSelected());
+				typePanel.changeShuffled(!menuItem.get("ch_noShuffle").isSelected());
 			else if (e.getSource() == menuItem.get("ch_fun"))
-				mtp.changeFun(menuItem.get("ch_fun").isSelected());
+				typePanel.changeFun(menuItem.get("ch_fun").isSelected());
 			else if (e.getActionCommand() == "Save Current Settings")
-				mtp.saveSettings();
+				typePanel.saveSettings();
 		}
 	}
 
