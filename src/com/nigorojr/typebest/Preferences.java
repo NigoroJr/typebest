@@ -3,6 +3,7 @@ package com.nigorojr.typebest;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 
 public class Preferences extends Database {
     private long id;
