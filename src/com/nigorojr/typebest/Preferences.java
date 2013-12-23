@@ -38,7 +38,7 @@ public class Preferences extends Database {
      *             file.
      */
     public Preferences(long id) throws SQLException {
-        super("preferences");
+        super("PREFERENCES");
         if (!queryDatabase(id)) {
             createPreference(defaultUsername);
         }

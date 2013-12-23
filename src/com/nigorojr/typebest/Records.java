@@ -5,6 +5,7 @@ import java.sql.SQLException;
 public class Records extends Database {
 
     public Records() throws SQLException {
-        super("records");
+        super("RECORDS");
+    }
     }
 }

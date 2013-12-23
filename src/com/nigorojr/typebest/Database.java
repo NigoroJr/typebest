@@ -27,12 +27,12 @@ public abstract class Database {
      * 
      * @param tableName
      *            The name of the table that will be operated using this
-     *            instance.
+     *            instance. The tableName will be upper-cased.
      * @throws SQLException
      *             When the constructor failed to create a new database file.
      */
     public Database(String tableName) throws SQLException {
-        this.tableName = tableName;
+        this.tableName = tableName.toUpperCase();
 
         try {
             Class.forName(driver).newInstance();
