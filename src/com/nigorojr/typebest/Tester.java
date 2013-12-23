@@ -16,6 +16,11 @@ public class Tester {
             if (!rec.isTableExist()) {
                 rec.createTable(pair);
             }
+            System.out.println("finished creating...");
+            HashMap<String, String> ins = new HashMap<String, String>();
+            ins.put("foo", "50");
+            ins.put("hoge", "'barbar'");
+            rec.insert(ins);
         }
         catch (SQLException e) {
             e.printStackTrace();
