@@ -25,6 +25,8 @@ public class Preferences extends Database {
 
     final String defaultUsername = "Unknown Username";
 
+    public static final String tableName = "PREFERENCES";
+
     /**
      * Attempts to retrieve a set of preference from the given ID. If the ID
      * does not match, it'll create a new set of preference with the default
@@ -38,7 +40,7 @@ public class Preferences extends Database {
      *             file.
      */
     public Preferences(long id) throws SQLException {
-        super("PREFERENCES");
+        super(tableName);
         if (!queryDatabase(id)) {
             createPreference(defaultUsername);
         }
@@ -57,7 +59,7 @@ public class Preferences extends Database {
      *             file. Note that it has nothing to do with the table name.
      */
     public Preferences(String username) throws SQLException {
-        super("preferences");
+        super(tableName);
         createPreference(username);
     }
 
