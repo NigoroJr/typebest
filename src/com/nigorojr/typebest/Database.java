@@ -12,9 +12,9 @@ import java.util.Iterator;
 public abstract class Database {
     private String tableName;
 
-    private String protocol = "jdbc:derby:";
-    private String databaseFileName = "typebestDatabase.db";
-    private String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+    private final String protocol = "jdbc:derby:";
+    private final String databaseFileName = "typebestDatabase.db";
+    private final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     // Create database file if it doesn't exist
     private boolean create = true;
 
