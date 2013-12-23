@@ -128,4 +128,41 @@ public abstract class Database {
 
     abstract void delete(String condition);
 
+    /**
+     * This method is used to obtain a formatted String that can be used when
+     * using the INSERT command. For example, given the HashMap with the
+     * following entries:
+     * 
+     * username => 'test user'
+     * id => 2
+     * layout => 'QWERTY'
+     * 
+     * the method will return a String:
+     * (username, id, layout) VALUES ('test user', 2, 'QWERTY')
+     * 
+     * @param pair
+     *            The column names and the values that will be used to generate
+     *            the String.
+     * @return The formatted String in the form:
+     *         `(col1, col2, col3...) VALUES (val1, val2, val3...)`
+     */
+    public String formatInsertQuery(HashMap<String, String> pair) {
+        String ret = "";
+        String columnNames = "";
+        String values = "";
+
+        Iterator<String> keys = pair.keySet().iterator();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            columnNames += key;
+            values += pair.get(key);
+            // Append comma if it's not the last element
+            if (keys.hasNext()) {
+                columnNames += ", ";
+                values += ", ";
+            }
+        }
+        ret = String.format("(%s) VALUES (%s)", columnNames, values);
+        return ret;
+    }
 }
