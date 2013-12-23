@@ -1,7 +1,7 @@
 package com.nigorojr.typebest;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Tester {
 
@@ -10,14 +10,14 @@ public class Tester {
         try {
             Records rec = new Records();
             System.out.println("exist?\n" + rec.isTableExist());
-            HashMap<String, String> pair = new HashMap<String, String>();
+            LinkedHashMap<String, String> pair = new LinkedHashMap<String, String>();
             pair.put("foo", "int");
             pair.put("hoge", "varchar(50)");
             if (!rec.isTableExist()) {
                 rec.createTable(pair);
             }
             System.out.println("finished creating...");
-            HashMap<String, String> ins = new HashMap<String, String>();
+            LinkedHashMap<String, String> ins = new LinkedHashMap<String, String>();
             ins.put("foo", "50");
             ins.put("hoge", "'barbar'");
             rec.insert(ins);

@@ -6,8 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 public abstract class Database {
     private String tableName;
@@ -81,7 +81,7 @@ public abstract class Database {
      * @return True if the table was successfully created, false if something
      *         went wrong.
      */
-    public boolean createTable(HashMap<String, String> pair) {
+    public boolean createTable(LinkedHashMap<String, String> pair) {
         String query = "";
         String columns = "";
 
@@ -110,7 +110,7 @@ public abstract class Database {
         }
         return true;
     }
-    
+
     /**
      * Getter method for tableName.
      * 
@@ -120,13 +120,34 @@ public abstract class Database {
         return tableName;
     }
 
-    abstract void insert(HashMap<String, String> pair);
+    /**
+     * Executes the INSERT command for the given pairs of column names and
+     * values.
+     * 
+     * @param pair
+     *            The set of column names and values that will be inserted to
+     *            the table.
+     */
+    public void insert(LinkedHashMap<String, String> pair) {
+        String query = String.format("INSERT INTO %s %s", tableName,
+                formatInsertQuery(pair));
+        try {
+            statement.execute(query);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-    abstract ResultSet select(String condition);
+    public ResultSet select(String condition) {
+        return null;
+    }
 
-    abstract void update(HashMap<String, String> pair);
+    public void update(LinkedHashMap<String, String> pair) {
+    }
 
-    abstract void delete(String condition);
+    public void delete(String condition) {
+    }
 
     /**
      * This method is used to obtain a formatted String that can be used when
@@ -138,15 +159,15 @@ public abstract class Database {
      * layout => 'QWERTY'
      * 
      * the method will return a String:
-     * (username, id, layout) VALUES ('test user', 2, 'QWERTY')
+     * <code>(username, id, layout) VALUES ('test user', 2, 'QWERTY')</code>
      * 
      * @param pair
      *            The column names and the values that will be used to generate
      *            the String.
      * @return The formatted String in the form:
-     *         `(col1, col2, col3...) VALUES (val1, val2, val3...)`
+     * <code>(col1, col2, col3...) VALUES (val1, val2, val3...)</code>
      */
-    public String formatInsertQuery(HashMap<String, String> pair) {
+    public String formatInsertQuery(LinkedHashMap<String, String> pair) {
         String ret = "";
         String columnNames = "";
         String values = "";
