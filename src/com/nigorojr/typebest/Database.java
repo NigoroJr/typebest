@@ -19,7 +19,7 @@ public abstract class Database {
     private boolean create = true;
 
     private Connection connection = null;
-    private Statement statement = null;
+    protected Statement statement = null;
 
     /**
      * Connects to the database file. Creates a new database file if none exists
