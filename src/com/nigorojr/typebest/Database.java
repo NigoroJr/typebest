@@ -119,4 +119,13 @@ public abstract class Database {
     public String getTableName() {
         return tableName;
     }
+
+    abstract void insert(HashMap<String, String> pair);
+
+    abstract ResultSet select(String condition);
+
+    abstract void update(HashMap<String, String> pair);
+
+    abstract void delete(String condition);
+
 }
