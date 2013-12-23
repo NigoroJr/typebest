@@ -110,4 +110,13 @@ public abstract class Database {
         }
         return true;
     }
+    
+    /**
+     * Getter method for tableName.
+     * 
+     * @return The table name of this instance.
+     */
+    public String getTableName() {
+        return tableName;
+    }
 }
