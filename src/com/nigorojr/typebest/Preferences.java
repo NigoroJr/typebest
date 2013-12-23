@@ -42,7 +42,7 @@ public class Preferences extends Database {
     public Preferences(long id) throws SQLException {
         super(tableName);
         if (!queryDatabase(id)) {
-            createPreference(defaultUsername);
+            addPreferencesForUser(defaultUsername);
         }
     }
 
@@ -60,7 +60,7 @@ public class Preferences extends Database {
      */
     public Preferences(String username) throws SQLException {
         super(tableName);
-        createPreference(username);
+        addPreferencesForUser(username);
     }
 
     /**
