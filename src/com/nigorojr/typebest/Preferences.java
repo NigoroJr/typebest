@@ -2,6 +2,7 @@ package com.nigorojr.typebest;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 
@@ -42,7 +43,7 @@ public class Preferences extends Database {
      */
     public Preferences(long id) throws SQLException {
         super(tableName);
-        if (!queryDatabase(id)) {
+        if (!isIDExist(id)) {
             addPreferencesForUser(defaultUsername);
         }
     }
@@ -72,11 +73,22 @@ public class Preferences extends Database {
      * @param id
      *            The user ID that will be the identifier of the user.
      * @return True if there is at least one preference for the given ID, false
-     *         if there is none.
+     *         if there is none. Note that there should be only one preference
+     *         for each ID, however, no check is done in this method to ensure
+     *         if that is the case.
      */
-    private boolean queryDatabase(long id) {
-        // TODO: Query part and update variables if there are existing prefs
-        return false;
+    public boolean isIDExist(long id) {
+        String condition = String.format("ID = %d", id);
+        String[] selectColumns = { "*" };
+        ResultSet result = super.select(selectColumns, condition);
+        boolean ret = false;
+        try {
+            ret = result.next();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 
     public void createPreference(String username) {
