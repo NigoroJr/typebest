@@ -21,7 +21,7 @@ public class Tester {
             ins.put("foo", "50");
             ins.put("hoge", "'barbar'");
             rec.insert(ins);
-            
+
             // Test for Preferences class
             Preferences p = new Preferences("test_user");
             p.readPreferencesForID(1);

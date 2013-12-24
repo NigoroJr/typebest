@@ -41,7 +41,8 @@ public abstract class Database {
 
     /**
      * Connects to the database. Creates a new database if none exists
-     * and <code>create</code> is true. This constructor creates the table with the given
+     * and <code>create</code> is true. This constructor creates the table with
+     * the given
      * table
      * name if that table does not exist in the database.
      * 

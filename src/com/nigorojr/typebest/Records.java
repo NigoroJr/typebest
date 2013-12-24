@@ -9,7 +9,8 @@ public class Records extends Database {
 
     private static LinkedHashMap<String, String> columnNamesAndTypes = new LinkedHashMap<String, String>() {
         {
-            put("RECORD_ID", "INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)");
+            put("RECORD_ID",
+                    "INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)");
             put("USER_ID", "INT NOT NULL");
             put("USERNAME", "VARCHAR(100) NOT NULL");
             put("KEYBOARD_LAYOUT", "VARCHAR(100)");
@@ -19,7 +20,6 @@ public class Records extends Database {
             put("CONSTRAINT primary_key", "PRIMARY KEY (id)");
         }
     };
-
 
     public Records() throws SQLException {
         super(tableName, columnNamesAndTypes);
