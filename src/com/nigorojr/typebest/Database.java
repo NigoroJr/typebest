@@ -208,7 +208,7 @@ public abstract class Database {
      *            The column names and the values that will be used to generate
      *            the String.
      * @return The formatted String in the form:
-     * <code>(col1, col2, col3...) VALUES (val1, val2, val3...)</code>
+     *         <code>(col1, col2, col3...) VALUES (val1, val2, val3...)</code>
      */
     public String formatInsertQuery(LinkedHashMap<String, String> pair) {
         String ret = "";
