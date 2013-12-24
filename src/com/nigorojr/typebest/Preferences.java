@@ -202,16 +202,32 @@ public class Preferences extends Database {
             e.printStackTrace();
         }
     }
-    
+
     public long getID() {
         return id;
     }
-    
+
     public String getUsername() {
         return username;
     }
-    
+
+    /**
+     * Because keyboardLayout is a comma-separated String of all the existing
+     * keyboard layouts, this method returns the current layout, which is the
+     * first layout in the list.
+     * 
+     * @return The current keyboard layout, which is the first layout in the
+     *         comma-separated String.
+     */
     public String getKeyboardLayout() {
+        int firstComma = keyboardLayout.indexOf(',');
+        if (firstComma == -1)
+            return keyboardLayout;
+        else
+            return keyboardLayout.substring(0, firstComma - 1);
+    }
+
+    public String getAllKeyboardLayouts() {
         return keyboardLayout;
     }
 
