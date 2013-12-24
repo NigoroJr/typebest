@@ -13,7 +13,7 @@ public abstract class Database {
     private String tableName;
 
     private final String protocol = "jdbc:derby:";
-    private final String databaseFileName = "typebestDatabase.db";
+    private final String databaseDirName = "typebest.db";
     private final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     // Create database file if it doesn't exist
     private boolean create = true;
@@ -47,8 +47,8 @@ public abstract class Database {
             e.printStackTrace();
         }
 
-        connection = DriverManager.getConnection(protocol + databaseFileName
-                + ";create=" + create);
+        connection = DriverManager.getConnection(String.format("%s%s;create=%s",
+                protocol, databaseDirName, Boolean.toString(create)));
         statement = connection.createStatement();
     }
 
