@@ -228,6 +228,13 @@ public class Preferences extends Database {
             return keyboardLayout.substring(0, firstComma - 1);
     }
 
+    /**
+     * Due to the fact that keyboardLayout is a comma-separated String, simply
+     * returning that variable is the same as returning all the existing
+     * keyboard layouts. The first layout is the current layout.
+     * 
+     * @return A comma-separated list of existing keyboard layouts in String.
+     */
     public String getAllKeyboardLayouts() {
         return keyboardLayout;
     }
