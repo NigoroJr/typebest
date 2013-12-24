@@ -22,8 +22,23 @@ public class Preferences extends Database {
     // Force shuffle for now
     // private boolean shuffled;
 
-    // TODO: file or database?
-    // private File settingsFile;
+    private static LinkedHashMap<String, String> columnNamesAndTypes = new LinkedHashMap<String, String>() {
+        {
+            put("ID", "INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)");
+            put("USERNAME", "VARCHAR(100) NOT NULL");
+            put("KEYBOARD_LAYOUT", "VARCHAR(100)");
+            put("TO_BE_TYPED", "INT");
+            put("ALREADY_TYPED", "INT");
+            put("MISS_TYPE_COLOR", "INT");
+            put("BACKGROUND_COLOR", "INT");
+            put("FONT_FAMILY", "VARCHAR(30)");
+            put("FONT_STYLE", "SMALLINT");
+            put("FONT_SIZE", "SMALLINT");
+            put("SPEED_FRACTION_DIGIT", "SMALLINT");
+            put("TIME_FRACTION_DIGIT", "SMALLINT");
+            put("CONSTRAINT primary_key", "PRIMARY KEY (id)");
+        }
+    };
 
     final String defaultUsername = "Unknown Username";
 
@@ -42,7 +57,7 @@ public class Preferences extends Database {
      *             file.
      */
     public Preferences(long id) throws SQLException {
-        super(tableName);
+        super(tableName, columnNamesAndTypes);
         if (!isIDExist(id)) {
             addPreferencesForUser(defaultUsername);
         }
@@ -61,7 +76,7 @@ public class Preferences extends Database {
      *             file. Note that it has nothing to do with the table name.
      */
     public Preferences(String username) throws SQLException {
-        super(tableName);
+        super(tableName, columnNamesAndTypes);
         addPreferencesForUser(username);
     }
 

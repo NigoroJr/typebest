@@ -22,18 +22,9 @@ public abstract class Database {
     protected Statement statement = null;
 
     /**
-     * Connects to the database file. Creates a new database file if none exists
-     * and `create` is true.
-     * 
-     * @param tableName
-     *            The name of the table that will be operated using this
-     *            instance. The tableName will be upper-cased.
-     * @throws SQLException
-     *             When the constructor failed to create a new database file.
+     * Establishes a connection with the database.
      */
-    public Database(String tableName) throws SQLException {
-        this.tableName = tableName.toUpperCase();
-
+    public Database() {
         try {
             Class.forName(driver).newInstance();
         }
@@ -46,10 +37,36 @@ public abstract class Database {
         catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-        connection = DriverManager.getConnection(String.format("%s%s;create=%s",
-                protocol, databaseDirName, Boolean.toString(create)));
+    /**
+     * Connects to the database. Creates a new database if none exists
+     * and <code>create</code> is true. This constructor creates the table with the given
+     * table
+     * name if that table does not exist in the database.
+     * 
+     * @param tableName
+     *            The name of the table that will be operated using this
+     *            instance. The tableName will be upper-cased.
+     * @param columnNamesAndTypes
+     *            Set of names and data types of the columns in the table.
+     * @throws SQLException
+     *             When the constructor failed to create a new database.
+     */
+    public Database(String tableName,
+            LinkedHashMap<String, String> columnNamesAndTypes)
+            throws SQLException {
+        this();
+
+        this.tableName = tableName.toUpperCase();
+
+        connection = DriverManager.getConnection(String.format(
+                "%s%s;create=%s", protocol, databaseDirName,
+                Boolean.toString(create)));
         statement = connection.createStatement();
+        if (!isTableExist()) {
+            createTable(columnNamesAndTypes);
+        }
     }
 
     /**
@@ -75,20 +92,20 @@ public abstract class Database {
     /**
      * Creates a table with the name given to the constructor.
      * 
-     * @param pair
+     * @param columnNamesAndTypes
      *            A HashMap with name of the column as the key and the data type
      *            as the value.
      * @return True if the table was successfully created, false if something
      *         went wrong.
      */
-    public boolean createTable(LinkedHashMap<String, String> pair) {
+    public boolean createTable(LinkedHashMap<String, String> columnNamesAndTypes) {
         String query = "";
         String columns = "";
 
-        Iterator<String> iterator = pair.keySet().iterator();
+        Iterator<String> iterator = columnNamesAndTypes.keySet().iterator();
         while (iterator.hasNext()) {
             String columnName = iterator.next();
-            String dataType = pair.get(columnName);
+            String dataType = columnNamesAndTypes.get(columnName);
             columns += columnName + " " + dataType;
 
             // Add a comma if it's not the last column
