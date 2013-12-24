@@ -163,8 +163,8 @@ public class Preferences extends Database {
         keyboardLayout = "QWERTY";
         toBeTyped = Color.BLUE;
         alreadyTyped = Color.RED;
-        backgroundColor = Color.GRAY;
         missTypeColor = Color.CYAN;
+        backgroundColor = Color.GRAY;
         font = new Font("Arial", Font.PLAIN, 30);
         // The number of digits to show after decimal point
         speedFractionDigit = 8;
@@ -202,4 +202,57 @@ public class Preferences extends Database {
             e.printStackTrace();
         }
     }
+    
+    public long getID() {
+        return id;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+    
+    public String getKeyboardLayout() {
+        return keyboardLayout;
+    }
+
+    public Color getToBeTyped() {
+        return toBeTyped;
+    }
+
+    public Color getAlreadyTyped() {
+        return alreadyTyped;
+    }
+
+    public Color getMissTypeColor() {
+        return missTypeColor;
+    }
+
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public Font getFont() {
+        return font;
+    }
+
+    public int getSpeedFractionDigit() {
+        return speedFractionDigit;
+    }
+
+    public int getTimeFractionDigit() {
+        return timeFractionDigit;
+    }
+
+    public static LinkedHashMap<String, String> getColumnNamesAndTypes() {
+        return columnNamesAndTypes;
+    }
+
+    public String getDefaultUsername() {
+        return defaultUsername;
+    }
+
+    public static String getTablename() {
+        return tableName;
+    }
+
 }
