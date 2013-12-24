@@ -141,13 +141,13 @@ public abstract class Database {
      * Executes the INSERT command for the given pairs of column names and
      * values.
      * 
-     * @param pair
+     * @param columnNamesAndValues
      *            The set of column names and values that will be inserted to
      *            the table.
      */
-    public void insert(LinkedHashMap<String, String> pair) {
+    public void insert(LinkedHashMap<String, String> columnNamesAndValues) {
         String query = String.format("INSERT INTO %s %s", tableName,
-                formatInsertQuery(pair));
+                formatInsertQuery(columnNamesAndValues));
         try {
             statement.execute(query);
         }
