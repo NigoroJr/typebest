@@ -61,6 +61,10 @@ public class Preferences extends Database {
         if (!isIDExist(id)) {
             addPreferencesForUser(defaultUsername);
         }
+        // Read from database and update current preferences
+        else {
+            readPreferencesForID(id);
+        }
     }
 
     /**
@@ -124,5 +128,37 @@ public class Preferences extends Database {
         // The number of digits to show after decimal point
         speedFractionDigit = 8;
         timeFractionDigit = 9;
+    }
+
+    /**
+     * Queries the database for the given ID and updates the preferences. This
+     * method does check if there is an ID match, however, it does not check
+     * whether the ID is unique or not.
+     * 
+     * @param id
+     *            The identifier of the user.
+     */
+    public void readPreferencesForID(long id) {
+        String[] selectColumns = { "*" };
+        ResultSet result = super.select(selectColumns,
+                String.format("ID = %d", id));
+        try {
+            if (result.next()) {
+                this.id = result.getLong("ID");
+                username = result.getString("USERNAME");
+                keyboardLayout = result.getString("KEYBOARD_LAYOUT");
+                toBeTyped = new Color(result.getInt("TO_BE_TYPED"));
+                alreadyTyped = new Color(result.getInt("ALREADY_TYPED"));
+                missTypeColor = new Color(result.getInt("MISS_TYPE_COLOR"));
+                backgroundColor = new Color(result.getInt("BACKGROUND_COLOR"));
+                font = new Font(result.getString("FONT_FAMILY"),
+                        result.getInt("FONT_STYLE"), result.getInt("FONT_SIZE"));
+                speedFractionDigit = result.getInt("SPEED_FRACTION_DIGIT");
+                timeFractionDigit = result.getInt("TIME_FRACTION_DIGIT");
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
