@@ -94,7 +94,7 @@ public class Preferences extends Database {
      */
     public boolean isIDExist(long id) {
         String condition = String.format("ID = %d", id);
-        String[] selectColumns = { "*" };
+        String[] selectColumns = { "ID" };
         ResultSet result = super.select(selectColumns, condition);
         boolean ret = false;
         try {
