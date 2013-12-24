@@ -139,8 +139,51 @@ public abstract class Database {
         }
     }
 
-    public ResultSet select(String condition) {
-        return null;
+    /**
+     * Executes the SELECT command and queries the database for the given
+     * condition.
+     * 
+     * @param selectColumns
+     *            A list of column names that will be selected.
+     * @param condition
+     *            The condition of the query. This parameter can be empty if
+     *            there is no condition.
+     * @return The result of the query as a ResultSet object.
+     */
+    public ResultSet select(String[] selectColumns, String condition) {
+        ResultSet result = null;
+
+        // join columns to be selected with commas
+        String columns = "";
+        for (int i = 0; i < selectColumns.length; i++) {
+            columns += selectColumns[i];
+            if (i < selectColumns.length - 1)
+                columns += ", ";
+        }
+
+        String query = String.format("SELECT %s FROM %s", columns, tableName);
+        // Append condition if it's not empty
+        if (!condition.equals(""))
+            query += String.format(" WHERE %s", condition);
+
+        try {
+            result = statement.executeQuery(query);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * Returns all entries in the matching columns in the table.
+     * 
+     * @param selectColumns
+     *            The name of the columns to be selected.
+     * @return All entries (rows) in that column.
+     */
+    public ResultSet select(String[] selectColumns) {
+        return select(selectColumns, "");
     }
 
     public void update(LinkedHashMap<String, String> pair) {
