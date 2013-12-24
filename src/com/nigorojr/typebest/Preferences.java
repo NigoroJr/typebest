@@ -110,9 +110,50 @@ public class Preferences extends Database {
         return ret;
     }
 
-    public void createPreference(String username) {
+    /**
+     * Adds a new set of preferences for the given user to the database. This
+     * method assumes that the check for whether or not the table exists has
+     * been done prior to the calling of this method.
+     * 
+     * @param username
+     *            The human-readable identifier for the user. However, ID is
+     *            used in the database to identify in case there is duplicate of
+     *            username.
+     */
+    public void addPreferencesForUser(String username) {
         init();
-        // TODO: insert into prefs (username, blah blah) values foo bar;
+        LinkedHashMap<String, String> columnNamesAndValues = new LinkedHashMap<String, String>();
+        columnNamesAndValues.put("USERNAME", String.format("'%s'", username));
+        columnNamesAndValues.put("KEYBOARD_LAYOUT",
+                String.format("'%s'", keyboardLayout));
+
+        columnNamesAndValues.put("TO_BE_TYPED",
+                Integer.toString(toBeTyped.getRGB()));
+
+        columnNamesAndValues.put("ALREADY_TYPED",
+                Integer.toString(alreadyTyped.getRGB()));
+
+        columnNamesAndValues.put("MISS_TYPE_COLOR",
+                Integer.toString(missTypeColor.getRGB()));
+
+        columnNamesAndValues.put("BACKGROUND_COLOR",
+                Integer.toString(backgroundColor.getRGB()));
+
+        columnNamesAndValues.put("FONT_FAMILY",
+                String.format("'%s'", font.getFamily()));
+
+        columnNamesAndValues.put("FONT_STYLE",
+                Integer.toString(font.getStyle()));
+
+        columnNamesAndValues.put("FONT_SIZE", Integer.toString(font.getSize()));
+
+        columnNamesAndValues.put("SPEED_FRACTION_DIGIT",
+                Integer.toString(speedFractionDigit));
+
+        columnNamesAndValues.put("TIME_FRACTION_DIGIT",
+                Integer.toString(timeFractionDigit));
+
+        super.insert(columnNamesAndValues);
     }
 
     /**
