@@ -9,18 +9,7 @@ public class Tester {
         // This is to test the behavior of the Database class
         try {
             Records rec = new Records();
-            System.out.println("exist?\n" + rec.isTableExist());
-            LinkedHashMap<String, String> pair = new LinkedHashMap<String, String>();
-            pair.put("foo", "int");
-            pair.put("hoge", "varchar(50)");
-            if (!rec.isTableExist()) {
-                rec.createTable(pair);
-            }
-            System.out.println("finished creating...");
-            LinkedHashMap<String, String> ins = new LinkedHashMap<String, String>();
-            ins.put("foo", "50");
-            ins.put("hoge", "'barbar'");
-            rec.insert(ins);
+            rec.addNewRecord(5, "foooooobar", "Dvorak", 23456234, 34);
 
             // Test for Preferences class
             Preferences p = new Preferences("test_user");

@@ -23,4 +23,32 @@ public class Records extends Database {
     public Records() throws SQLException {
         super(tableName, columnNamesAndTypes, "RECORD_ID");
     }
+
+    /**
+     * Adds a new record to the database.
+     * 
+     * @param id
+     *            The user ID determined by the PREFERENCES table. This is not
+     *            used as a unique key for this RECORDS table.
+     * @param username
+     *            The username used when the record was achieved.
+     * @param keyboardLayout
+     *            The keyboard layout that was used when the record was
+     *            achieved.
+     * @param time
+     *            The time it took to finish in nanoseconds.
+     * @param miss
+     *            The number of incorrect keystrokes.
+     */
+    public void addNewRecord(long id, String username, String keyboardLayout,
+            long time, int miss) {
+        LinkedHashMap<String, String> columnNamesAndValues = new LinkedHashMap<String, String>();
+        columnNamesAndValues.put("USER_ID", Long.toString(id));
+        columnNamesAndValues.put("USERNAME", String.format("'%s'", username));
+        columnNamesAndValues.put("KEYBOARD_LAYOUT",
+                String.format("'%s'", keyboardLayout));
+        columnNamesAndValues.put("TIME", Long.toString(time));
+        columnNamesAndValues.put("MISS_TYPES", Integer.toString(miss));
+        super.insert(columnNamesAndValues);
+    }
 }
