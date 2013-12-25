@@ -25,7 +25,7 @@ public class Preferences extends Database {
     private static LinkedHashMap<String, String> columnNamesAndTypes = new LinkedHashMap<String, String>() {
         {
             put("ID",
-                    "INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)");
+                    "BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)");
             put("USERNAME", "VARCHAR(100) NOT NULL");
             put("KEYBOARD_LAYOUT", "VARCHAR(100)");
             put("TO_BE_TYPED", "INT");

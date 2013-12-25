@@ -11,10 +11,10 @@ public class Records extends Database {
         {
             put("RECORD_ID",
                     "INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)");
-            put("USER_ID", "INT NOT NULL");
+            put("USER_ID", "BIGINT NOT NULL");
             put("USERNAME", "VARCHAR(100) NOT NULL");
             put("KEYBOARD_LAYOUT", "VARCHAR(100)");
-            put("TIME", "INT");
+            put("TIME", "BIGINT");
             put("MISS_TYPES", "INT");
             put("DATE", "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
         }
