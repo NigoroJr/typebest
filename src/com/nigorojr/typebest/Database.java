@@ -55,17 +55,7 @@ public abstract class Database {
     public Database(String tableName,
             LinkedHashMap<String, String> columnNamesAndTypes)
             throws SQLException {
-        this();
-
-        this.tableName = tableName.toUpperCase();
-
-        connection = DriverManager.getConnection(String.format(
-                "%s%s;create=%s", protocol, databaseDirName,
-                Boolean.toString(create)));
-        statement = connection.createStatement();
-        if (!isTableExist()) {
-            createTable(columnNamesAndTypes);
-        }
+        this(tableName, columnNamesAndTypes, "");
     }
 
     /**
@@ -87,10 +77,22 @@ public abstract class Database {
     public Database(String tableName,
             LinkedHashMap<String, String> columnNamesAndTypes, String primaryKey)
             throws SQLException {
-        this(tableName, columnNamesAndTypes);
-        statement.execute(String.format(
-                "ALTER TABLE %s ADD CONSTRAINT %s_PRIMARY_KEY PRIMARY KEY(%s)",
-                tableName, tableName, primaryKey));
+
+        this.tableName = tableName.toUpperCase();
+
+        connection = DriverManager.getConnection(String.format(
+                "%s%s;create=%s", protocol, databaseDirName,
+                Boolean.toString(create)));
+        statement = connection.createStatement();
+        if (!isTableExist()) {
+            createTable(columnNamesAndTypes);
+            if (!primaryKey.equals("")) {
+                String command = String
+                        .format("ALTER TABLE %s ADD CONSTRAINT %s_PRIMARY_KEY PRIMARY KEY(%s)",
+                                tableName, tableName, primaryKey);
+                statement.execute(command);
+            }
+        }
     }
 
     /**
