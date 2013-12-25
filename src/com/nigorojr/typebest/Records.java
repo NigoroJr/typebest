@@ -16,12 +16,11 @@ public class Records extends Database {
             put("KEYBOARD_LAYOUT", "VARCHAR(100)");
             put("TIME", "INT");
             put("MISS_TYPES", "INT");
-            put("DATE", "TIMESTAMP");
-            put("CONSTRAINT primary_key", "PRIMARY KEY (id)");
+            put("DATE", "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
         }
     };
 
     public Records() throws SQLException {
-        super(tableName, columnNamesAndTypes);
+        super(tableName, columnNamesAndTypes, "RECORD_ID");
     }
 }

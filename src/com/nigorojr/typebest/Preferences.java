@@ -37,7 +37,6 @@ public class Preferences extends Database {
             put("FONT_SIZE", "SMALLINT");
             put("SPEED_FRACTION_DIGIT", "SMALLINT");
             put("TIME_FRACTION_DIGIT", "SMALLINT");
-            put("CONSTRAINT primary_key", "PRIMARY KEY (id)");
         }
     };
 
@@ -58,7 +57,7 @@ public class Preferences extends Database {
      *             file.
      */
     public Preferences(long id) throws SQLException {
-        super(tableName, columnNamesAndTypes);
+        super(tableName, columnNamesAndTypes, "ID");
         if (!isIDExist(id)) {
             addPreferencesForUser(defaultUsername);
         }
@@ -81,7 +80,7 @@ public class Preferences extends Database {
      *             file. Note that it has nothing to do with the table name.
      */
     public Preferences(String username) throws SQLException {
-        super(tableName, columnNamesAndTypes);
+        super(tableName, columnNamesAndTypes, "ID");
         addPreferencesForUser(username);
     }
 

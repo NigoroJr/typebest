@@ -71,6 +71,31 @@ public abstract class Database {
     }
 
     /**
+     * 
+     * Connects to the database. Creates a new database if none exists
+     * and <code>create</code> is true. This constructor creates the table with
+     * the given table name if that table does not exist in the database.
+     * 
+     * @param tableName
+     *            The name of the table that will be operated using this
+     *            instance. The tableName will be upper-cased.
+     * @param columnNamesAndTypes
+     *            Set of names and data types of the columns in the table.
+     * @param primaryKey
+     *            The name of the column that will be used as the primary key.
+     * @throws SQLException
+     *             When the constructor failed to create a new database.
+     */
+    public Database(String tableName,
+            LinkedHashMap<String, String> columnNamesAndTypes, String primaryKey)
+            throws SQLException {
+        this(tableName, columnNamesAndTypes);
+        statement.execute(String.format(
+                "ALTER TABLE %s ADD CONSTRAINT %s_PRIMARY_KEY PRIMARY KEY(%s)",
+                tableName, tableName, primaryKey));
+    }
+
+    /**
      * Used to check whether the table exists in the database file.
      * 
      * @return True if a table exists, false otherwise.
