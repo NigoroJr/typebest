@@ -1,6 +1,8 @@
 package com.nigorojr.typebest;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class Records extends Database {
@@ -50,5 +52,33 @@ public class Records extends Database {
         columnNamesAndValues.put("TIME", Long.toString(time));
         columnNamesAndValues.put("MISS_TYPES", Integer.toString(miss));
         super.insert(columnNamesAndValues);
+    }
+
+    /**
+     * Retrieves all the records that are in the table.
+     * 
+     * @return All the records in the table. Each record is stored using Record
+     *         class.
+     */
+    public Record[] getAllRecords() {
+        ArrayList<Record> records = new ArrayList<Record>();
+        ResultSet queryResult = super.select(new String[] { "*" });
+        try {
+            while (queryResult.next()) {
+                Record r = new Record();
+                r.user_id = queryResult.getLong("USER_ID");
+                r.username = queryResult.getString("USERNAME");
+                r.keyboardLayout = queryResult.getString("KEYBOARD_LAYOUT");
+                r.time = queryResult.getLong("TIME");
+                r.miss = queryResult.getInt("MISS_TYPES");
+
+                records.add(r);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Record[] ret = new Record[records.size()];
+        return records.toArray(ret);
     }
 }
