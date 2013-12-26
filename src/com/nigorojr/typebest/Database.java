@@ -190,7 +190,9 @@ public abstract class Database {
      *            A list of column names that will be selected.
      * @param condition
      *            The condition of the query. This parameter can be empty if
-     *            there is no condition.
+     *            there is no condition. The String should start with the
+     *            statement, in other words, it should be something like
+     *            "WHERE foo LIKE '%.txt'" or "ORDER BY date DESC"
      * @return The result of the query as a ResultSet object.
      */
     public ResultSet select(String[] selectColumns, String condition) {
@@ -207,7 +209,7 @@ public abstract class Database {
         String query = String.format("SELECT %s FROM %s", columns, tableName);
         // Append condition if it's not empty
         if (!condition.equals(""))
-            query += String.format(" WHERE %s", condition);
+            query += String.format(" %s", condition);
 
         try {
             result = statement.executeQuery(query);
