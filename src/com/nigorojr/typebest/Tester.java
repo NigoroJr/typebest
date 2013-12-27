@@ -15,6 +15,15 @@ public class Tester {
             System.out.println(rec.getAllRecords()[1].username);
             System.out.println(rec.getAllRecords()[0].username);
 
+            LinkedHashMap<String, String> val = new LinkedHashMap<String, String>();
+            val.put("USERNAME", "'the username was successfully changed'");
+            rec.update(val, "WHERE USER_ID = 4");
+
+            System.out.println(rec.getAllRecords()[1].user_id
+                    + rec.getAllRecords()[1].username);
+            System.out.println(rec.getAllRecords()[0].user_id
+                    + rec.getAllRecords()[0].username);
+
             // Test for Preferences class
             Preferences p = new Preferences("test_user");
             p.readPreferencesForID(1);

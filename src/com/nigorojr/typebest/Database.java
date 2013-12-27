@@ -231,7 +231,37 @@ public abstract class Database {
         return select(selectColumns, "");
     }
 
-    public void update(LinkedHashMap<String, String> pair) {
+    /**
+     * Executes the UPDATE command for the table.
+     * 
+     * @param columnNamesAndValues
+     *            The name of the column and the value to be updated to.
+     * @param condition
+     *            The condition for which column should be updated. The String
+     *            will typically start with "WHERE ..." for the sake of
+     *            consistency with the select method. For example, if you want
+     *            to update a certain ID, this variable will be something like:
+     *            "WHERE id = 12345"
+     */
+    public void update(LinkedHashMap<String, String> columnNamesAndValues,
+            String condition) {
+        String columns = "";
+        Iterator<String> keys = columnNamesAndValues.keySet().iterator();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            columns += String.format("%s = %s", key,
+                    columnNamesAndValues.get(key));
+            if (keys.hasNext())
+                columns += ", ";
+        }
+
+        try {
+            statement.execute(String.format("UPDATE %s SET %s %s",
+                    tableName, columns, condition));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(String condition) {
