@@ -61,16 +61,28 @@ public class Records extends Database {
      *         class.
      */
     public Record[] getAllRecords() {
-        ArrayList<Record> records = new ArrayList<Record>();
         ResultSet queryResult = super.select(new String[] { "*" });
+        return resultSetToRecordArray(queryResult);
+    }
+
+    /**
+     * Converts the given ResultSet object to an array of Record, which is a
+     * collection of information such as the time, miss-types, username etc.
+     * 
+     * @param resultSet
+     *            A ResultSet object containing the result of a query.
+     * @return An array of Record converted from the ResultSet.
+     */
+    private Record[] resultSetToRecordArray(ResultSet resultSet) {
+        ArrayList<Record> records = new ArrayList<Record>();
         try {
-            while (queryResult.next()) {
+            while (resultSet.next()) {
                 Record r = new Record();
-                r.user_id = queryResult.getLong("USER_ID");
-                r.username = queryResult.getString("USERNAME");
-                r.keyboardLayout = queryResult.getString("KEYBOARD_LAYOUT");
-                r.time = queryResult.getLong("TIME");
-                r.miss = queryResult.getInt("MISS_TYPES");
+                r.user_id = resultSet.getLong("USER_ID");
+                r.username = resultSet.getString("USERNAME");
+                r.keyboardLayout = resultSet.getString("KEYBOARD_LAYOUT");
+                r.time = resultSet.getLong("TIME");
+                r.miss = resultSet.getInt("MISS_TYPES");
 
                 records.add(r);
             }
