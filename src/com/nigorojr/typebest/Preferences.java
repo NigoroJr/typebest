@@ -182,7 +182,7 @@ public class Preferences extends Database {
     public void readPreferencesForID(long id) {
         String[] selectColumns = { "*" };
         ResultSet result = super.select(selectColumns,
-                String.format("ID = %d", id));
+                String.format("WHERE ID = %d", id));
         try {
             if (result.next()) {
                 this.id = result.getLong("ID");
