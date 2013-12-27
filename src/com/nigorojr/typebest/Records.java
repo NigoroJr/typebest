@@ -67,6 +67,19 @@ public class Records extends Database {
         return resultSetToRecordArray(queryResult);
     }
 
+    /**
+     * Retrieves the top n records in the table. The records are sorted from the
+     * shortest time and if more than one record has the same time, the number
+     * of miss-types is compared.
+     * 
+     * @param n
+     *            The number of records that will be retrieved. For example, if
+     *            n is 5, the top five records will be returned.
+     * @return An array with length n containing the results of the query.
+     */
+    public Record[] getTopRecords(int n) {
+        ResultSet queryResult = super.select("*",
+                String.format("ORDER BY TIME, MISS_TYPES LIMIT %d", n));
         return resultSetToRecordArray(queryResult);
     }
 
