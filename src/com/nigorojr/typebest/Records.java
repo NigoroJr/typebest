@@ -55,13 +55,18 @@ public class Records extends Database {
     }
 
     /**
-     * Retrieves all the records that are in the table.
+     * Retrieves all the records that are in the table. The records are sorted
+     * from the best record in terms of time. If there is more than one record
+     * with the same time, the number of miss-types are compared next.
      * 
      * @return All the records in the table. Each record is stored using Record
      *         class.
      */
     public Record[] getAllRecords() {
-        ResultSet queryResult = super.select(new String[] { "*" });
+        ResultSet queryResult = super.select("*", "ORDER BY TIME, MISS_TYPES");
+        return resultSetToRecordArray(queryResult);
+    }
+
         return resultSetToRecordArray(queryResult);
     }
 
