@@ -232,6 +232,38 @@ public abstract class Database {
     }
 
     /**
+     * Allow column format in String instead of array of String. This can be
+     * used to select all columns by making <code>selectColumns</code> "*" or by
+     * manually separating the column names with commas e.g. "foo,bar,baz"
+     * 
+     * @param selectColumns
+     *            A list of column names that will be selected. This can be "*"
+     *            to select all the columns in the table.
+     * @param condition
+     *            The condition starting from a keyword. For example, to select
+     *            all rows where the USERNAME is "foo", this variable should be
+     *            "WHERE USERNAME = 'foo'".
+     * @return A ResultSet object containing the result of the query.
+     */
+    public ResultSet select(String selectColumns, String condition) {
+        return select(new String[] { selectColumns }, condition);
+    }
+
+    /**
+     * Allow column format in String instead of array of String. This can be
+     * used to select all columns by making <code>selectColumns</code> "*" or by
+     * manually separating the column names with commas e.g. "foo,bar,baz"
+     * 
+     * @param selectColumns
+     *            A list of column names that will be selected. This can be "*"
+     *            to select all the columns in the table.
+     * @return A ResultSet object containing the result of the query.
+     */
+    public ResultSet select(String selectColumns) {
+        return select(new String[] { selectColumns });
+    }
+
+    /**
      * Executes the UPDATE command for the table.
      * 
      * @param columnNamesAndValues
