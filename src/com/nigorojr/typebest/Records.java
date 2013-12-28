@@ -55,6 +55,18 @@ public class Records extends Database {
     }
 
     /**
+     * Adds a new record to the table for the given Record.
+     * 
+     * @param record
+     *            A Record instance containing the necessary information such as
+     *            the username, time, number of misses etc.
+     */
+    public void addNewRecord(Record record) {
+        addNewRecord(record.user_id, record.username, record.keyboardLayout,
+                record.time, record.miss);
+    }
+
+    /**
      * Retrieves all the records that are in the table. The records are sorted
      * from the best record in terms of time. If there is more than one record
      * with the same time, the number of miss-types are compared next.
