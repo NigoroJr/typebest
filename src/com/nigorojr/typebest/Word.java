@@ -1,5 +1,6 @@
 package com.nigorojr.typebest;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -30,5 +31,27 @@ public class Word {
             Letter letter = new Letter(rawWord.charAt(i));
             word.add(letter);
         }
+    }
+
+    /**
+     * Changes the color of the letters in the word.
+     * 
+     * @param color
+     *            The color of the letters.
+     */
+    public void setForeground(Color color) {
+        for (int i = 0; i < word.size(); i++)
+            word.get(i).setForeground(color);
+    }
+
+    /**
+     * Changes the background color of the word to the given color.
+     * 
+     * @param color
+     *            The background color of the word.
+     */
+    public void setBackground(Color color) {
+        for (int i = 0; i < word.size(); i++)
+            word.get(i).setBackground(color);
     }
 }
