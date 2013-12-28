@@ -1,27 +1,34 @@
 package com.nigorojr.typebest;
 
+import java.util.ArrayList;
+
 import javax.swing.JLabel;
 
-public class Word extends JLabel {
-	private JLabel wordLabel = new JLabel();
-	private String rawWord;
-	
-	/**
-	 * Accepts a String which is what will be shown in this JLabel.
-	 * The constructor will then split the word into letters and put them into
-	 * individual JLabels.
-	 * @param word
-	 */
-	public Word(String word) {
-		rawWord = word;
-		
-		split();
-	}
-	
-	private void split() {
-		for (int i = 0; i < rawWord.length(); i++) {
-			JLabel letter = new JLabel(Character.toString(rawWord.charAt(i)));
-			wordLabel.add(letter);
-		}
-	}
+public class Word {
+    private ArrayList<Letter> word = new ArrayList<Letter>();
+    private String rawWord;
+
+    /**
+     * Accepts a String which is what will be shown in this JLabel.
+     * The constructor will then split the word into letters and create a Letter
+     * object for each letter.
+     * 
+     * @param word
+     *            The word that will be shown as a collection of "Letter" class.
+     */
+    public Word(String word) {
+        rawWord = word;
+
+        split();
+    }
+
+    /**
+     * Splits up the word into letters and add them to an ArrayList.
+     */
+    private void split() {
+        for (int i = 0; i < rawWord.length(); i++) {
+            Letter letter = new Letter(rawWord.charAt(i));
+            word.add(letter);
+        }
+    }
 }
