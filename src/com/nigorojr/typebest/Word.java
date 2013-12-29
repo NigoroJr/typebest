@@ -1,18 +1,18 @@
 package com.nigorojr.typebest;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class Word {
+public class Word extends JPanel {
     private ArrayList<Letter> word = new ArrayList<Letter>();
     private String rawWord;
 
     /**
-     * Accepts a String which is what will be shown in this JLabel.
+     * Accepts a String which is what will be shown in this JPanel.
      * The constructor will then split the word into letters and create a Letter
-     * object for each letter.
+     * object for each letter. After that, Letter objects are added to the
+     * this JPanel.
      * 
      * @param word
      *            The word that will be shown as a collection of "Letter" class.
@@ -21,6 +21,8 @@ public class Word {
         rawWord = word;
 
         split();
+        for (int i = 0; i < this.word.size(); i++)
+            this.add(this.word.get(i));
     }
 
     /**
@@ -31,18 +33,5 @@ public class Word {
             Letter letter = new Letter(rawWord.charAt(i));
             word.add(letter);
         }
-    }
-
-    /**
-     * Returns the width of the word by adding the width of all the letters
-     * consisting the word.
-     * 
-     * @return The width of the word.
-     */
-    public int getWidth() {
-        int width = 0;
-        for (int i = 0; i < word.size(); i++)
-            width += word.get(i).getWidth();
-        return width;
     }
 }
