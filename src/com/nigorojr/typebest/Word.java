@@ -54,4 +54,17 @@ public class Word {
         for (int i = 0; i < word.size(); i++)
             word.get(i).setBackground(color);
     }
+
+    /**
+     * Returns the width of the word by adding the width of all the letters
+     * consisting the word.
+     * 
+     * @return The width of the word.
+     */
+    public int getWidth() {
+        int width = 0;
+        for (int i = 0; i < word.size(); i++)
+            width += word.get(i).getWidth();
+        return width;
+    }
 }
