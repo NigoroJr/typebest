@@ -21,7 +21,7 @@ public class Word extends JPanel {
         rawWord = word;
         letterCount = 0;
 
-        split();
+        split(word);
         for (int i = 0; i < letters.size(); i++)
             this.add(letters.get(i));
     }
@@ -29,7 +29,7 @@ public class Word extends JPanel {
     /**
      * Splits up the word into letters and add them to an ArrayList.
      */
-    private void split() {
+    private void split(String word) {
         for (int i = 0; i < rawWord.length(); i++) {
             Letter letter = new Letter(rawWord.charAt(i));
             letters.add(letter);
