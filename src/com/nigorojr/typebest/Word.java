@@ -64,6 +64,13 @@ public class Word extends JPanel {
     }
 
     /**
+     * Moves the index to the next letter.
+     */
+    public void nextLetter() {
+        letterCount++;
+    }
+
+    /**
      * Returns the current letter that is waiting to be typed.
      * 
      * @return A Letter object of the current letter.
