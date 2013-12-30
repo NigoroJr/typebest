@@ -26,4 +26,20 @@ public class Line extends JPanel {
 
         return width;
     }
+
+    /**
+     * Adds a word to the line. This method also adds a space character to the
+     * line in order to separate the words with spaces.
+     * 
+     * @param word
+     */
+    public void addWord(String word) {
+        Word wordPanel = new Word(word);
+        line.add(wordPanel);
+
+        // Don't add a space character if it's the first word in the line
+        if (!line.isEmpty())
+            this.add(space);
+        this.add(wordPanel);
+    }
 }
