@@ -17,6 +17,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * This class adds the necessary components and creates the window. All the
@@ -205,6 +207,21 @@ public class MainWindow extends JFrame {
 	}
 
 	public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
 		MainWindow mw = new MainWindow();
 		mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mw.setLocationRelativeTo(null);
