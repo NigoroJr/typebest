@@ -71,4 +71,13 @@ public class Word extends JPanel {
     public Letter getCurrentLetter() {
         return letters.get(letterCount);
     }
+
+    /**
+     * Returns the current index of the letter.
+     * 
+     * @return The current index of the letter.
+     */
+    public int getLetterCount() {
+        return letterCount;
+    }
 }
