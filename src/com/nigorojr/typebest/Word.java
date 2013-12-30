@@ -62,4 +62,13 @@ public class Word extends JPanel {
     public void setLetterColor(Color color) {
         letters.get(letterCount).setForeground(color);
     }
+
+    /**
+     * Returns the current letter that is waiting to be typed.
+     * 
+     * @return A Letter object of the current letter.
+     */
+    public Letter getCurrentLetter() {
+        return letters.get(letterCount);
+    }
 }
