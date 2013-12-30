@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class Word extends JPanel {
-    private ArrayList<Letter> word = new ArrayList<Letter>();
+    private ArrayList<Letter> letters = new ArrayList<Letter>();
     private String rawWord;
 
     /**
@@ -19,10 +19,11 @@ public class Word extends JPanel {
      */
     public Word(String word) {
         rawWord = word;
+        letterCount = 0;
 
         split();
-        for (int i = 0; i < this.word.size(); i++)
-            this.add(this.word.get(i));
+        for (int i = 0; i < letters.size(); i++)
+            this.add(letters.get(i));
     }
 
     /**
@@ -31,7 +32,7 @@ public class Word extends JPanel {
     private void split() {
         for (int i = 0; i < rawWord.length(); i++) {
             Letter letter = new Letter(rawWord.charAt(i));
-            word.add(letter);
+            letters.add(letter);
         }
     }
 }
