@@ -1,5 +1,6 @@
 package com.nigorojr.typebest;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -47,5 +48,18 @@ public class Word extends JPanel {
      */
     public boolean isCorrectLetter(char letter) {
         return letters.get(letterCount).getRawLetter() == letter;
+    }
+
+    /**
+     * Changes the foreground color of the letter at the current index. Although
+     * it is preferred to use this method, another way to change the color of
+     * the current letter is to use the <code>getCurrentLetter</code> method and
+     * set the color.
+     * 
+     * @param color
+     *            The color of the letter to be changed to.
+     */
+    public void setLetterColor(Color color) {
+        letters.get(letterCount).setForeground(color);
     }
 }
