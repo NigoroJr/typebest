@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 public class Word extends JPanel {
     private ArrayList<Letter> letters = new ArrayList<Letter>();
     private String rawWord;
+    private int letterCount;
 
     /**
      * Accepts a String which is what will be shown in this JPanel.
@@ -34,5 +35,17 @@ public class Word extends JPanel {
             Letter letter = new Letter(rawWord.charAt(i));
             letters.add(letter);
         }
+    }
+
+    /**
+     * Checks whether the given letter is the correct letter to be typed.
+     * 
+     * @param letter
+     *            A one-letter character to be checked if it's the correct
+     *            letter.
+     * @return True if the given letter is correct, false if not.
+     */
+    public boolean isCorrectLetter(char letter) {
+        return letters.get(letterCount).getRawLetter() == letter;
     }
 }
