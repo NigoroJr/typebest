@@ -1,12 +1,14 @@
 package com.nigorojr.typebest;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Line extends JPanel {
+public class Line extends JPanel implements Iterator<Word> {
     private ArrayList<Word> words = new ArrayList<Word>();
+    private Iterator<Word> wordsIterator = words.iterator();
     private final JLabel space = new JLabel(" ");
 
     /**
@@ -42,5 +44,30 @@ public class Line extends JPanel {
         if (!words.isEmpty())
             this.add(space);
         this.add(wordPanel);
+    }
+
+    /**
+     * Returns the next word. This method can be used to avoid confusion when
+     * using the <code>next</code> method in the Word class.
+     * 
+     * @return The next word as a Word object.
+     */
+    public Word nextWord() {
+        return next();
+    }
+
+    @Override
+    public boolean hasNext() {
+        return wordsIterator.hasNext();
+    }
+
+    @Override
+    public Word next() {
+        return wordsIterator.next();
+    }
+
+    @Override
+    public void remove() {
+        wordsIterator.remove();
     }
 }

@@ -2,13 +2,14 @@ package com.nigorojr.typebest;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
-public class Word extends JPanel {
+public class Word extends JPanel implements Iterator<Letter> {
     private ArrayList<Letter> letters = new ArrayList<Letter>();
+    private Iterator<Letter> lettersIterator = letters.iterator();
     private String rawWord;
-    private int letterCount;
 
     /**
      * Accepts a String which is what will be shown in this JPanel.
@@ -21,7 +22,6 @@ public class Word extends JPanel {
      */
     public Word(String word) {
         rawWord = word;
-        letterCount = 0;
 
         split(word);
         for (int i = 0; i < letters.size(); i++)
@@ -39,52 +39,27 @@ public class Word extends JPanel {
     }
 
     /**
-     * Checks whether the given letter is the correct letter to be typed.
+     * Returns the next letter. This method can be used to avoid confusion when
+     * using the <code>next</code> method in the Line class.
      * 
-     * @param letter
-     *            A one-letter character to be checked if it's the correct
-     *            letter.
-     * @return True if the given letter is correct, false if not.
+     * @return The next letter as a Letter object.
      */
-    public boolean isCorrectLetter(char letter) {
-        return letters.get(letterCount).getRawLetter() == letter;
+    public Letter nextLetter() {
+        return next();
     }
 
-    /**
-     * Changes the foreground color of the letter at the current index. Although
-     * it is preferred to use this method, another way to change the color of
-     * the current letter is to use the <code>getCurrentLetter</code> method and
-     * set the color.
-     * 
-     * @param color
-     *            The color of the letter to be changed to.
-     */
-    public void setLetterColor(Color color) {
-        letters.get(letterCount).setForeground(color);
+    @Override
+    public boolean hasNext() {
+        return lettersIterator.hasNext();
     }
 
-    /**
-     * Moves the index to the next letter.
-     */
-    public void nextLetter() {
-        letterCount++;
+    @Override
+    public Letter next() {
+        return lettersIterator.next();
     }
 
-    /**
-     * Returns the current letter that is waiting to be typed.
-     * 
-     * @return A Letter object of the current letter.
-     */
-    public Letter getCurrentLetter() {
-        return letters.get(letterCount);
-    }
-
-    /**
-     * Returns the current index of the letter.
-     * 
-     * @return The current index of the letter.
-     */
-    public int getLetterCount() {
-        return letterCount;
+    @Override
+    public void remove() {
+        lettersIterator.remove();
     }
 }
