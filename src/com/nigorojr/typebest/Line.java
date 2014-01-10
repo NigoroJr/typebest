@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Line extends JPanel {
-    private ArrayList<Word> line = new ArrayList<Word>();
+    private ArrayList<Word> words = new ArrayList<Word>();
     private final JLabel space = new JLabel(" ");
 
     /**
@@ -16,13 +16,13 @@ public class Line extends JPanel {
      * @return The total width of the words in the line, including the spaces
      *         between the words.
      */
-    public int getWordsWidth() {
+    public int getLineWidth() {
         int width = 0;
-        for (int i = 0; i < line.size(); i++)
-            width += line.get(i).getWidth();
+        for (int i = 0; i < words.size(); i++)
+            width += words.get(i).getWidth();
 
         // Add total length of the spaces between words
-        width += space.getWidth() * (line.size() - 1);
+        width += space.getWidth() * (words.size() - 1);
 
         return width;
     }
@@ -32,13 +32,14 @@ public class Line extends JPanel {
      * line in order to separate the words with spaces.
      * 
      * @param word
+     *            The one word to be added.
      */
     public void addWord(String word) {
         Word wordPanel = new Word(word);
-        line.add(wordPanel);
+        words.add(wordPanel);
 
         // Don't add a space character if it's the first word in the line
-        if (!line.isEmpty())
+        if (!words.isEmpty())
             this.add(space);
         this.add(wordPanel);
     }
