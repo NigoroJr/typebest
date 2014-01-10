@@ -1,1500 +1,1500 @@
-a               :
-able            :
-about           :
-above           :
-absent          :
-accept          :
-according       :
-account         :
-acre            :
-across          :
-act             :
-action          :
-add             :
-address         :
-admit           :
-advance         :
-advice          :
-affair          :
-afraid          :
-Africa          :
-after           :
-afternoon       :
-again           :
-against         :
-age             :
-ago             :
-agree           :
-ahead           :
-air             :
-airplane        :
-airport         :
-album           :
-alive           :
-all             :
-allow           :
-almost          :
-alone           :
-along           :
-alphabet        :
-already         :
-also            :
-although        :
-always          :
-am              :
-America         :
-American        :
-among           :
-amount          :
-an              :
-and             :
-angle           :
-angry           :
-animal          :
-announce        :
-another         :
-answer          :
-ant             :
-anxious         :
-any             :
-anybody         :
-anyone          :
-anything        :
-anywhere        :
-apart           :
-appear          :
-apple           :
-appoint         :
-April           :
-are             :
-area            :
-aren't          :
-arm             :
-army            :
-around          :
-arrive          :
-art             :
-article         :
-as              :
-Asia            :
-ask             :
-asleep          :
-at              :
-ate             :
-Atlantic        :
-attack          :
-attend          :
-attention       :
-attract         :
-August          :
-aunt            :
-Australia       :
-autumn          :
-average         :
-avoid           :
-awake           :
-away            :
-baby            :
-back            :
-bad             :
-bag             :
-bake            :
-ball            :
-band            :
-bank            :
-bare            :
-base            :
-baseball        :
-basket          :
-bat             :
-bath            :
-battle          :
-be              :
-beach           :
-bear            :
-beat            :
-beautiful       :
-became          :
-because         :
-become          :
-bed             :
-bee             :
-been            :
-before          :
-began           :
-begin           :
-begun           :
-behave          :
-behind          :
-being           :
-believe         :
-bell            :
-belong          :
-below           :
-belt            :
-bench           :
-bend            :
-beside          :
-best            :
-better          :
-between         :
-beyond          :
-bicycle         :
-big             :
-bill            :
-bird            :
-birthday        :
-bit             :
-bite            :
-black           :
-blackboard      :
-blame           :
-blind           :
-block           :
-blood           :
-blow            :
-blue            :
-board           :
-boat            :
-body            :
-boil            :
-bone            :
-book            :
-border          :
-born            :
-borrow          :
-both            :
-bottle          :
-bottom          :
-bought          :
-box             :
-boy             :
-brain           :
-branch          :
-brave           :
-bread           :
-break           :
-breakfast       :
-breath          :
-bridge          :
-bright          :
-bring           :
-British         :
-broad           :
-broke           :
-broken          :
-brother         :
-brought         :
-brown           :
-brush           :
-build           :
-building        :
-built           :
-burn            :
-bus             :
-business        :
-busy            :
-but             :
-butter          :
-buy             :
-by              :
-cake            :
-calendar        :
-call            :
-came            :
-camera          :
-camp            :
-can             :
-Canada          :
-candy           :
-cannot          :
-can't           :
-cap             :
-capital         :
-captain         :
-car             :
-card            :
-care            :
-careful         :
-carry           :
-case            :
-castle          :
-cat             :
-catch           :
-caught          :
-cause           :
-ceiling         :
-center          :
-century         :
-certain         :
-certainly       :
-chain           :
-chair           :
-chalk           :
-chance          :
-change          :
-character       :
-charge          :
-cheap           :
-check           :
-cheek           :
-cheese          :
-chicken         :
-chief           :
-child           :
-children        :
-China           :
-Chinese         :
-choose          :
-Christmas       :
-church          :
-circle          :
-city            :
-claim           :
-class           :
-classmate       :
-classroom       :
-clean           :
-clear           :
-clerk           :
-clever          :
-climb           :
-clock           :
-close           :
-cloth           :
-clothes         :
-cloud           :
-cloudy          :
-club            :
-coal            :
-coast           :
-coat            :
-code            :
-coffee          :
-coin            :
-cold            :
-collect         :
-college         :
-color           :
-comb            :
-come            :
-comfortable     :
-command         :
-common          :
-company         :
-compare         :
-complain        :
-complete        :
-concern         :
-condition       :
-consider        :
-contact         :
-contain         :
-contest         :
-continent       :
-continue        :
-control         :
-conversation    :
-cook            :
-cool            :
-copy            :
-corn            :
-corner          :
-correct         :
-cost            :
-cotton          :
-could           :
-couldn't        :
-count           :
-country         :
-couple          :
-courage         :
-course          :
-court           :
-cousin          :
-cover           :
-cow             :
-crazy           :
-crop            :
-cross           :
-crowd           :
-crown           :
-cry             :
-cup             :
-cure            :
-curtain         :
-custom          :
-cut             :
-daily           :
-damage          :
-dance           :
-danger          :
-dangerous       :
-dark            :
-date            :
-daughter        :
-day             :
-dead            :
-dear            :
-death           :
-December        :
-decide          :
-declare         :
-deep            :
-defend          :
-degree          :
-demand          :
-department      :
-design          :
-desire          :
-desk            :
-destroy         :
-determine       :
-develop         :
-diamond         :
-diary           :
-dictionary      :
-did             :
-didn't          :
-die             :
-difference      :
-different       :
-difficult       :
-difficulty      :
-dining room     :
-dinner          :
-direct          :
-direction       :
-discover        :
-dish            :
-distance        :
-distant         :
-divide          :
-do              :
-doctor          :
-does            :
-doesn't         :
-dog             :
-doll            :
-dollar          :
-done            :
-don't           :
-door            :
-double          :
-doubt           :
-down            :
-Dr.             :
-drank           :
-draw            :
-dream           :
-dress           :
-drew            :
-drink           :
-drive           :
-drop            :
-drove           :
-drunk           :
-dry             :
-during          :
-each            :
-ear             :
-early           :
-earth           :
-east            :
-Easter          :
-easy            :
-eat             :
-eaten           :
-egg             :
-eight           :
-eighteen        :
-eighth          :
-eighty          :
-either          :
-electric        :
-electricity     :
-elevator        :
-eleven          :
-else            :
-empty           :
-end             :
-enemy           :
-engineer        :
-England         :
-English         :
-enjoy           :
-enlarge         :
-enough          :
-enter           :
-envelope        :
-escape          :
-Europe          :
-even            :
-evening         :
-ever            :
-every           :
-everybody       :
-everyone        :
-everything      :
-everywhere      :
-example         :
-except          :
-excuse          :
-exercise        :
-expect          :
-experience      :
-explain         :
-express         :
-eye             :
-face            :
-fact            :
-fail            :
-fair            :
-fall            :
-fallen          :
-family          :
-famous          :
-far             :
-farm            :
-farmer          :
-fast            :
-fat             :
-father          :
-favor           :
-fear            :
-feather         :
-February        :
-feel            :
-feet            :
-fellow          :
-field           :
-fifteen         :
-fifth           :
-fifty           :
-fight           :
-figure          :
-find            :
-fine            :
-finger          :
-finish          :
-fire            :
-first           :
-fish            :
-fit             :
-five            :
-flag            :
-flesh           :
-flew            :
-floor           :
-flow            :
-fly             :
-follow          :
-following       :
-fond            :
-food            :
-fool            :
-foolish         :
-foot            :
-football        :
-for             :
-force           :
-foreign         :
-forest          :
-forever         :
-forget          :
-forgot          :
-forgotten       :
-form            :
-former          :
-forth           :
-forty           :
-forward         :
-found           :
-four            :
-fourteen        :
-fourteenth      :
-fourth          :
-fox             :
-France          :
-free            :
-French          :
-Friday          :
-friend          :
-friendly        :
-friendship      :
-frog            :
-from            :
-front           :
-fruit           :
-fry             :
-full            :
-fun             :
-funny           :
-fur             :
-further         :
-future          :
-gain            :
-game            :
-garden          :
-gas             :
-gate            :
-gather          :
-gave            :
-general         :
-generally       :
-gentle          :
-gentleman       :
-German          :
-Germany         :
-get             :
-girl            :
-give            :
-given           :
-glad            :
-glass           :
-glove           :
-go              :
-god             :
-gold            :
-golden          :
-gone            :
-good            :
-good morning    :
-good night      :
-good-by         :
-got             :
-government      :
-grade           :
-grandfather     :
-grandmother     :
-grant           :
-grass           :
-grave           :
-gray            :
-great           :
-green           :
-ground          :
-group           :
-grow            :
-guard           :
-guess           :
-guest           :
-guide           :
-guitar          :
-habit           :
-had             :
-hair            :
-half            :
-hall            :
-hand            :
-hang            :
-happen          :
-happy           :
-hard            :
-hardly          :
-has             :
-hasn't          :
-hat             :
-have            :
-haven't         :
-he              :
-head            :
-health          :
-hear            :
-heard           :
-heart           :
-heat            :
-heaven          :
-heavy           :
-he'd            :
-height          :
-held            :
-helicopter      :
-he'll           :
-hello           :
-help            :
-hen             :
-her             :
-here            :
-here's          :
-hers            :
-herself         :
-he's            :
-hide            :
-high            :
-hill            :
-him             :
-himself         :
-his             :
-history         :
-hit             :
-hold            :
-hole            :
-holiday         :
-home            :
-homework        :
-honest          :
-honor           :
-hope            :
-horse           :
-hospital        :
-hot             :
-hour            :
-house           :
-how             :
-however         :
-human           :
-hundred         :
-hungry          :
-hurry           :
-hurt            :
-husband         :
-I               :
-ice             :
-I'd             :
-idea            :
-if              :
-ill             :
-I'll            :
-I'm             :
-imagine         :
-important       :
-in              :
-inch            :
-increase        :
-indeed          :
-India           :
-Indian          :
-industry        :
-information     :
-ink             :
-inside          :
-interest        :
-interesting     :
-international   :
-into            :
-introduce       :
-invent          :
-invite          :
-iron            :
-is              :
-island          :
-isn't           :
-it              :
-Italy           :
-it'd            :
-it'll           :
-its             :
-it's            :
-itself          :
-I've            :
-January         :
-Japan           :
-Japanese        :
-job             :
-join            :
-joke            :
-joy             :
-judge           :
-July            :
-jump            :
-June            :
-junior          :
-just            :
-keep            :
-kept            :
-kill            :
-kind            :
-king            :
-kiss            :
-kitchen         :
-knee            :
-knew            :
-knife           :
-knock           :
-know            :
-knowledge       :
-known           :
-labor           :
-lady            :
-laid            :
-lake            :
-lamp            :
-land            :
-language        :
-large           :
-last            :
-late            :
-laugh           :
-law             :
-lay             :
-lead            :
-leader          :
-leaf            :
-learn           :
-learning        :
-learnt          :
-least           :
-leave           :
-leaves          :
-left            :
-leg             :
-lend            :
-length          :
-lent            :
-less            :
-lesson          :
-let             :
-let's           :
-letter          :
-library         :
-lie             :
-life            :
-lift            :
-light           :
-like            :
-lily            :
-line            :
-lion            :
-lip             :
-listen          :
-little          :
-live            :
-living room     :
-London          :
-long            :
-look            :
-lose            :
-loss            :
-lost            :
-lot             :
-loud            :
-love            :
-lovely          :
-low             :
-lucky           :
-lunch           :
-machine         :
-made            :
-magazine        :
-mail            :
-make            :
-man             :
-manner          :
-many            :
-map             :
-march           :
-March.          :
-mark            :
-market          :
-marry           :
-mask            :
-master          :
-material        :
-mathematics     :
-matter          :
-may             :
-May.            :
-maybe           :
-me              :
-meal            :
-mean            :
-measure         :
-meat            :
-meet            :
-meeting         :
-member          :
-memory          :
-men             :
-mention         :
-merchant        :
-merry           :
-message         :
-met             :
-middle          :
-might           :
-mile            :
-milk            :
-million         :
-mind            :
-mine            :
-minute          :
-Miss            :
-mistake         :
-mitt            :
-mix             :
-model           :
-modern          :
-moment          :
-Monday          :
-money           :
-monkey          :
-month           :
-moon            :
-more            :
-morning         :
-most            :
-mother          :
-mountain        :
-mouse           :
-mouth           :
-move            :
-movement        :
-movie           :
-Mr.             :
-Mrs.            :
-Mt.             :
-much            :
-museum          :
-music           :
-must            :
-mustn't         :
-my              :
-myself          :
-name            :
-narrow          :
-nation          :
-national        :
-natural         :
-nature          :
-near            :
-nearly          :
-necessary       :
-neck            :
-need            :
-neither         :
-nest            :
-net             :
-never           :
-new             :
-New York        :
-news            :
-newspaper       :
-next            :
-nice            :
-night           :
-nine            :
-nineteen        :
-nineteenth      :
-ninety          :
-ninth           :
-no              :
-nobody          :
-noise           :
-none            :
-noon            :
-nor             :
-north           :
-nose            :
-not             :
-note            :
-notebook        :
-nothing         :
-notice          :
-November        :
-now             :
-number          :
-nurse           :
-nut             :
-object          :
-obtain          :
-ocean           :
-o'clock         :
-October         :
-of              :
-off             :
-offer           :
-office          :
-officer         :
-often           :
-Oh              :
-oil             :
-old             :
-on              :
-once            :
-one             :
-oneself         :
-only            :
-open            :
-operate         :
-or              :
-orange          :
-order           :
-organ           :
-other           :
-ought           :
-our             :
-ours            :
-ourselves       :
-out             :
-outside         :
-over            :
-own             :
-package         :
-page            :
-paid            :
-pain            :
-paint           :
-pair            :
-palace          :
-paper           :
-parent          :
-Paris           :
-park            :
-part            :
-party           :
-pass            :
-passenger       :
-past            :
-path            :
-pay             :
-payment         :
-peace           :
-pearl           :
-pen             :
-pencil          :
-people          :
-perfect         :
-perhaps         :
-period          :
-perish          :
-person          :
-pet             :
-photograph      :
-piano           :
-pick            :
-picnic          :
-picture         :
-piece           :
-pierce          :
-pig             :
-pilot           :
-pin             :
-place           :
-plain           :
-plant           :
-play            :
-player          :
-pleasant        :
-please          :
-pleasure        :
-plenty          :
-pocket          :
-poem            :
-poet            :
-point           :
-police          :
-policeman       :
-poor            :
-popular         :
-position        :
-possible        :
-post            :
-post office     :
-potato          :
-pound           :
-power           :
-practice        :
-prepare         :
-present         :
-presently       :
-president       :
-press           :
-pretty          :
-price           :
-prince          :
-prize           :
-problem         :
-produce         :
-program         :
-promise         :
-proper          :
-proud           :
-prove           :
-provide         :
-public          :
-pull            :
-pupil           :
-purpose         :
-push            :
-put             :
-quarter         :
-queen           :
-question        :
-quick           :
-quiet           :
-quite           :
-rabbit          :
-race            :
-rack            :
-racket          :
-radio           :
-railroad        :
-railway         :
-rain            :
-rainbow         :
-rainy           :
-raise           :
-ran             :
-rate            :
-rather          :
-reach           :
-read            :
-reading         :
-ready           :
-real            :
-really          :
-reason          :
-receive         :
-record          :
-recreation      :
-red             :
-refuse          :
-regard          :
-remain          :
-remember        :
-remove          :
-reply           :
-report          :
-require         :
-respect         :
-rest            :
-result          :
-return          :
-rice            :
-rich            :
-ride            :
-right           :
-ring            :
-rise            :
-river           :
-road            :
-rock            :
-rocket          :
-roll            :
-Roman           :
-Rome            :
-roof            :
-room            :
-rope            :
-rose            :
-rough           :
-round           :
-rule            :
-run             :
-rush            :
-sad             :
-safe            :
-said            :
-sail            :
-sailor          :
-sale            :
-salt            :
-same            :
-sand            :
-sang            :
-Santa Claus     :
-sat             :
-Saturday        :
-save            :
-saw             :
-say             :
-scene           :
-school          :
-schoolboy       :
-schoolgirl      :
-science         :
-sea             :
-season          :
-seat            :
-second          :
-secret          :
-see             :
-seed            :
-seek            :
-seem            :
-sell            :
-send            :
-sense           :
-sent            :
-sentence        :
-September       :
-servant         :
-serve           :
-service         :
-set             :
-settle          :
-seven           :
-seventeen       :
-seventy         :
-several         :
-shade           :
-shall           :
-shape           :
-share           :
-sharp           :
-she             :
-sheep           :
-she'll          :
-she's           :
-shine           :
-ship            :
-shirt           :
-shock           :
-shoe            :
-shoot           :
-shop            :
-shopping        :
-shore           :
-short           :
-should          :
-shoulder        :
-shout           :
-show            :
-shut            :
-sick            :
-side            :
-sight           :
-sign            :
-silence         :
-silent          :
-silk            :
-silver          :
-simple          :
-since           :
-sing            :
-single          :
-sir             :
-sister          :
-sit             :
-sitting room    :
-six             :
-sixteen         :
-sixth           :
-sixty           :
-size            :
-skate           :
-skating         :
-ski             :
-skiing          :
-skin            :
-sky             :
-sleep           :
-slept           :
-slow            :
-slowly          :
-small           :
-smell           :
-smile           :
-smoke           :
-snow            :
-so              :
-soft            :
-sold            :
-soldier         :
-some            :
-somebody        :
-someone         :
-something       :
-sometimes       :
-somewhere       :
-son             :
-song            :
-soon            :
-sorry           :
-sort            :
-soul            :
-sound           :
-south           :
-space           :
-Spanish         :
-speak           :
-special         :
-speech          :
-speed           :
-spend           :
-spent           :
-spirit          :
-spoke           :
-spoken          :
-sport           :
-spot            :
-spread          :
-square          :
-stage           :
-stamp           :
-stand           :
-star            :
-start           :
-state           :
-station         :
-stay            :
-steal           :
-step            :
-stick           :
-still           :
-stone           :
-stood           :
-stop            :
-store           :
-storm           :
-story           :
-straight        :
-strange         :
-stream          :
-street          :
-strength        :
-strike          :
-strong          :
-student         :
-study           :
-stupid          :
-subject         :
-success         :
-such            :
-sudden          :
-suddenly        :
-suffer          :
-sugar           :
-suggest         :
-suit            :
-summer          :
-sun             :
-Sunday          :
-sung            :
-supper          :
-support         :
-suppose         :
-sure            :
-surely          :
-surprise        :
-sweet           :
-swim            :
-swing           :
-system          :
-table           :
-take            :
-taken           :
-talk            :
-tall            :
-tank            :
-tape            :
-taste           :
-taught          :
-taxi            :
-tea             :
-teach           :
-teacher         :
-team            :
-tear            :
-telephone       :
-television      :
-tell            :
-ten             :
-tennis          :
-tent            :
-tenth           :
-terrible        :
-test            :
-textbook        :
-than            :
-thank           :
-that            :
-that's          :
-the             :
-theater         :
-their           :
-them            :
-then            :
-there           :
-therefore       :
-there's         :
-these           :
-they            :
-they're         :
-thick           :
-thin            :
-thing           :
-think           :
-third           :
-thirteen        :
-thirty          :
-this            :
-those           :
-though          :
-thought         :
-thousand        :
-three           :
-threw           :
-through         :
-throw           :
-thrown          :
-Thursday        :
-thus            :
-ticket          :
-tie             :
-tiger           :
-till            :
-time            :
-tired           :
-to              :
-today           :
-together        :
-told            :
-tomorrow        :
-tonight         :
-too             :
-took            :
-tool            :
-tooth           :
-top             :
-touch           :
-toward          :
-tower           :
-town            :
-toy             :
-trace           :
-trade           :
-traffic         :
-train           :
-travel          :
-treasure        :
-tree            :
-trip            :
-trouble         :
-true            :
-truth           :
-try             :
-Tuesday         :
-tulip           :
-turn            :
-twelfth         :
-twelve          :
-twenty          :
-twinkle         :
-two             :
-type            :
-uncle           :
-under           :
-understand      :
-understood      :
-United States   :
-unless          :
-until           :
-up              :
-upon            :
-us              :
-use             :
-used            :
-useful          :
-usual           :
-usually         :
-vacation        :
-valley          :
-valuable        :
-value           :
-various         :
-vase            :
-vegetable       :
-very            :
-view            :
-village         :
-visit           :
-visitor         :
-voice           :
-wait            :
-wake            :
-walk            :
-wall            :
-want            :
-warm            :
-was             :
-wash            :
-Washington      :
-wasn't          :
-watch           :
-water           :
-wave            :
-way             :
-we              :
-weak            :
-wealth          :
-wear            :
-weather         :
-Wednesday       :
-week            :
-weight          :
-welcome         :
-well            :
-we'll           :
-went            :
-were            :
-we're           :
-weren't         :
-west            :
-we've           :
-what            :
-what's          :
-when            :
-where           :
-where's         :
-whether         :
-which           :
-while           :
-white           :
-who             :
-whole           :
-whom            :
-whose           :
-why             :
-wide            :
-wife            :
-wild            :
-will            :
-win             :
-wind            :
-window          :
-wing            :
-winter          :
-wise            :
-wish            :
-with            :
-within          :
-without         :
-wolf            :
-woman           :
-women           :
-wonder          :
-wonderful       :
-won't           :
-wood            :
-wool            :
-word            :
-work            :
-world           :
-worry           :
-worse           :
-worst           :
-worth           :
-would           :
-wouldn't        :
-write           :
-writing         :
-written         :
-wrong           :
-wrote           :
-year            :
-yellow          :
-yes             :
-yesterday       :
-yet             :
-you             :
-you'd           :
-you'll          :
-young           :
-your            :
-you're          :
-yours           :
-yourself        :
-you've          :
-zoo             :
+a
+able
+about
+above
+absent
+accept
+according
+account
+acre
+across
+act
+action
+add
+address
+admit
+advance
+advice
+affair
+afraid
+Africa
+after
+afternoon
+again
+against
+age
+ago
+agree
+ahead
+air
+airplane
+airport
+album
+alive
+all
+allow
+almost
+alone
+along
+alphabet
+already
+also
+although
+always
+am
+America
+American
+among
+amount
+an
+and
+angle
+angry
+animal
+announce
+another
+answer
+ant
+anxious
+any
+anybody
+anyone
+anything
+anywhere
+apart
+appear
+apple
+appoint
+April
+are
+area
+aren't
+arm
+army
+around
+arrive
+art
+article
+as
+Asia
+ask
+asleep
+at
+ate
+Atlantic
+attack
+attend
+attention
+attract
+August
+aunt
+Australia
+autumn
+average
+avoid
+awake
+away
+baby
+back
+bad
+bag
+bake
+ball
+band
+bank
+bare
+base
+baseball
+basket
+bat
+bath
+battle
+be
+beach
+bear
+beat
+beautiful
+became
+because
+become
+bed
+bee
+been
+before
+began
+begin
+begun
+behave
+behind
+being
+believe
+bell
+belong
+below
+belt
+bench
+bend
+beside
+best
+better
+between
+beyond
+bicycle
+big
+bill
+bird
+birthday
+bit
+bite
+black
+blackboard
+blame
+blind
+block
+blood
+blow
+blue
+board
+boat
+body
+boil
+bone
+book
+border
+born
+borrow
+both
+bottle
+bottom
+bought
+box
+boy
+brain
+branch
+brave
+bread
+break
+breakfast
+breath
+bridge
+bright
+bring
+British
+broad
+broke
+broken
+brother
+brought
+brown
+brush
+build
+building
+built
+burn
+bus
+business
+busy
+but
+butter
+buy
+by
+cake
+calendar
+call
+came
+camera
+camp
+can
+Canada
+candy
+cannot
+can't
+cap
+capital
+captain
+car
+card
+care
+careful
+carry
+case
+castle
+cat
+catch
+caught
+cause
+ceiling
+center
+century
+certain
+certainly
+chain
+chair
+chalk
+chance
+change
+character
+charge
+cheap
+check
+cheek
+cheese
+chicken
+chief
+child
+children
+China
+Chinese
+choose
+Christmas
+church
+circle
+city
+claim
+class
+classmate
+classroom
+clean
+clear
+clerk
+clever
+climb
+clock
+close
+cloth
+clothes
+cloud
+cloudy
+club
+coal
+coast
+coat
+code
+coffee
+coin
+cold
+collect
+college
+color
+comb
+come
+comfortable
+command
+common
+company
+compare
+complain
+complete
+concern
+condition
+consider
+contact
+contain
+contest
+continent
+continue
+control
+conversation
+cook
+cool
+copy
+corn
+corner
+correct
+cost
+cotton
+could
+couldn't
+count
+country
+couple
+courage
+course
+court
+cousin
+cover
+cow
+crazy
+crop
+cross
+crowd
+crown
+cry
+cup
+cure
+curtain
+custom
+cut
+daily
+damage
+dance
+danger
+dangerous
+dark
+date
+daughter
+day
+dead
+dear
+death
+December
+decide
+declare
+deep
+defend
+degree
+demand
+department
+design
+desire
+desk
+destroy
+determine
+develop
+diamond
+diary
+dictionary
+did
+didn't
+die
+difference
+different
+difficult
+difficulty
+dining room
+dinner
+direct
+direction
+discover
+dish
+distance
+distant
+divide
+do
+doctor
+does
+doesn't
+dog
+doll
+dollar
+done
+don't
+door
+double
+doubt
+down
+Dr.
+drank
+draw
+dream
+dress
+drew
+drink
+drive
+drop
+drove
+drunk
+dry
+during
+each
+ear
+early
+earth
+east
+Easter
+easy
+eat
+eaten
+egg
+eight
+eighteen
+eighth
+eighty
+either
+electric
+electricity
+elevator
+eleven
+else
+empty
+end
+enemy
+engineer
+England
+English
+enjoy
+enlarge
+enough
+enter
+envelope
+escape
+Europe
+even
+evening
+ever
+every
+everybody
+everyone
+everything
+everywhere
+example
+except
+excuse
+exercise
+expect
+experience
+explain
+express
+eye
+face
+fact
+fail
+fair
+fall
+fallen
+family
+famous
+far
+farm
+farmer
+fast
+fat
+father
+favor
+fear
+feather
+February
+feel
+feet
+fellow
+field
+fifteen
+fifth
+fifty
+fight
+figure
+find
+fine
+finger
+finish
+fire
+first
+fish
+fit
+five
+flag
+flesh
+flew
+floor
+flow
+fly
+follow
+following
+fond
+food
+fool
+foolish
+foot
+football
+for
+force
+foreign
+forest
+forever
+forget
+forgot
+forgotten
+form
+former
+forth
+forty
+forward
+found
+four
+fourteen
+fourteenth
+fourth
+fox
+France
+free
+French
+Friday
+friend
+friendly
+friendship
+frog
+from
+front
+fruit
+fry
+full
+fun
+funny
+fur
+further
+future
+gain
+game
+garden
+gas
+gate
+gather
+gave
+general
+generally
+gentle
+gentleman
+German
+Germany
+get
+girl
+give
+given
+glad
+glass
+glove
+go
+god
+gold
+golden
+gone
+good
+good morning
+good night
+good-bye
+got
+government
+grade
+grandfather
+grandmother
+grant
+grass
+grave
+gray
+great
+green
+ground
+group
+grow
+guard
+guess
+guest
+guide
+guitar
+habit
+had
+hair
+half
+hall
+hand
+hang
+happen
+happy
+hard
+hardly
+has
+hasn't
+hat
+have
+haven't
+he
+head
+health
+hear
+heard
+heart
+heat
+heaven
+heavy
+he'd
+height
+held
+helicopter
+he'll
+hello
+help
+hen
+her
+here
+here's
+hers
+herself
+he's
+hide
+high
+hill
+him
+himself
+his
+history
+hit
+hold
+hole
+holiday
+home
+homework
+honest
+honor
+hope
+horse
+hospital
+hot
+hour
+house
+how
+however
+human
+hundred
+hungry
+hurry
+hurt
+husband
+I
+ice
+I'd
+idea
+if
+ill
+I'll
+I'm
+imagine
+important
+in
+inch
+increase
+indeed
+India
+Indian
+industry
+information
+ink
+inside
+interest
+interesting
+international
+into
+introduce
+invent
+invite
+iron
+is
+island
+isn't
+it
+Italy
+it'd
+it'll
+its
+it's
+itself
+I've
+January
+Japan
+Japanese
+job
+join
+joke
+joy
+judge
+July
+jump
+June
+junior
+just
+keep
+kept
+kill
+kind
+king
+kiss
+kitchen
+knee
+knew
+knife
+knock
+know
+knowledge
+known
+labor
+lady
+laid
+lake
+lamp
+land
+language
+large
+last
+late
+laugh
+law
+lay
+lead
+leader
+leaf
+learn
+learning
+learnt
+least
+leave
+leaves
+left
+leg
+lend
+length
+lent
+less
+lesson
+let
+let's
+letter
+library
+lie
+life
+lift
+light
+like
+lily
+line
+lion
+lip
+listen
+little
+live
+living room
+London
+long
+look
+lose
+loss
+lost
+lot
+loud
+love
+lovely
+low
+lucky
+lunch
+machine
+made
+magazine
+mail
+make
+man
+manner
+many
+map
+march
+March.
+mark
+market
+marry
+mask
+master
+material
+mathematics
+matter
+may
+May.
+maybe
+me
+meal
+mean
+measure
+meat
+meet
+meeting
+member
+memory
+men
+mention
+merchant
+merry
+message
+met
+middle
+might
+mile
+milk
+million
+mind
+mine
+minute
+Miss
+mistake
+mitt
+mix
+model
+modern
+moment
+Monday
+money
+monkey
+month
+moon
+more
+morning
+most
+mother
+mountain
+mouse
+mouth
+move
+movement
+movie
+Mr.
+Mrs.
+Mt.
+much
+museum
+music
+must
+mustn't
+my
+myself
+name
+narrow
+nation
+national
+natural
+nature
+near
+nearly
+necessary
+neck
+need
+neither
+nest
+net
+never
+new
+New York
+news
+newspaper
+next
+nice
+night
+nine
+nineteen
+nineteenth
+ninety
+ninth
+no
+nobody
+noise
+none
+noon
+nor
+north
+nose
+not
+note
+notebook
+nothing
+notice
+November
+now
+number
+nurse
+nut
+object
+obtain
+ocean
+o'clock
+October
+of
+off
+offer
+office
+officer
+often
+Oh
+oil
+old
+on
+once
+one
+oneself
+only
+open
+operate
+or
+orange
+order
+organ
+other
+ought
+our
+ours
+ourselves
+out
+outside
+over
+own
+package
+page
+paid
+pain
+paint
+pair
+palace
+paper
+parent
+Paris
+park
+part
+party
+pass
+passenger
+past
+path
+pay
+payment
+peace
+pearl
+pen
+pencil
+people
+perfect
+perhaps
+period
+perish
+person
+pet
+photograph
+piano
+pick
+picnic
+picture
+piece
+pierce
+pig
+pilot
+pin
+place
+plain
+plant
+play
+player
+pleasant
+please
+pleasure
+plenty
+pocket
+poem
+poet
+point
+police
+policeman
+poor
+popular
+position
+possible
+post
+post office
+potato
+pound
+power
+practice
+prepare
+present
+presently
+president
+press
+pretty
+price
+prince
+prize
+problem
+produce
+program
+promise
+proper
+proud
+prove
+provide
+public
+pull
+pupil
+purpose
+push
+put
+quarter
+queen
+question
+quick
+quiet
+quite
+rabbit
+race
+rack
+racket
+radio
+railroad
+railway
+rain
+rainbow
+rainy
+raise
+ran
+rate
+rather
+reach
+read
+reading
+ready
+real
+really
+reason
+receive
+record
+recreation
+red
+refuse
+regard
+remain
+remember
+remove
+reply
+report
+require
+respect
+rest
+result
+return
+rice
+rich
+ride
+right
+ring
+rise
+river
+road
+rock
+rocket
+roll
+Roman
+Rome
+roof
+room
+rope
+rose
+rough
+round
+rule
+run
+rush
+sad
+safe
+said
+sail
+sailor
+sale
+salt
+same
+sand
+sang
+Santa Claus
+sat
+Saturday
+save
+saw
+say
+scene
+school
+schoolboy
+schoolgirl
+science
+sea
+season
+seat
+second
+secret
+see
+seed
+seek
+seem
+sell
+send
+sense
+sent
+sentence
+September
+servant
+serve
+service
+set
+settle
+seven
+seventeen
+seventy
+several
+shade
+shall
+shape
+share
+sharp
+she
+sheep
+she'll
+she's
+shine
+ship
+shirt
+shock
+shoe
+shoot
+shop
+shopping
+shore
+short
+should
+shoulder
+shout
+show
+shut
+sick
+side
+sight
+sign
+silence
+silent
+silk
+silver
+simple
+since
+sing
+single
+sir
+sister
+sit
+sitting room
+six
+sixteen
+sixth
+sixty
+size
+skate
+skating
+ski
+skiing
+skin
+sky
+sleep
+slept
+slow
+slowly
+small
+smell
+smile
+smoke
+snow
+so
+soft
+sold
+soldier
+some
+somebody
+someone
+something
+sometimes
+somewhere
+son
+song
+soon
+sorry
+sort
+soul
+sound
+south
+space
+Spanish
+speak
+special
+speech
+speed
+spend
+spent
+spirit
+spoke
+spoken
+sport
+spot
+spread
+square
+stage
+stamp
+stand
+star
+start
+state
+station
+stay
+steal
+step
+stick
+still
+stone
+stood
+stop
+store
+storm
+story
+straight
+strange
+stream
+street
+strength
+strike
+strong
+student
+study
+stupid
+subject
+success
+such
+sudden
+suddenly
+suffer
+sugar
+suggest
+suit
+summer
+sun
+Sunday
+sung
+supper
+support
+suppose
+sure
+surely
+surprise
+sweet
+swim
+swing
+system
+table
+take
+taken
+talk
+tall
+tank
+tape
+taste
+taught
+taxi
+tea
+teach
+teacher
+team
+tear
+telephone
+television
+tell
+ten
+tennis
+tent
+tenth
+terrible
+test
+textbook
+than
+thank
+that
+that's
+the
+theater
+their
+them
+then
+there
+therefore
+there's
+these
+they
+they're
+thick
+thin
+thing
+think
+third
+thirteen
+thirty
+this
+those
+though
+thought
+thousand
+three
+threw
+through
+throw
+thrown
+Thursday
+thus
+ticket
+tie
+tiger
+till
+time
+tired
+to
+today
+together
+told
+tomorrow
+tonight
+too
+took
+tool
+tooth
+top
+touch
+toward
+tower
+town
+toy
+trace
+trade
+traffic
+train
+travel
+treasure
+tree
+trip
+trouble
+true
+truth
+try
+Tuesday
+tulip
+turn
+twelfth
+twelve
+twenty
+twinkle
+two
+type
+uncle
+under
+understand
+understood
+United States
+unless
+until
+up
+upon
+us
+use
+used
+useful
+usual
+usually
+vacation
+valley
+valuable
+value
+various
+vase
+vegetable
+very
+view
+village
+visit
+visitor
+voice
+wait
+wake
+walk
+wall
+want
+warm
+was
+wash
+Washington
+wasn't
+watch
+water
+wave
+way
+we
+weak
+wealth
+wear
+weather
+Wednesday
+week
+weight
+welcome
+well
+we'll
+went
+were
+we're
+weren't
+west
+we've
+what
+what's
+when
+where
+where's
+whether
+which
+while
+white
+who
+whole
+whom
+whose
+why
+wide
+wife
+wild
+will
+win
+wind
+window
+wing
+winter
+wise
+wish
+with
+within
+without
+wolf
+woman
+women
+wonder
+wonderful
+won't
+wood
+wool
+word
+work
+world
+worry
+worse
+worst
+worth
+would
+wouldn't
+write
+writing
+written
+wrong
+wrote
+year
+yellow
+yes
+yesterday
+yet
+you
+you'd
+you'll
+young
+your
+you're
+yours
+yourself
+you've
+zoo
