@@ -18,6 +18,7 @@ public class Tester {
             LinkedHashMap<String, String> val = new LinkedHashMap<String, String>();
             val.put("USERNAME", "'the username was successfully changed'");
             rec.update(val, "WHERE USER_ID = 4");
+            rec.delete("WHERE USER_ID = 5");
 
             System.out.println(rec.getAllRecords()[1].user_id
                     + rec.getAllRecords()[1].username);

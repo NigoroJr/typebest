@@ -296,7 +296,20 @@ public abstract class Database {
         }
     }
 
+    /**
+     * Executes the DELETE SQL command, deleting the matching rows from the
+     * table.
+     * 
+     * @param condition
+     *            The condition beginning from a keyword such as "WHERE".
+     */
     public void delete(String condition) {
+        try {
+            statement.execute(String.format("DELETE FROM %s %s", tableName, condition));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
