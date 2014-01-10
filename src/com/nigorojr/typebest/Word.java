@@ -30,6 +30,9 @@ public class Word extends JPanel implements Iterator<Letter> {
 
     /**
      * Splits up the word into letters and add them to an ArrayList.
+     * 
+     * @param word
+     *            The word represented by this class.
      */
     private void split(String word) {
         for (int i = 0; i < rawWord.length(); i++) {
