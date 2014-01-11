@@ -136,16 +136,13 @@ public class TypePanel extends JPanel {
             message += "Speed: " + df.format(totalNumOfLetters / duration)
                     + " keys/sec\n";
 
-            // Create a Result instance for this round and write to a binary
-            // file
-            Result result = new Result(duration, miss, user.getUserName(), user
-                    .getSettings().getKeyboardLayout(), Calendar.getInstance(
-                    TimeZone.getDefault()).getTimeInMillis());
-            user.getRecords().writeRecords(result);
 
             // Show the result
             JOptionPane.showMessageDialog(null, message, "Result",
                     JOptionPane.INFORMATION_MESSAGE);
+            Record record = new Record(user_id, username, keyboardLayout, time,
+                    miss);
+            showFinishMessage(record);
 
             // Then, show the list of results and where this round falls into
             user.getRecords().showListOfRecords();

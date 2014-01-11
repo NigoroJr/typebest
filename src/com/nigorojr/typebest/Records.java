@@ -107,12 +107,12 @@ public class Records extends Database {
         ArrayList<Record> records = new ArrayList<Record>();
         try {
             while (resultSet.next()) {
-                Record r = new Record();
-                r.user_id = resultSet.getLong("USER_ID");
-                r.username = resultSet.getString("USERNAME");
-                r.keyboardLayout = resultSet.getString("KEYBOARD_LAYOUT");
-                r.time = resultSet.getLong("TIME");
-                r.miss = resultSet.getInt("MISS_TYPES");
+                Record r = new Record(
+                        resultSet.getLong("USER_ID"),
+                        resultSet.getString("USERNAME"),
+                        resultSet.getString("KEYBOARD_LAYOUT"),
+                        resultSet.getLong("TIME"),
+                        resultSet.getInt("MISS_TYPES"));
 
                 records.add(r);
             }
