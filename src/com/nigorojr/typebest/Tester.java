@@ -1,7 +1,12 @@
 package com.nigorojr.typebest;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+
+import javax.swing.JFrame;
 
 public class Tester {
 
@@ -39,6 +44,47 @@ public class Tester {
                 .iterator();
         while (it.hasNext())
             System.out.print(it.next() + " ");
+
+        JFrame frame = new JFrame("Testing!");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 500);
+        final TimerPanel tp = new TimerPanel();
+        frame.add(tp);
+        MouseListener ml = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                switch (e.getButton()) {
+                    case MouseEvent.BUTTON1:
+                        tp.start();
+                        break;
+                    case MouseEvent.BUTTON2:
+                        tp.reset();
+                        break;
+                    case MouseEvent.BUTTON3:
+                        tp.stop();
+                        break;
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+        };
+        frame.addMouseListener(ml);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
 }

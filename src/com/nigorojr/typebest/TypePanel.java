@@ -69,30 +69,10 @@ public class TypePanel extends JPanel {
     // Not make it null because it will cause a NullPointerException when using
     // SpringLayout
     private JLabel currentKeyboardLayout = new JLabel("");
-    private JLabel timeElapsed;
-    private Timer timer;
-    private long startTime = -1;
-
     private boolean randomColorForEachLetter = false;
 
     public TypePanel() {
         super();
-
-        // Set up timer for the main window
-        timeElapsed = new JLabel("0.0", JLabel.RIGHT);
-        timeElapsed.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
-        timeElapsed.setOpaque(true);
-        timeElapsed.setPreferredSize(new Dimension(90, 34));
-        timeElapsed.setBorder(BorderFactory.createLoweredBevelBorder());
-        timer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DecimalFormat df = new DecimalFormat();
-                df.setMaximumFractionDigits(1);
-                df.setMinimumFractionDigits(1);
-                timeElapsed.setText(df.format((System.nanoTime() - startTime) / 1000000000.0));
-            }
-        });
 
         setSize(800, 400);
         setLayout(new FlowLayout(FlowLayout.LEADING));
@@ -523,19 +503,6 @@ public class TypePanel extends JPanel {
 
         if (choice == 0)
             user.getSettings().writeSettings();
-    }
-
-    /**
-     * Returns the JLabel that has the text showing how much time has passed
-     * since the user started typing.
-     * 
-     * @return The JLabel containing information about the time it passed since
-     *         the start. TODO: Modify this to get information from the database
-     *         and then create a JLabel and return that. TODO: Maybe make a
-     *         method that "creates a JLabel"
-     */
-    public JLabel getTimeElapsedLabel() {
-        return timeElapsed;
     }
 
     /**
