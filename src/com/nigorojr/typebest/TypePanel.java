@@ -120,26 +120,8 @@ public class TypePanel extends JPanel {
             // Stop the timer in the main window
             timer.stop();
 
-            // Set finished to true
             finished = true;
 
-            DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
-            df.setMaximumFractionDigits(user.getSettings()
-                    .getTimeFractionDigit());
-            double duration = (double) (endTime - startTime) / 1000000000;
-            String message = "Time: " + df.format(duration) + " sec\n";
-
-            message += "Miss: " + miss + "\n";
-
-            df.setMaximumFractionDigits(user.getSettings()
-                    .getSpeedFractionDigit());
-            message += "Speed: " + df.format(totalNumOfLetters / duration)
-                    + " keys/sec\n";
-
-
-            // Show the result
-            JOptionPane.showMessageDialog(null, message, "Result",
-                    JOptionPane.INFORMATION_MESSAGE);
             Record record = new Record(user_id, username, keyboardLayout, time,
                     miss);
             showFinishMessage(record);
@@ -148,6 +130,21 @@ public class TypePanel extends JPanel {
             user.getRecords().showListOfRecords();
         }
         repaint();
+    }
+
+    public void showFinishMessage(Record record) {
+        // Show the result
+        DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
+        df.setMaximumFractionDigits(pref.getTimeFractionDigit());
+        String message = String.format("Time: %f\nMiss: %d\n",
+                df.format(record.time), record.miss);
+
+        df.setMaximumFractionDigits(pref.getSpeedFractionDigit());
+        message += String.format("Speed: %f keys/sec",
+                df.format(totalNumOfLetters / record.time));
+
+        JOptionPane.showMessageDialog(null, message, "Result",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
