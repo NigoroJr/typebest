@@ -33,6 +33,12 @@ public class Tester {
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Testing WordSelector class...");
+        Iterator<String> it = WordSelector.getWords(WordSelector.NORMAL, 50)
+                .iterator();
+        while (it.hasNext())
+            System.out.print(it.next() + " ");
     }
 
 }
