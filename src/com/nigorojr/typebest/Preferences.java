@@ -45,6 +45,14 @@ public class Preferences extends Database {
     public static final String tableName = "PREFERENCES";
 
     /**
+     * When neither ID nor the username is provided, a new set of preferences
+     * with the default username will be created.
+     */
+    public Preferences() {
+        addPreferencesForUser(defaultUsername);
+    }
+
+    /**
      * Attempts to retrieve a set of preference from the given ID. If the ID
      * does not match, it'll create a new set of preference with the default
      * username.
@@ -65,6 +73,26 @@ public class Preferences extends Database {
         else {
             readPreferencesForID(id);
         }
+    }
+
+    /**
+     * First attempts to find an existing ID for the given ID. If there is no
+     * such ID in the database, it will then create a new set of preferences
+     * with the given username.
+     * 
+     * @param id
+     *            The user ID.
+     * @param username
+     *            The username for the new set of preferences when the user ID
+     *            is not found.
+     * @throws SQLException
+     */
+    public Preferences(long id, String username) throws SQLException {
+        super(tableName, columnNamesAndTypes, "ID");
+        if (!isIDExist(id))
+            addPreferencesForUser(username);
+        else
+            readPreferencesForID(id);
     }
 
     /**
