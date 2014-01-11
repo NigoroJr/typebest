@@ -29,9 +29,10 @@ import java.util.Scanner;
 import java.util.TimeZone;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -52,11 +53,9 @@ import java.sql.DriverManager;
 
 public class TypePanel extends JPanel {
 
-    // TODO get id
     private static Preferences pref;
 
-    // public static final String LAST_USER = "lastUser.dat";
-    public static final File lastUserFile = new File("lastUser.dat");
+    public static final File lastUserFile = new File("lastUser.txt");
 
     private int miss = 0;
     private boolean finished = false;
@@ -70,6 +69,55 @@ public class TypePanel extends JPanel {
 
         setSize(800, 400);
         setLayout(new FlowLayout(FlowLayout.LEADING));
+
+        loadPreferences();
+    }
+
+    /**
+     * Attempts to find the last user who used this program and load his/her
+     * preferences. If that attempt fails, this method will create a new set of
+     * preferences with the default parameters. The lastUserFile must have the
+     * username on the first line and the user's ID on the second line. The
+     * username will be used when creating a new set of preferences when the ID
+     * is not present.
+     */
+    private void loadPreferences() {
+        if (!lastUserFile.exists()) {
+            // Prompt for a username
+            String message = "It looks like it's the first time this program has been used.\nEnter your user name:";
+            String username = JOptionPane.showInputDialog(message);
+            try {
+                pref = new Preferences(username);
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                Scanner scanner = new Scanner(lastUserFile);
+
+                if (scanner.hasNext()) {
+                    String username = scanner.nextLine();
+                    if (scanner.hasNext()) {
+                        int user_id = Integer.parseInt(scanner.nextLine());
+                        pref = new Preferences(user_id, username);
+                    }
+                    // When there's only 1 line
+                    else
+                        pref = new Preferences(username);
+                }
+                // When the lastUserFile is an invalid empty file
+                else
+                    pref = new Preferences();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void processPressedKey(char pressed) {
@@ -147,45 +195,6 @@ public class TypePanel extends JPanel {
 
         JOptionPane.showMessageDialog(null, message, "Result",
                 JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    /**
-     * Loads the data where the user exited last time from a file named
-     * lastUser.dat and put that to the window. lastUser.dat contains which user
-     * last used, and another file with the user's name as a file name will be
-     * loaded. For example, if the name John was in lastUser.dat, then
-     * John_settings.dat and John_records.dat will be loaded (if they exist).
-     */
-    public void loadLastUser() {
-        // Read from the file if it exists
-        if (lastUserFile.exists()) {
-            try {
-                Scanner read = new Scanner(lastUserFile);
-                changeUser(read.nextLine());
-                read.close();
-            }
-            catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            // Prompt for a user name
-            String newUser = JOptionPane
-                    .showInputDialog("It looks like it's the first time this program has been used.\nEnter your user name:");
-            changeUser(newUser);
-        }
-
-        // Add a JLabel that shows what keyboard layout is currently selected
-        // This can only be done after the user has been read,
-        // because we don't know what keyboard layout the last user used.
-        currentKeyboardLayout.setText(user.getSettings().getKeyboardLayout());
-        // Uses the default font's family but set the style and size to
-        // specified.
-        currentKeyboardLayout.setFont(new Font(user.getSettings()
-                .getDefaultFont().getFamily(), Font.PLAIN, 30));
-
-        // Do the things that needs to be done after loading the previous user
-        afterLoadingUser();
     }
 
     /**
