@@ -52,10 +52,12 @@ import java.sql.DriverManager;
 
 public class TypePanel extends JPanel {
 
+    // TODO get id
+    private static Preferences pref;
+
     // public static final String LAST_USER = "lastUser.dat";
     public static final File lastUserFile = new File("lastUser.dat");
 
-    private Preferences pref;
     private int miss = 0;
     private boolean finished = false;
 
@@ -374,5 +376,16 @@ public class TypePanel extends JPanel {
      */
     public JLabel getCurrentKeyboardLayout() {
         return currentKeyboardLayout;
+    }
+
+    /**
+     * Returns the current set of preferences. This is used in the Letter class
+     * for setting the foreground/background color of the letters. Make sure
+     * that pref is not null.
+     * 
+     * @return
+     */
+    public static Preferences getPreferences() {
+        return pref;
     }
 }

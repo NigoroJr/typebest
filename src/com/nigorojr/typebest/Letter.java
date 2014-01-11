@@ -15,8 +15,11 @@ public class Letter extends JLabel {
     public Letter(char letter) {
         super(Character.toString(letter));
         rawLetter = letter;
-        // TODO: Add color variables (toBeTyped etc...) in TypePanel class and
-        // make them protected so that they can be accessed in here.
+        // Make sure that the preferences are instantiated prior to this
+        Preferences pref = TypePanel.getPreferences();
+        setForeground(pref.getToBeTyped());
+        setBackground(pref.getBackgroundColor());
+        setFont(pref.getFont());
     }
 
     /**
