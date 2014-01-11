@@ -197,12 +197,6 @@ public class MainWindow extends JFrame {
                 typePanel.changeKeyboardLayout();
             else if (e.getSource() == menuItem.get("ch_color"))
                 typePanel.changeColor();
-            else if (e.getSource() == menuItem.get("ch_noShuffle"))
-                // If selected, don't shuffle
-                typePanel.changeShuffled(!menuItem.get("ch_noShuffle")
-                        .isSelected());
-            else if (e.getSource() == menuItem.get("ch_fun"))
-                typePanel.changeFun(menuItem.get("ch_fun").isSelected());
             else if (e.getActionCommand() == "Save Current Settings")
                 typePanel.saveSettings();
         }

@@ -56,20 +56,12 @@ public class TypePanel extends JPanel {
     public static final File lastUserFile = new File("lastUser.dat");
 
     private Preferences pref;
-
-    private ArrayList<String> words = new ArrayList<String>();
-    private ArrayList<JPanel> wordPanels = new ArrayList<JPanel>();
-    private int totalNumOfLetters = 0;
-    private int correctKeyStrokes = 0;
-    private int cnt = 0;
-    private int words_cnt = 0;
     private int miss = 0;
     private boolean finished = false;
 
     // Not make it null because it will cause a NullPointerException when using
     // SpringLayout
     private JLabel currentKeyboardLayout = new JLabel("");
-    private boolean randomColorForEachLetter = false;
 
     public TypePanel() {
         super();
@@ -198,104 +190,6 @@ public class TypePanel extends JPanel {
 
         // Do the things that needs to be done after loading the previous user
         afterLoadingUser();
-    }
-
-    /**
-     * These are the things that needs to be done after the previous user's data
-     * has been retrieved. Importing the settings and the records, reading from
-     * the dictionary and tokenizing to prepare for a new round are some of the
-     * things.
-     */
-    private void afterLoadingUser() {
-        // Set the panel's background to whatever the user specified
-        setBackground(user.getSettings().getBackgroundColor());
-        // Read from dictionary file
-        readDic();
-        // Tokenize the words read from the file
-        tokenize();
-    }
-
-    /**
-     * Reads in words from a dictionary file and store them into an ArrayList.
-     * The total number of words is also counted so that it can be used when
-     * determining when the user successfully finished typing by comparing it
-     * with the number of "correctKeyStrokes".
-     */
-    public void readDic() {
-        // Add words from dictionary
-        try {
-            Scanner input = new Scanner(new File(DIC_FILENAME));
-            while (input.hasNext())
-                words.add(input.next());
-            input.close();
-        }
-        catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "No dictionary file was found",
-                    "No Dictionary file", JOptionPane.OK_OPTION);
-        }
-
-        // Shuffle the order of appearance of words when it is set to do so.
-        if (user.getSettings().isShuffled())
-            Collections.shuffle(words);
-
-        // Find out the total number of letters in the dictionary file
-        // Add 1 for the white space after the word
-        for (int i = 0; i < words.size(); i++)
-            totalNumOfLetters += words.get(i).length() + 1;
-    }
-
-    /**
-     * Tokenize the words into chunks of letters that will then be set to the
-     * color "toBeTyped". Words will first be added to a JPanel so that the word
-     * will not be separated when coming to a new line. This method will update
-     * the panel to the newest state after adding everything to the panel.
-     */
-    public void tokenize() {
-        // First, clear all the words that are currently on the panel
-        removeAll();
-        wordPanels.clear();
-
-        // Then, change the background color
-        this.setBackground(user.getSettings().getBackgroundColor());
-        // Separate the words into chunks of letters
-        for (int w = 0; w < words.size(); w++) {
-            String word = words.get(w);
-            JPanel oneWordPanel = new JPanel();
-            oneWordPanel.setBackground(user.getSettings().getBackgroundColor());
-            for (int i = 0; i < word.length(); i++) {
-                oneWordPanel
-                        .add(new JLabel(Character.toString(word.charAt(i))));
-            }
-            oneWordPanel.add(new JLabel("_"));
-
-            wordPanels.add(oneWordPanel);
-        }
-
-        // Add all the elements in the ArrayList to "this" after setting font
-        // and color
-        for (int i = 0; i < wordPanels.size(); i++) {
-            JPanel p = wordPanels.get(i);
-            p.setBackground(user.getSettings().getBackgroundColor());
-            for (Component c : p.getComponents()) {
-                JLabel l = (JLabel) c;
-                // Hide '_' by making it the same as the background color
-                if (l.getText().charAt(0) == '_')
-                    l.setForeground(user.getSettings().getBackgroundColor());
-                // Randomize the color of the letters
-                else if (randomColorForEachLetter)
-                    l.setForeground(new Color((int) (Math.random() * 256),
-                            (int) (Math.random() * 256),
-                            (int) (Math.random() * 256)));
-                else
-                    l.setForeground(user.getSettings().getToBeTyped());
-
-                l.setFont(user.getSettings().getDefaultFont());
-            }
-            this.add(p);
-        }
-
-        repaint();
-        revalidate();
     }
 
     /**
@@ -465,32 +359,6 @@ public class TypePanel extends JPanel {
         dialog.setModalityType(ModalityType.DOCUMENT_MODAL);
         dialog.setVisible(true);
 
-        tokenize();
-    }
-
-    /**
-     * Changes whether to shuffle the words from the dictionary. Restarts a new
-     * round after changing the settings.
-     * 
-     * @param Whether
-     *            the check box is selected or not.
-     */
-    public void changeShuffled(boolean isSelected) {
-        user.getSettings().setShuffled(isSelected);
-        restart();
-    }
-
-    /**
-     * Change the "fun" parameter in the Settings class. This randomizes the
-     * color of the each letters. Re-tokenizes the words (so that the change is
-     * reflected immediately without restarting).
-     * 
-     * @param fun
-     *            True if "fun", which changes the color of the letters
-     *            randomly, is on.
-     */
-    public void changeFun(boolean fun) {
-        this.randomColorForEachLetter = fun;
         tokenize();
     }
 
