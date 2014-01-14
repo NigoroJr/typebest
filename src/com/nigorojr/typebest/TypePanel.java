@@ -260,26 +260,24 @@ public class TypePanel extends JPanel {
      * to the file so that the user doesn't have to change every time.
      */
     public void changeFont() {
-        user.getSettings().changeFont();
-        // It's questionable whether to re-shuffle the words or not
-        // restart();
-        tokenize();
+        // TODO
     }
 
     /**
-     * Changes the current user to the given user name. Also updates the
-     * lastUserFile, which contains the name of the last user (creates one when
-     * it's not found).
+     * Changes the current user to the given username. Also updates the
+     * lastUserFile, which contains the name of the last user and the user
+     * ID (creates one when it's not found).
      * 
-     * @param userName
-     *            The new user name that will be switched to.
+     * @param username
+     *            The new username that will be switched to.
      */
-    public void changeUser(String userName) {
-        user = new User(userName);
+    public void changeUser(String username) {
+        // TODO: add setUsername(username) to Preferences class
 
         try {
             PrintWriter pw = new PrintWriter(lastUserFile);
-            pw.println(userName);
+            pw.println(username);
+            pw.println(pref.getID());
             pw.flush();
             pw.close();
         }
@@ -292,13 +290,12 @@ public class TypePanel extends JPanel {
      * Shows an input dialog and changes the current user to the input.
      */
     public void changeUser() {
-        String newUser = "";
-        newUser = JOptionPane.showInputDialog("Current user is: "
-                + user.getUserName() + "\nEnter new user:");
-        // Change the user name if it's a valid value
-        if (newUser != null && !newUser.trim().equals("")) {
-            changeUser(newUser);
-            afterLoadingUser();
+        String message = String.format(
+                "Current username is '%s'\nEnter new username",
+                pref.getUsername());
+        String username = JOptionPane.showInputDialog(message);
+        if (username != null && !username.trim().equals("")) {
+            changeUser(username);
             restart();
         }
     }
@@ -310,15 +307,13 @@ public class TypePanel extends JPanel {
      * layout, it re-reads the records and starts a new round.
      */
     public void changeKeyboardLayout() {
-        String previous = user.getSettings().getKeyboardLayout();
+        String previous = pref.getKeyboardLayout();
 
-        user.getSettings().changeKeyboardLayout(
-                user.getRecords().getExistingKeyboardLayouts());
-
-        String current = user.getSettings().getKeyboardLayout();
+        // TODO
+        String current = pref.getKeyboardLayout();
 
         if (!current.equals(previous)) {
-            currentKeyboardLayout.setText(current);
+            keyboardLayoutLabel.setText(current);
             restart();
         }
     }
@@ -330,81 +325,15 @@ public class TypePanel extends JPanel {
      * selected color. Clicking on cancel will make no changes.
      */
     public void changeColor() {
-
-        final JDialog dialog = new JDialog();
-        dialog.setTitle("Change color of");
-        dialog.setLocationRelativeTo(null);
-        dialog.setSize(190, 70);
-        dialog.setLayout(new GridLayout(0, 1));
-
-        // Ask which color the user wants to change
-        final String[] choices = { "Untyped Letters", "Typed Letters",
-                "Misstypes", "Background" };
-        final JComboBox choose = new JComboBox(choices);
-
-        JPanel buttons = new JPanel() {
-            {
-                final ActionListener click = new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getActionCommand().equals("OK")) {
-                            dialog.setVisible(false);
-                            String choice = (String) choose.getSelectedItem();
-                            // Change the selected
-                            Color selected;
-                            if (choice.equals(choices[0])
-                                    && (selected = ColorSelector.chooseColor(user
-                                            .getSettings().getToBeTyped())) != null)
-                                user.getSettings().setToBeTyped(selected);
-                            else if (choice.equals(choices[1])
-                                    && (selected = ColorSelector.chooseColor(user
-                                            .getSettings().getAlreadyTyped())) != null)
-                                user.getSettings().setAlreadyTyped(selected);
-                            else if (choice.equals(choices[2])
-                                    && (selected = ColorSelector.chooseColor(user
-                                            .getSettings().getMissTypeColor())) != null)
-                                user.getSettings().setMissTypeColor(selected);
-                            else if (choice.equals(choices[3])
-                                    && (selected = ColorSelector
-                                            .chooseColor(user.getSettings()
-                                                    .getBackgroundColor())) != null)
-                                user.getSettings().setBackgroundColor(selected);
-                        }
-                        else if (e.getActionCommand().equals("Cancel"))
-                            dialog.setVisible(false);
-                    }
-                };
-                this.add(new JButton("OK") {
-                    {
-                        this.addActionListener(click);
-                    }
-                });
-                this.add(new JButton("Cancel") {
-                    {
-                        this.addActionListener(click);
-                    }
-                });
-            }
-        };
-
-        dialog.add(choose);
-        dialog.add(buttons);
-
-        dialog.setModalityType(ModalityType.DOCUMENT_MODAL);
-        dialog.setVisible(true);
-
-        tokenize();
+        // TODO: use ChangeColor class
     }
 
     /**
      * Saves the settings to the user's settings file.
      */
     public void saveSettings() {
-        int choice = JOptionPane.showConfirmDialog(null,
-                "Save settings to a file?", null, JOptionPane.YES_OPTION);
-
-        if (choice == 0)
-            user.getSettings().writeSettings();
+        // TODO: update through Preferences class
+        // TODO: automatically save settings when altered
     }
 
     /**

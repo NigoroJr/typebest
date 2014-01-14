@@ -197,8 +197,6 @@ public class MainWindow extends JFrame {
                 typePanel.changeKeyboardLayout();
             else if (e.getSource() == menuItem.get("ch_color"))
                 typePanel.changeColor();
-            else if (e.getActionCommand() == "Save Current Settings")
-                typePanel.saveSettings();
         }
     }
 
