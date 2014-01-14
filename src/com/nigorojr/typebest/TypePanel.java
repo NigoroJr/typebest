@@ -60,9 +60,8 @@ public class TypePanel extends JPanel {
     private int miss = 0;
     private boolean finished = false;
 
-    // Not make it null because it will cause a NullPointerException when using
-    // SpringLayout
-    private JLabel currentKeyboardLayout = new JLabel("");
+    private String keyboardLayout;
+    private JLabel keyboardLayoutLabel;
 
     public TypePanel() {
         super();
@@ -70,8 +69,7 @@ public class TypePanel extends JPanel {
         setSize(800, 400);
         setLayout(new FlowLayout(FlowLayout.LEADING));
 
-        loadPreferences();
-        loadLinesAndAddToPanel();
+        keyboardLayoutLabel = new JLabel("");
     }
 
     /**
@@ -414,8 +412,8 @@ public class TypePanel extends JPanel {
      * this to get information from the database and then create a JLabel and
      * return that.
      */
-    public JLabel getCurrentKeyboardLayout() {
-        return currentKeyboardLayout;
+    public JLabel getKeyboardLayoutLabel() {
+        return keyboardLayoutLabel;
     }
 
     /**
@@ -427,5 +425,9 @@ public class TypePanel extends JPanel {
      */
     public static Preferences getPreferences() {
         return pref;
+    }
+
+    public String getKeyboardLayout() {
+        return keyboardLayout;
     }
 }

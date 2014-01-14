@@ -72,7 +72,7 @@ public class MainWindow extends JFrame {
                 SpringLayout.EAST, typePanel);
 
         // JLabel that shows the current keyboard layout
-        JLabel currentKeyboardLayout = typePanel.getCurrentKeyboardLayout();
+        JLabel currentKeyboardLayout = typePanel.getKeyboardLayoutLabel();
         springLayout.putConstraint(SpringLayout.SOUTH, currentKeyboardLayout,
                 -5, SpringLayout.NORTH, typePanel);
         springLayout.putConstraint(SpringLayout.WEST, currentKeyboardLayout,
