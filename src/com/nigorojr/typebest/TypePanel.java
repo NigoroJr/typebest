@@ -71,6 +71,7 @@ public class TypePanel extends JPanel {
         setLayout(new FlowLayout(FlowLayout.LEADING));
 
         loadPreferences();
+        loadLinesAndAddToPanel();
     }
 
     /**
@@ -118,6 +119,36 @@ public class TypePanel extends JPanel {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Adds lines to the ArrayList
+     */
+    public void loadLinesAndAddToPanel() {
+        // TODO: get modes and number of letters
+        Iterator<String> words = WordSelector.getWords(WordSelector.NORMAL)
+                .iterator();
+        totalNumOfLetters = 0;
+        int panelWidth = this.getWidth();
+        Line line = new Line();
+        while (words.hasNext()) {
+            String word = words.next();
+            totalNumOfLetters += word.length();
+            // If the line was full and that word couldn't be added
+            if (!line.addWordIfWithin(word, panelWidth)) {
+                // Add *current* line to the ArrayList
+                lines.add(line);
+                // Create a new line and add that word to it
+                line = new Line();
+                line.addWordIfWithin(word, panelWidth);
+                // TODO: not a good solution!
+            }
+        }
+
+        // Add to this panel
+        Iterator<Line> lineIterator = lines.iterator();
+        while (lineIterator.hasNext())
+            add(lineIterator.next());
     }
 
     public void processPressedKey(char pressed) {

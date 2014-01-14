@@ -47,6 +47,27 @@ public class Line extends JPanel implements Iterator<Word> {
     }
 
     /**
+     * Accepts a word and add that to this line only if the width after adding
+     * it is less than or equal to then also given width. The width of the space
+     * between the last word and the word to be added is also considered.
+     * 
+     * @param word
+     *            The word to be added.
+     * @param n
+     *            The limit width in pixels.
+     * @return True if that word was added, false if not.
+     */
+    public boolean addWordIfWithin(String word, int n) {
+        Word wordPanel = new Word(word);
+        if (getLineWidth() + space.getWidth() + wordPanel.getWidth() <= n) {
+            addWord(word);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    /**
      * Returns the next word. This method can be used to avoid confusion when
      * using the <code>next</code> method in the Word class.
      * 
