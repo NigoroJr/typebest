@@ -80,7 +80,7 @@ public class TypePanel extends JPanel {
      * username will be used when creating a new set of preferences when the ID
      * is not present.
      */
-    private void loadPreferences() {
+    public void loadPreferences() {
         if (!lastUserFile.exists()) {
             // Prompt for a username
             String message = "It looks like it's the first time this program has been used.\nEnter your user name:";

@@ -116,8 +116,8 @@ public class MainWindow extends JFrame {
         // The size of the main window
         setSize(800, 400);
 
-        // Load the previous user's data
-        typePanel.loadLastUser();
+        typePanel.loadPreferences();
+        typePanel.loadLinesAndAddToPanel();
     }
 
     /**
