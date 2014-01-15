@@ -44,12 +44,7 @@ import java.sql.DriverManager;
  * @author Naoki Mizuno
  * 
  */
-// TODO: Create menu
-// TODO: Change the changeUser method so that it shows the existing users (like
-// in the keyboard layout)
-// TODO: Add JLable to the main panel that shows which layout the user is
-// currently using
-// TODO: Change how the words are displayed so that it can be more flexible.
+// TODO: Change the changeUser method so that it shows the existing users
 
 public class TypePanel extends JPanel {
 
