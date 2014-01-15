@@ -37,7 +37,10 @@ public class TypePanel extends JPanel {
     private Letter currentLetter = null;
 
     private int miss = 0;
-    private boolean finished = false;
+    private int totalNumOfLetters;
+    private long startTime;
+    private long endTime;
+    private boolean running = false;
 
     private String keyboardLayout;
     private JLabel keyboardLayoutLabel;
@@ -106,6 +109,8 @@ public class TypePanel extends JPanel {
         Iterator<String> words = WordSelector.getWords(WordSelector.NORMAL)
                 .iterator();
         totalNumOfLetters = 0;
+        lines.clear();
+
         int panelWidth = this.getWidth();
         Line line = new Line();
         while (words.hasNext()) {
@@ -130,19 +135,8 @@ public class TypePanel extends JPanel {
 
     public void processPressedKey(char pressed) {
         // Don't go any further if it's done
-        if (finished)
-            return;
-
-        JPanel p = wordPanels.get(words_cnt);
-        JLabel l = (JLabel) (p.getComponent(cnt));
-        String s;
-        if ((s = l.getText()) != null) {
-            // Start timer
-            if (startTime == -1) {
-                // Start timer on the MainWindow
-                timer.start();
-                startTime = System.nanoTime();
-            }
+        if (running == false)
+            start();
 
         Letter letter = getCurrentLetter();
         if (letter == null)
@@ -179,19 +173,19 @@ public class TypePanel extends JPanel {
         return currentLetter;
     }
 
-            // Stop the timer in the main window
-            timer.stop();
+    public void finished() {
+        // Stop the timer in the main window
+        endTime = System.nanoTime();
 
-            finished = true;
+        running = false;
+        long time = endTime - startTime;
 
-            Record record = new Record(user_id, username, keyboardLayout, time,
-                    miss);
-            showFinishMessage(record);
+        Record record = new Record(pref.getID(), pref.getUsername(),
+                keyboardLayout, time, miss);
+        showFinishMessage(record);
 
-            // Then, show the list of results and where this round falls into
-            user.getRecords().showListOfRecords();
-        }
-        repaint();
+        // Then, show the list of results and where this round falls into
+        // user.getRecords().showListOfRecords();
     }
 
     public void showFinishMessage(Record record) {
@@ -209,6 +203,11 @@ public class TypePanel extends JPanel {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void start() {
+        running = true;
+        startTime = System.nanoTime();
+    }
+
     /**
      * Clears the words and prepares for a new round. It will shuffle the words
      * in the dictionary file (of course it depends on the "shuffle" parameter).
@@ -217,24 +216,11 @@ public class TypePanel extends JPanel {
         // Clear everything
         this.removeAll();
 
-        // Reset the timer
-        timer.stop();
-        // Sets text of the JLabel (timeElapsed) to "0.0"
-        timeElapsed.setText("0.0");
-
         // Set everything to default value
-        finished = false;
-        cnt = 0;
-        words_cnt = 0;
+        running = false;
         miss = 0;
-        totalNumOfLetters = 0;
-        correctKeyStrokes = 0;
-        startTime = -1;
 
-        words.clear();
-        wordPanels.clear();
-        readDic();
-        tokenize();
+        loadLinesAndAddToPanel();
     }
 
     /**
