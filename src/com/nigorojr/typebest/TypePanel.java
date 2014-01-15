@@ -1,41 +1,19 @@
 package com.nigorojr.typebest;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dialog.ModalityType;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.Scanner;
-import java.util.TimeZone;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 /**
  * This is the panel that the the user types in whatever is shown. It shows the
