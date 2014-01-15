@@ -52,6 +52,12 @@ public class TypePanel extends JPanel {
 
     public static final File lastUserFile = new File("lastUser.txt");
 
+    private ArrayList<Line> lines = new ArrayList<Line>();
+    private Iterator<Line> lineIterator = lines.iterator();
+    private Line currentLine = null;
+    private Word currentWord = null;
+    private Letter currentLetter = null;
+
     private int miss = 0;
     private boolean finished = false;
 
@@ -160,36 +166,40 @@ public class TypePanel extends JPanel {
                 startTime = System.nanoTime();
             }
 
-            // Don't highlight spaces
-            if (s.charAt(0) == '_' && pressed == ' ') {
-                l.setForeground(user.getSettings().getBackgroundColor());
-                correctKeyStrokes++;
-            }
-            else if (pressed == s.charAt(0)) {
-                l.setForeground(user.getSettings().getAlreadyTyped());
-                correctKeyStrokes++;
+        Letter letter = getCurrentLetter();
+        if (letter == null)
+            finished();
+        else {
+            if (letter.isCorrectKeyStroke(pressed))
+                letter.setForeground(pref.getAlreadyTyped());
+            else
+                letter.setForeground(pref.getMissTypeColor());
+        }
+
+        repaint();
+    }
+
+    public Letter getCurrentLetter() {
+        if (currentLine == null && lineIterator.hasNext())
+            currentLine = lineIterator.next();
+        if (currentWord == null && currentLine.hasNext())
+            currentWord = currentLine.nextWord();
+        if (currentWord == null && currentWord.hasNext())
+            currentLetter = currentWord.nextLetter();
+
+        if (!currentWord.hasNext()) {
+            if (!currentLine.hasNext()) {
+                return null;
             }
             else {
-                miss++;
-                l.setForeground(user.getSettings().getMissTypeColor());
-                // This is supposed to emit a beep sound
-                // Toolkit.getDefaultToolkit().beep();
-                return;
+                currentLine = lineIterator.next();
+                currentWord = currentLine.nextWord();
             }
         }
+        currentLetter = currentWord.nextLetter();
 
-        cnt++;
-        // If it's the end of the word
-        if (pressed == ' ') {
-            words_cnt++;
-            cnt = 0;
-        }
-
-        // Finish if the user finishes typing all the words
-        // (subtracts 1 because the last word is always a white space)
-        if (correctKeyStrokes == totalNumOfLetters - 1) {
-            // Record the time it took
-            long endTime = System.nanoTime();
+        return currentLetter;
+    }
 
             // Stop the timer in the main window
             timer.stop();
