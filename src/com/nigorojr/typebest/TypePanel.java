@@ -164,13 +164,9 @@ public class TypePanel extends JPanel {
         }
 
         if (!currentWord.hasNext()) {
-            if (!currentLine.hasNext()) {
-                return null;
-            }
-            else {
+            if (!currentLine.hasNext())
                 currentLine = lineIterator.next();
-                currentWord = currentLine.nextWord();
-            }
+            currentWord = currentLine.nextWord();
         }
         currentLetter = currentWord.nextLetter();
 
