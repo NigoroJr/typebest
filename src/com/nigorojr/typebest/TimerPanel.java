@@ -69,7 +69,7 @@ public class TimerPanel extends JLabel implements ActionListener {
     }
 
     /**
-     * Resets the timer to 0.
+     * Stops the timer and resets to 0.
      */
     public void reset() {
         timer.stop();
