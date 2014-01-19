@@ -328,4 +328,8 @@ public class TypePanel extends JPanel {
     public String getKeyboardLayout() {
         return keyboardLayout;
     }
+
+    public boolean isRunning() {
+        return running;
+    }
 }

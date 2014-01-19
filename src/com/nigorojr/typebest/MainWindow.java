@@ -30,6 +30,7 @@ public class MainWindow extends JFrame {
     private TypePanel typePanel = new TypePanel();
     private ClickResponder clickResponder = new ClickResponder();
     private JButton restartButton = new JButton("Restart");
+    private TimerPanel timeElapsed;
     private HashMap<String, JMenuItem> menuItem = new HashMap<String, JMenuItem>();
 
     private boolean restartFlag = false;
@@ -62,7 +63,7 @@ public class MainWindow extends JFrame {
         menuBar();
 
         // Box that shows how much time has elapsed
-        JLabel timeElapsed = new TimerPanel();
+        timeElapsed = new TimerPanel();
         // TODO: control timer, pressed key from panel wrapper
         springLayout.putConstraint(SpringLayout.SOUTH, timeElapsed, -5,
                 SpringLayout.NORTH, typePanel);
@@ -169,6 +170,11 @@ public class MainWindow extends JFrame {
                     restartFlag = true;
             }
             else {
+                // Start timer if it's the first keystroke
+                if (!typePanel.isRunning())
+                    timeElapsed.start();
+                // TODO: stop timer
+
                 restartFlag = false;
                 typePanel.processPressedKey(e.getKeyChar());
             }
