@@ -31,7 +31,7 @@ public class TypePanel extends JPanel {
     public static final File lastUserFile = new File("lastUser.txt");
 
     private ArrayList<Line> lines = new ArrayList<Line>();
-    private Iterator<Line> lineIterator = lines.iterator();
+    private Iterator<Line> lineIterator;
     private Line currentLine = null;
     private Word currentWord = null;
     private Letter currentLetter = null;
@@ -128,9 +128,11 @@ public class TypePanel extends JPanel {
         }
 
         // Add to this panel
-        Iterator<Line> lineIterator = lines.iterator();
+        lineIterator = lines.iterator();
         while (lineIterator.hasNext())
             add(lineIterator.next());
+        // Reset lineIterator
+        lineIterator = lines.iterator();
     }
 
     public void processPressedKey(char pressed) {
@@ -156,8 +158,10 @@ public class TypePanel extends JPanel {
             currentLine = lineIterator.next();
         if (currentWord == null && currentLine.hasNext())
             currentWord = currentLine.nextWord();
-        if (currentWord == null && currentWord.hasNext())
+        if (currentWord == null && currentWord.hasNext()) {
             currentLetter = currentWord.nextLetter();
+            return currentLetter;
+        }
 
         if (!currentWord.hasNext()) {
             if (!currentLine.hasNext()) {

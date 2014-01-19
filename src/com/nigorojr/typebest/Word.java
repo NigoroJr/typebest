@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class Word extends JPanel implements Iterator<Letter> {
     private ArrayList<Letter> letters = new ArrayList<Letter>();
-    private Iterator<Letter> lettersIterator = letters.iterator();
+    private Iterator<Letter> lettersIterator;
     private String rawWord;
 
     /**
@@ -26,6 +26,8 @@ public class Word extends JPanel implements Iterator<Letter> {
         split(word);
         for (int i = 0; i < letters.size(); i++)
             this.add(letters.get(i));
+
+        lettersIterator = letters.iterator();
     }
 
     /**

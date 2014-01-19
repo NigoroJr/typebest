@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class Line extends JPanel implements Iterator<Word> {
     private ArrayList<Word> words = new ArrayList<Word>();
-    private Iterator<Word> wordsIterator = words.iterator();
+    private Iterator<Word> wordsIterator;
     private final JLabel space = new JLabel(" ");
 
     /**
@@ -43,6 +43,8 @@ public class Line extends JPanel implements Iterator<Word> {
         if (!words.isEmpty())
             this.add(space);
         this.add(wordPanel);
+
+        wordsIterator = words.iterator();
     }
 
     /**
