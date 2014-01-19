@@ -21,10 +21,9 @@ public class Line extends JPanel implements Iterator<Word> {
     public int getLineWidth() {
         int width = 0;
         for (int i = 0; i < words.size(); i++)
-            width += words.get(i).getWidth();
-
+            width += words.get(i).getPreferredSize().width;
         // Add total length of the spaces between words
-        width += space.getWidth() * (words.size() - 1);
+        width += space.getPreferredSize().width * (words.size() - 1);
 
         return width;
     }
