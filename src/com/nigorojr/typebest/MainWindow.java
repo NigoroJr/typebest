@@ -140,6 +140,7 @@ public class MainWindow extends JFrame {
     }
 
     public void restart() {
+        timeElapsed.reset();
         typePanel.restart();
     }
 
@@ -182,7 +183,7 @@ public class MainWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == restartButton)
-                typePanel.restart();
+                restart();
             // TODO: Actions when selecting various menu items
             else if (e.getSource() == menuItem.get("ch_user"))
                 typePanel.changeUser();
