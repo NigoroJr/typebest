@@ -128,6 +128,7 @@ public class TypePanel extends JPanel {
         }
 
         // Add to this panel
+        // TODO: fix issue where words go out of bound
         lineIterator = lines.iterator();
         while (lineIterator.hasNext())
             add(lineIterator.next());
@@ -144,6 +145,7 @@ public class TypePanel extends JPanel {
         if (running == false)
             start();
 
+        // TODO: last letter
         if (currentLetter == null)
             finished();
         else {
