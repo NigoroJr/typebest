@@ -133,6 +133,10 @@ public class TypePanel extends JPanel {
             add(lineIterator.next());
         // Reset lineIterator
         lineIterator = lines.iterator();
+        // Set currentLetter to the first letter
+        currentLine = lineIterator.next();
+        currentWord = currentLine.nextWord();
+        currentLetter = currentWord.nextLetter();
     }
 
     public void processPressedKey(char pressed) {
@@ -140,37 +144,33 @@ public class TypePanel extends JPanel {
         if (running == false)
             start();
 
-        Letter letter = getCurrentLetter();
-        if (letter == null)
+        if (currentLetter == null)
             finished();
         else {
-            if (letter.isCorrectKeyStroke(pressed))
-                letter.setForeground(pref.getAlreadyTyped());
+            if (currentLetter.isCorrectKeyStroke(pressed)) {
+                currentLetter.setForeground(pref.getAlreadyTyped());
+                nextLetter();
+            }
             else
-                letter.setForeground(pref.getMissTypeColor());
+                currentLetter.setForeground(pref.getMissTypeColor());
         }
 
         repaint();
     }
 
-    public Letter getCurrentLetter() {
-        if (currentLine == null && lineIterator.hasNext())
-            currentLine = lineIterator.next();
-        if (currentWord == null && currentLine.hasNext())
-            currentWord = currentLine.nextWord();
-        if (currentWord == null && currentWord.hasNext()) {
-            currentLetter = currentWord.nextLetter();
-            return currentLetter;
-        }
-
+    public void nextLetter() {
         if (!currentWord.hasNext()) {
-            if (!currentLine.hasNext())
+            if (!currentLine.hasNext()) {
+                // If finished everything
+                if (!lineIterator.hasNext()) {
+                    currentLetter = null;
+                    return;
+                }
                 currentLine = lineIterator.next();
+            }
             currentWord = currentLine.nextWord();
         }
         currentLetter = currentWord.nextLetter();
-
-        return currentLetter;
     }
 
     public void finished() {
