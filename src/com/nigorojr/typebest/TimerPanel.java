@@ -45,12 +45,13 @@ public class TimerPanel extends JLabel implements ActionListener {
     }
 
     /**
-     * Starts the timer.
+     * Starts the timer. Nothing is done if the timer is already running.
      */
     public void start() {
-        if (!timer.isRunning())
+        if (!timer.isRunning()) {
             startTime = System.nanoTime();
-        timer.start();
+            timer.start();
+        }
     }
 
     /**

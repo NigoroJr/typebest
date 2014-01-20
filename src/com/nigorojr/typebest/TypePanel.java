@@ -142,9 +142,6 @@ public class TypePanel extends JPanel {
     }
 
     public void processPressedKey(char pressed) {
-        if (running == false)
-            start();
-
         if (waitForSpace && pressed == ' ') {
             waitForSpace = false;
             // Note: nextLetter() is not called here because the
@@ -190,26 +187,25 @@ public class TypePanel extends JPanel {
         endTime = System.nanoTime();
 
         running = false;
+    }
+
+    public void showFinishMessage() {
         long time = endTime - startTime;
 
         Record record = new Record(pref.getID(), pref.getUsername(),
                 keyboardLayout, time, miss);
-        showFinishMessage(record);
 
         // Then, show the list of results and where this round falls into
         // user.getRecords().showListOfRecords();
-    }
-
-    public void showFinishMessage(Record record) {
         // Show the result
         DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
         df.setMaximumFractionDigits(pref.getTimeFractionDigit());
         String message = String.format("Time: %s\nMiss: %d\n",
-                df.format(record.time), record.miss);
+                df.format(time / 1000000000.0), miss);
 
         df.setMaximumFractionDigits(pref.getSpeedFractionDigit());
         message += String.format("Speed: %s keys/sec",
-                df.format(totalNumOfLetters / record.time));
+                df.format(totalNumOfLetters / (time / 1000000000.0)));
 
         JOptionPane.showMessageDialog(null, message, "Result",
                 JOptionPane.INFORMATION_MESSAGE);

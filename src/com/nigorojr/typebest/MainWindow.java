@@ -64,7 +64,6 @@ public class MainWindow extends JFrame {
 
         // Box that shows how much time has elapsed
         timeElapsed = new TimerPanel();
-        // TODO: control timer, pressed key from panel wrapper
         springLayout.putConstraint(SpringLayout.SOUTH, timeElapsed, -5,
                 SpringLayout.NORTH, typePanel);
         springLayout.putConstraint(SpringLayout.EAST, timeElapsed, -15,
@@ -170,13 +169,18 @@ public class MainWindow extends JFrame {
                     restartFlag = true;
             }
             else {
-                // Start timer if it's the first keystroke
-                if (!typePanel.isRunning())
+                if (!typePanel.isRunning()) {
+                    typePanel.start();
                     timeElapsed.start();
-                // TODO: stop timer
-
+                }
                 restartFlag = false;
                 typePanel.processPressedKey(e.getKeyChar());
+
+                // If this was the last key
+                if (!typePanel.isRunning()) {
+                    timeElapsed.stop();
+                    typePanel.showFinishMessage();
+                }
             }
         }
     }
