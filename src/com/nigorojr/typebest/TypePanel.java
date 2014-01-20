@@ -227,6 +227,7 @@ public class TypePanel extends JPanel {
     public void restart() {
         // Clear everything
         this.removeAll();
+        repaint();
 
         // Set everything to default value
         running = false;
