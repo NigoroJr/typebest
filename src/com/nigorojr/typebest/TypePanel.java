@@ -204,11 +204,11 @@ public class TypePanel extends JPanel {
         // Show the result
         DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
         df.setMaximumFractionDigits(pref.getTimeFractionDigit());
-        String message = String.format("Time: %f\nMiss: %d\n",
+        String message = String.format("Time: %s\nMiss: %d\n",
                 df.format(record.time), record.miss);
 
         df.setMaximumFractionDigits(pref.getSpeedFractionDigit());
-        message += String.format("Speed: %f keys/sec",
+        message += String.format("Speed: %s keys/sec",
                 df.format(totalNumOfLetters / record.time));
 
         JOptionPane.showMessageDialog(null, message, "Result",
