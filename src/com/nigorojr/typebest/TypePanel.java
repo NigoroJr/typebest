@@ -142,26 +142,26 @@ public class TypePanel extends JPanel {
     }
 
     public void processPressedKey(char pressed) {
-        // Don't go any further if it's done
         if (running == false)
             start();
 
-        // TODO: last letter
-        if (currentLetter == null)
-            finished();
-        else {
-            if (waitForSpace && pressed == ' ') {
-                waitForSpace = false;
-                // Note: nextLetter() is not called here because the
-                // currentLetter is already set
+        if (waitForSpace && pressed == ' ') {
+            waitForSpace = false;
+            // Note: nextLetter() is not called here because the
+            // currentLetter is already set
+        }
+        else if (!waitForSpace) {
+            if (currentLetter.isCorrectKeyStroke(pressed)) {
+                currentLetter.setForeground(pref.getAlreadyTyped());
+                nextLetter();
+
+                // Check if this was the last letter
+                if (currentLetter == null)
+                    finished();
             }
-            else if (!waitForSpace) {
-                if (currentLetter.isCorrectKeyStroke(pressed)) {
-                    currentLetter.setForeground(pref.getAlreadyTyped());
-                    nextLetter();
-                }
-                else
-                    currentLetter.setForeground(pref.getMissTypeColor());
+            else {
+                currentLetter.setForeground(pref.getMissTypeColor());
+                miss++;
             }
         }
 
