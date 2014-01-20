@@ -157,7 +157,7 @@ public class TypePanel extends JPanel {
 
                 // Check if this was the last letter
                 if (currentLetter == null)
-                    finished();
+                    finish();
             }
             else {
                 currentLetter.setForeground(pref.getMissTypeColor());
@@ -185,7 +185,7 @@ public class TypePanel extends JPanel {
         currentLetter = currentWord.nextLetter();
     }
 
-    public void finished() {
+    public void finish() {
         // Stop the timer in the main window
         endTime = System.nanoTime();
 
