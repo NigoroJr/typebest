@@ -35,6 +35,7 @@ public class TypePanel extends JPanel {
     private Line currentLine = null;
     private Word currentWord = null;
     private Letter currentLetter = null;
+    private boolean waitForSpace = false;
 
     private int miss = 0;
     private int totalNumOfLetters;
@@ -149,12 +150,19 @@ public class TypePanel extends JPanel {
         if (currentLetter == null)
             finished();
         else {
-            if (currentLetter.isCorrectKeyStroke(pressed)) {
-                currentLetter.setForeground(pref.getAlreadyTyped());
-                nextLetter();
+            if (waitForSpace && pressed == ' ') {
+                waitForSpace = false;
+                // Note: nextLetter() is not called here because the
+                // currentLetter is already set
             }
-            else
-                currentLetter.setForeground(pref.getMissTypeColor());
+            else if (!waitForSpace) {
+                if (currentLetter.isCorrectKeyStroke(pressed)) {
+                    currentLetter.setForeground(pref.getAlreadyTyped());
+                    nextLetter();
+                }
+                else
+                    currentLetter.setForeground(pref.getMissTypeColor());
+            }
         }
 
         repaint();
@@ -170,7 +178,9 @@ public class TypePanel extends JPanel {
                 }
                 currentLine = lineIterator.next();
             }
+            // Prepare next word
             currentWord = currentLine.nextWord();
+            waitForSpace = true;
         }
         currentLetter = currentWord.nextLetter();
     }
