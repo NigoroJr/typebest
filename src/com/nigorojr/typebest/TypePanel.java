@@ -191,7 +191,10 @@ public class TypePanel extends JPanel {
         running = false;
     }
 
-    public void showFinishMessage() {
+    /**
+     * Shows a JOptionPane of the result and adds the result to the database.
+     */
+    public void showResultAndAdd() {
         long time = endTime - startTime;
 
         Record record = new Record(pref.getID(), pref.getUsername(),

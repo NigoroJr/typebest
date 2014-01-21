@@ -180,7 +180,7 @@ public class MainWindow extends JFrame {
                 // If this was the last key
                 if (!typePanel.isRunning()) {
                     timeElapsed.stop();
-                    typePanel.showFinishMessage();
+                    typePanel.showResultAndAdd();
                 }
             }
         }
