@@ -107,32 +107,33 @@ public class TypePanel extends JPanel {
      */
     public void loadLinesAndAddToPanel() {
         // TODO: get modes and number of letters
-        Iterator<String> words = WordSelector.getWords(WordSelector.NORMAL)
-                .iterator();
+        ArrayList<String> words = WordSelector.getWords(WordSelector.NORMAL);
         totalNumOfLetters = 0;
         lines.clear();
 
         int panelWidth = this.getWidth();
         Line line = new Line();
-        while (words.hasNext()) {
-            String word = words.next();
-            totalNumOfLetters += word.length();
-            // If the line was full and that word couldn't be added
-            if (!line.addWordIfWithin(word, panelWidth)) {
-                // Add *current* line to the ArrayList
+        for (int i = 0; i < words.size(); i++) {
+            String word = words.get(i);
+
+            if (line.isWordWithin(word, panelWidth)) {
+                line.addWord(word);
+                totalNumOfLetters += word.length();
+            }
+            // If adding the word exceeds the boundary
+            else {
                 lines.add(line);
-                // Create a new line and add that word to it
                 line = new Line();
-                line.addWordIfWithin(word, panelWidth);
-                // TODO: not a good solution!
+                i--;
             }
         }
 
         // Add to this panel
-        // TODO: fix issue where words go out of bound
         lineIterator = lines.iterator();
         while (lineIterator.hasNext())
             add(lineIterator.next());
+        validate();
+
         // Reset lineIterator
         lineIterator = lines.iterator();
         // Set currentLetter to the first letter

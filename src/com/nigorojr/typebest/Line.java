@@ -48,24 +48,19 @@ public class Line extends JPanel implements Iterator<Word> {
     }
 
     /**
-     * Accepts a word and add that to this line only if the width after adding
-     * it is less than or equal to then also given width. The width of the space
-     * between the last word and the word to be added is also considered.
+     * Accepts a word and a width and checks if adding that word will exceed the
+     * given width.
      * 
      * @param word
-     *            The word to be added.
+     *            The word to be checked.
      * @param n
      *            The limit width in pixels.
-     * @return True if that word was added, false if not.
+     * @return True if that word is within the given width, false if not.
      */
-    public boolean addWordIfWithin(String word, int n) {
+    public boolean isWordWithin(String word, int n) {
         Word wordPanel = new Word(word);
-        if (getLineWidth() + space.getWidth() + wordPanel.getWidth() <= n) {
-            addWord(word);
-            return true;
-        }
-        else
-            return false;
+        return getLineWidth() + space.getPreferredSize().width
+                + wordPanel.getPreferredSize().width <= n;
     }
 
     /**
