@@ -142,7 +142,7 @@ public class MainWindow extends JFrame {
 
     public void restart() {
         timeElapsed.reset();
-        typePanel.restart();
+        typePanel.reset();
     }
 
     /**

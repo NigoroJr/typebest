@@ -219,10 +219,9 @@ public class TypePanel extends JPanel {
     }
 
     /**
-     * Clears the words and prepares for a new round. It will shuffle the words
-     * in the dictionary file (of course it depends on the "shuffle" parameter).
+     * Clears the words and prepares for a new round.
      */
-    public void restart() {
+    public void reset() {
         // Clear everything
         this.removeAll();
         repaint();
@@ -278,7 +277,7 @@ public class TypePanel extends JPanel {
         String username = JOptionPane.showInputDialog(message);
         if (username != null && !username.trim().equals("")) {
             changeUser(username);
-            restart();
+            reset();
         }
     }
 
@@ -296,7 +295,7 @@ public class TypePanel extends JPanel {
 
         if (!current.equals(previous)) {
             keyboardLayoutLabel.setText(current);
-            restart();
+            reset();
         }
     }
 
