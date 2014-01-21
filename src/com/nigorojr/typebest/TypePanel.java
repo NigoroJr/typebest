@@ -112,7 +112,8 @@ public class TypePanel extends JPanel {
     }
 
     /**
-     * Adds lines to the ArrayList
+     * Uses the WordSelector to choose random words and adds them to the lines.
+     * This method well then set the current letter to the first letter.
      */
     public void loadLinesAndAddToPanel() {
         // TODO: get modes and number of letters
@@ -151,6 +152,15 @@ public class TypePanel extends JPanel {
         currentLetter = currentWord.nextLetter();
     }
 
+    /**
+     * Accepts the typed letter and checks whether that letter is the correct
+     * letter. The foreground color of the current letter is changed
+     * accordingly. Because the "spaces" between the words are not added to the
+     * lines as JLabels, they are treated separately.
+     * 
+     * @param pressed
+     *            The letter typed.
+     */
     public void processPressedKey(char pressed) {
         if (waitForSpace && pressed == ' ') {
             waitForSpace = false;
@@ -175,6 +185,10 @@ public class TypePanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Changes the current letter to the next letter. If there is none, the
+     * current letter will be set to null.
+     */
     public void nextLetter() {
         if (!currentWord.hasNext()) {
             if (!currentLine.hasNext()) {
@@ -192,6 +206,9 @@ public class TypePanel extends JPanel {
         currentLetter = currentWord.nextLetter();
     }
 
+    /**
+     * Process what needs to be done after finishing the round.
+     */
     public void finish() {
         // Stop the timer in the main window
         endTime = System.nanoTime();
@@ -344,7 +361,7 @@ public class TypePanel extends JPanel {
      * for setting the foreground/background color of the letters. Make sure
      * that pref is not null.
      * 
-     * @return
+     * @return The Preferences used by the current user.
      */
     public static Preferences getPreferences() {
         return pref;
@@ -354,6 +371,11 @@ public class TypePanel extends JPanel {
         return keyboardLayout;
     }
 
+    /**
+     * Returns whether the trial is running or not.
+     * 
+     * @return True if running, false if not.
+     */
     public boolean isRunning() {
         return running;
     }
