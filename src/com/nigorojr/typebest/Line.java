@@ -1,5 +1,7 @@
 package com.nigorojr.typebest;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -10,6 +12,13 @@ public class Line extends JPanel implements Iterator<Word> {
     private ArrayList<Word> words = new ArrayList<Word>();
     private Iterator<Word> wordsIterator;
     private final JLabel space = new JLabel(" ");
+
+    public Line() {
+        space.setPreferredSize(new Dimension(15, 0));
+        this.setLayout(new FlowLayout(FlowLayout.LEADING, space
+                .getPreferredSize().width, space.getPreferredSize().height));
+        this.setAlignmentX(LEFT_ALIGNMENT);
+    }
 
     /**
      * Returns the total width of the words in the line by adding the length of
@@ -86,5 +95,11 @@ public class Line extends JPanel implements Iterator<Word> {
     @Override
     public void remove() {
         wordsIterator.remove();
+    }
+
+    @Override
+    public Dimension getMaximumSize() {
+        Dimension dim = new Dimension(this.getPreferredSize());
+        return dim;
     }
 }

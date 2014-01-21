@@ -1,5 +1,6 @@
 package com.nigorojr.typebest;
 
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,6 +24,7 @@ public class Word extends JPanel implements Iterator<Letter> {
         rawWord = word;
 
         split(word);
+        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         for (int i = 0; i < letters.size(); i++)
             this.add(letters.get(i));
 

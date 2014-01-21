@@ -1,9 +1,10 @@
 package com.nigorojr.typebest;
 
-import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class TypePanel extends JPanel {
         super();
 
         setSize(800, 400);
-        setLayout(new FlowLayout(FlowLayout.LEADING));
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         keyboardLayoutLabel = new JLabel("");
     }

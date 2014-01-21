@@ -113,6 +113,7 @@ public class MainWindow extends JFrame {
 
         // The size of the main window
         setSize(800, 400);
+        setPreferredSize(getSize());
 
         typePanel.loadPreferences();
         typePanel.loadLinesAndAddToPanel();
