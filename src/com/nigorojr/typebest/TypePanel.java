@@ -28,6 +28,7 @@ import java.sql.SQLException;
 public class TypePanel extends JPanel {
 
     private static Preferences pref;
+    private Records records;
 
     public static final File lastUserFile = new File("lastUser.txt");
 
@@ -52,6 +53,13 @@ public class TypePanel extends JPanel {
 
         setSize(800, 400);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
+        try {
+            records = new Records();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         keyboardLayoutLabel = new JLabel("");
     }
@@ -197,9 +205,6 @@ public class TypePanel extends JPanel {
     public void showResultAndAdd() {
         long time = endTime - startTime;
 
-        Record record = new Record(pref.getID(), pref.getUsername(),
-                keyboardLayout, time, miss);
-
         // Then, show the list of results and where this round falls into
         // user.getRecords().showListOfRecords();
         // Show the result
@@ -214,6 +219,11 @@ public class TypePanel extends JPanel {
 
         JOptionPane.showMessageDialog(null, message, "Result",
                 JOptionPane.INFORMATION_MESSAGE);
+
+        Record record = new Record(pref.getID(), pref.getUsername(),
+                keyboardLayout, time, miss);
+
+        records.addNewRecord(record);
     }
 
     public void start() {
