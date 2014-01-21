@@ -31,8 +31,9 @@ public class Line extends JPanel implements Iterator<Word> {
         int width = 0;
         for (int i = 0; i < words.size(); i++)
             width += words.get(i).getPreferredSize().width;
-        // Add total length of the spaces between words
-        width += space.getPreferredSize().width * (words.size() - 1);
+        // Add total length of the spaces between words. Note that a leading
+        // space is added due to the horizontal gap of FlowLayout
+        width += space.getPreferredSize().width * words.size();
 
         return width;
     }
@@ -48,9 +49,6 @@ public class Line extends JPanel implements Iterator<Word> {
         Word wordPanel = new Word(word);
         words.add(wordPanel);
 
-        // Don't add a space character if it's the first word in the line
-        if (!words.isEmpty())
-            this.add(space);
         this.add(wordPanel);
 
         wordsIterator = words.iterator();
