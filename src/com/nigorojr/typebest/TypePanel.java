@@ -230,6 +230,8 @@ public class TypePanel extends JPanel {
         // Set everything to default value
         running = false;
         miss = 0;
+        waitForSpace = false;
+        lines.clear();
 
         loadLinesAndAddToPanel();
     }
