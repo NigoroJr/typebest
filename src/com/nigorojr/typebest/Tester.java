@@ -35,7 +35,7 @@ public class Tester {
             p.readPreferencesForID(1);
             System.out.println(p.getKeyboardLayout());
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -85,6 +85,8 @@ public class Tester {
         frame.addMouseListener(ml);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        ColorSelector.chooseColor();
     }
 
 }
