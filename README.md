@@ -1,30 +1,28 @@
 TypeBest
 ========
 
-Notice
-------
-This program is still under development.  
-Anything is subject to change.  
-
 Description
 -----------
 A program that helps you improve your typing speed.
 
-An online ranking feature is planned to be added but I'm not really sure when that is going to happen.
-
 Practice Modes
 --------------
-The user can choose from "time", "number of characters", "alphabet(s)", or by "My Least Favorite".  
-This function is yet to be implemented.  
+Currently, the following dictionaries, including those provided by
+[Gangas](http://www.twfan.com/) are used.
+
+* 1500 "basic" words from A to Z
+* 1500 "advanced" words from A to F
+* 1500 "advanced" words from G to P
+* 1500 "advanced" words from Q to Z
+* Programmer dictionary that includes words such as commands, keywords
 
 Tips
 ----
-You can restart that round by clicking the restart button on the botton right corner. Another way is to press the "Escape key" twice. Although the default is set to shuffle the words in the dictionary file, you can choose to not do that.  
+You can restart that round by clicking the restart button on the botton right
+corner. Another way is to press the "Escape key" twice.
 
 ToDo
 ----
-Re-design the whole software!!!
-
 * All the function in [TypeWell](http://members.jcom.home.ne.jp/gangas2/download.html)
 * Show results according to keyboard layout (Qwerty, Dvorak)
 * Separate dictionary files for each alphabet letter
@@ -35,7 +33,9 @@ Re-design the whole software!!!
 * Add "programming" dictionary
 * Add option which the user can choose whether to type all letters of the last
   word or finish when he/she reaches 400 letters
+* Online ranking
+* time, number of characters, alphabets, or least favorite
 
 Credit
 ------
-Many thanks to [Gangas](http://www.twfan.com/) for providing me with the dictionary file!  
+Many thanks to [Gangas](http://www.twfan.com/) for providing me with the dictionary files!
