@@ -143,7 +143,6 @@ public class Preferences extends Database {
      * Adds a new set of preferences for the given user to the database. This
      * method assumes that the check for whether or not the table exists has
      * been done prior to the calling of this method.
-     * TODO: test thoroughly
      * 
      * @param username
      *            The human-readable identifier for the user. However, ID is
