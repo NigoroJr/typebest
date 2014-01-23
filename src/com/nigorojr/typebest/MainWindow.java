@@ -193,20 +193,22 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            ChangePreferences cp =
+                    new ChangePreferences(TypePanel.getPreferences());
+
             if (e.getSource() == restartButton)
                 restart();
-            // TODO: Actions when selecting various menu items
             else if (e.getSource() == menuItem.get("ch_user"))
-                typePanel.changeUser();
+                cp.changeUser();
             else if (e.getSource() == menuItem.get("ch_mode"))
                 // TODO: Change practice mode
                 ;
             else if (e.getSource() == menuItem.get("ch_font"))
-                typePanel.changeFont();
+                cp.changeFont();
             else if (e.getSource() == menuItem.get("ch_layout"))
-                typePanel.changeKeyboardLayout();
+                cp.changeKeyboardLayout();
             else if (e.getSource() == menuItem.get("ch_color"))
-                typePanel.changeColor();
+                cp.changeColor();
         }
     }
 
