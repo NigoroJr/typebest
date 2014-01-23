@@ -28,7 +28,7 @@ import java.sql.SQLException;
 public class TypePanel extends JPanel {
 
     private static Preferences pref;
-    private Records records;
+    private static Records records;
 
     public static final File lastUserFile = new File("lastUser.txt");
 
@@ -365,6 +365,15 @@ public class TypePanel extends JPanel {
      */
     public static Preferences getPreferences() {
         return pref;
+    }
+
+    /**
+     * Returns the Record instance.
+     * 
+     * @return The Record instance.
+     */
+    public static Records getRecords() {
+        return records;
     }
 
     public String getKeyboardLayout() {
