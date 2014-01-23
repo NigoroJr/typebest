@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 public class Preferences extends Database {
@@ -142,6 +143,7 @@ public class Preferences extends Database {
      * Adds a new set of preferences for the given user to the database. This
      * method assumes that the check for whether or not the table exists has
      * been done prior to the calling of this method.
+     * TODO: test thoroughly
      * 
      * @param username
      *            The human-readable identifier for the user. However, ID is
@@ -150,36 +152,26 @@ public class Preferences extends Database {
      */
     public void addPreferencesForUser(String username) {
         init();
-        LinkedHashMap<String, String> columnNamesAndValues = new LinkedHashMap<String, String>();
-        columnNamesAndValues.put("USERNAME", String.format("'%s'", username));
-        columnNamesAndValues.put("KEYBOARD_LAYOUT",
-                String.format("'%s'", keyboardLayout));
 
-        columnNamesAndValues.put("TO_BE_TYPED",
-                Integer.toString(toBeTyped.getRGB()));
+        String[] values = {
+                String.format("'%s'", username),
+                String.format("'%s'", keyboardLayout),
+                Integer.toString(toBeTyped.getRGB()),
+                Integer.toString(alreadyTyped.getRGB()),
+                Integer.toString(missTypeColor.getRGB()),
+                Integer.toString(backgroundColor.getRGB()),
+                String.format("'%s'", font.getFamily()),
+                Integer.toString(font.getStyle()),
+                Integer.toString(font.getSize()),
+                Integer.toString(speedFractionDigit),
+                Integer.toString(timeFractionDigit),
+        };
 
-        columnNamesAndValues.put("ALREADY_TYPED",
-                Integer.toString(alreadyTyped.getRGB()));
-
-        columnNamesAndValues.put("MISS_TYPE_COLOR",
-                Integer.toString(missTypeColor.getRGB()));
-
-        columnNamesAndValues.put("BACKGROUND_COLOR",
-                Integer.toString(backgroundColor.getRGB()));
-
-        columnNamesAndValues.put("FONT_FAMILY",
-                String.format("'%s'", font.getFamily()));
-
-        columnNamesAndValues.put("FONT_STYLE",
-                Integer.toString(font.getStyle()));
-
-        columnNamesAndValues.put("FONT_SIZE", Integer.toString(font.getSize()));
-
-        columnNamesAndValues.put("SPEED_FRACTION_DIGIT",
-                Integer.toString(speedFractionDigit));
-
-        columnNamesAndValues.put("TIME_FRACTION_DIGIT",
-                Integer.toString(timeFractionDigit));
+        LinkedHashMap<String, String> columnNames =
+                (LinkedHashMap<String, String>) columnNamesAndTypes.clone();
+        columnNames.remove("ID");
+        LinkedHashMap<String, String> columnNamesAndValues =
+                super.createLinkedHashMap(columnNames, values);
 
         super.insert(columnNamesAndValues);
     }
@@ -229,6 +221,32 @@ public class Preferences extends Database {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Executes and updates the database for the current preferences.
+     */
+    public void update() {
+        String[] values = {
+                String.format("'%s'", username),
+                String.format("'%s'", keyboardLayout),
+                Integer.toString(toBeTyped.getRGB()),
+                Integer.toString(alreadyTyped.getRGB()),
+                Integer.toString(missTypeColor.getRGB()),
+                Integer.toString(backgroundColor.getRGB()),
+                String.format("'%s'", font.getFamily()),
+                Integer.toString(font.getStyle()),
+                Integer.toString(font.getSize()),
+                Integer.toString(speedFractionDigit),
+                Integer.toString(timeFractionDigit),
+        };
+
+        // Remove the ID column
+        LinkedHashMap<String, String> columnNames =
+                (LinkedHashMap<String, String>) columnNamesAndTypes.clone();
+        columnNames.remove("ID");
+        super.update(createLinkedHashMap(columnNames, values),
+                String.format("WHERE ID = %d", id));
     }
 
     public long getID() {

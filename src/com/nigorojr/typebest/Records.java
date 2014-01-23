@@ -44,6 +44,7 @@ public class Records extends Database {
      */
     public void addNewRecord(long id, String username, String keyboardLayout,
             long time, int miss) {
+        // TODO: use super.createLinked~
         LinkedHashMap<String, String> columnNamesAndValues = new LinkedHashMap<String, String>();
         columnNamesAndValues.put("USER_ID", Long.toString(id));
         columnNamesAndValues.put("USERNAME", String.format("'%s'", username));

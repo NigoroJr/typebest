@@ -349,4 +349,30 @@ public abstract class Database {
         ret = String.format("(%s) VALUES (%s)", columnNames, values);
         return ret;
     }
+
+    /**
+     * Creates a LinkedHashMap that can be used to INSERT/UPDATE database. This
+     * method will use the column names defined in the columnNamesAndTypes to
+     * ensure correctness of the column names. If the number of values is not
+     * exactly the same as the number of columns, the excessive columns/values
+     * will be truncated.
+     * 
+     * @param values
+     *            The values in the order of columns.
+     * @return LinkedHashMap with the column names as the keys and the values as
+     *         hash values.
+     */
+    public LinkedHashMap<String, String> createLinkedHashMap(
+            LinkedHashMap<String, String> columnNamesAndTypes, String[] values) {
+        LinkedHashMap<String, String> ret = new LinkedHashMap<String, String>();
+        Iterator<String> it = columnNamesAndTypes.keySet().iterator();
+
+        int i = 0;
+        while (it.hasNext() && i < values.length) {
+            ret.put(it.next(), values[i]);
+            i++;
+        }
+
+        return ret;
+    }
 }
