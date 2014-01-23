@@ -35,6 +35,7 @@ public class MainWindow extends JFrame {
     private HashMap<String, JMenuItem> menuItem = new HashMap<String, JMenuItem>();
 
     private boolean restartFlag = false;
+    private boolean finished = false;
 
     /**
      * Creates a new window with a panel that you type in, and a menu bar.
@@ -143,6 +144,7 @@ public class MainWindow extends JFrame {
 
     public void restart() {
         timeElapsed.reset();
+        finished = false;
         typePanel.reset();
     }
 
@@ -170,17 +172,20 @@ public class MainWindow extends JFrame {
                 else
                     restartFlag = true;
             }
-            else {
+            else if (!finished) {
                 if (!typePanel.isRunning()) {
                     typePanel.start();
                     timeElapsed.start();
+                    finished = false;
                 }
+
                 restartFlag = false;
                 typePanel.processPressedKey(e.getKeyChar());
 
                 // If this was the last key
                 if (!typePanel.isRunning()) {
                     timeElapsed.stop();
+                    finished = true;
                     typePanel.showResultAndAdd();
                 }
             }
