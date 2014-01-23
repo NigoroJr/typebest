@@ -15,6 +15,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+@SuppressWarnings("serial")
 public class ColorSelector extends JDialog {
     private static Color selectedColor;
 

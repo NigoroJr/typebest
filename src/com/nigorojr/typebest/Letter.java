@@ -2,6 +2,7 @@ package com.nigorojr.typebest;
 
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class Letter extends JLabel {
     private char rawLetter;
 

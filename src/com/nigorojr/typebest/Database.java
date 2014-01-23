@@ -305,7 +305,8 @@ public abstract class Database {
      */
     public void delete(String condition) {
         try {
-            statement.execute(String.format("DELETE FROM %s %s", tableName, condition));
+            statement.execute(String.format("DELETE FROM %s %s",
+                    tableName, condition));
         }
         catch (SQLException e) {
             e.printStackTrace();

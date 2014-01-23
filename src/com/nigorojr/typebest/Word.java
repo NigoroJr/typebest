@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Word extends JPanel implements Iterator<Letter> {
     private ArrayList<Letter> letters = new ArrayList<Letter>();
     private Iterator<Letter> lettersIterator;

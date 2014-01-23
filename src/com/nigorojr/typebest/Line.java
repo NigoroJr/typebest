@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Line extends JPanel implements Iterator<Word> {
     private ArrayList<Word> words = new ArrayList<Word>();
     private Iterator<Word> wordsIterator;

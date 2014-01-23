@@ -26,6 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Naoki Mizuno
  */
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame {
     private TypePanel typePanel = new TypePanel();
     private ClickResponder clickResponder = new ClickResponder();
@@ -104,12 +105,12 @@ public class MainWindow extends JFrame {
         mainPanel.add(typePanel);
 
         // Make the MainTypePanel scrollable (experimental)
-        //JScrollPane scrollPane = new JScrollPane();
-        //scrollPane.setViewportView(typePanel);
+        // JScrollPane scrollPane = new JScrollPane();
+        // scrollPane.setViewportView(typePanel);
 
         // Add to the frame
         getContentPane().add(mainPanel);
-        //getContentPane().add(scrollPane);
+        // getContentPane().add(scrollPane);
 
         // The size of the main window
         setSize(800, 400);

@@ -20,6 +20,7 @@ import javax.swing.Timer;
  * 
  */
 
+@SuppressWarnings("serial")
 public class TimerPanel extends JLabel implements ActionListener {
     private Timer timer;
     private static DecimalFormat df = new DecimalFormat() {

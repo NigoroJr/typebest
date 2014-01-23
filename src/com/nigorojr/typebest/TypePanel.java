@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
@@ -25,6 +23,7 @@ import java.sql.SQLException;
  */
 // TODO: Change the changeUser method so that it shows the existing users
 
+@SuppressWarnings("serial")
 public class TypePanel extends JPanel {
 
     private static Preferences pref;

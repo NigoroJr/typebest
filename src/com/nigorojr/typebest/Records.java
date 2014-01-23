@@ -9,6 +9,7 @@ public class Records extends Database {
 
     public static final String tableName = "RECORDS";
 
+    @SuppressWarnings("serial")
     private static LinkedHashMap<String, String> columnNamesAndTypes = new LinkedHashMap<String, String>() {
         {
             put("RECORD_ID",

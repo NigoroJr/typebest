@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 public class Preferences extends Database {
@@ -23,6 +22,7 @@ public class Preferences extends Database {
     // Force shuffle for now
     // private boolean shuffled;
 
+    @SuppressWarnings("serial")
     private static LinkedHashMap<String, String> columnNamesAndTypes = new LinkedHashMap<String, String>() {
         {
             put("ID",
@@ -167,6 +167,7 @@ public class Preferences extends Database {
                 Integer.toString(timeFractionDigit),
         };
 
+        @SuppressWarnings("unchecked")
         LinkedHashMap<String, String> columnNames =
                 (LinkedHashMap<String, String>) columnNamesAndTypes.clone();
         columnNames.remove("ID");
@@ -242,6 +243,7 @@ public class Preferences extends Database {
         };
 
         // Remove the ID column
+        @SuppressWarnings("unchecked")
         LinkedHashMap<String, String> columnNames =
                 (LinkedHashMap<String, String>) columnNamesAndTypes.clone();
         columnNames.remove("ID");
