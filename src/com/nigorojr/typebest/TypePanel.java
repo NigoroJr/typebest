@@ -180,6 +180,10 @@ public class TypePanel extends JPanel {
                 miss++;
             }
         }
+        // Mistyped space key
+        else
+            // miss++;
+            ;
 
         repaint();
     }
