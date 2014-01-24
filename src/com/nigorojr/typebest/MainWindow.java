@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -56,10 +55,6 @@ public class MainWindow extends JFrame {
         menuItem.put("ch_font", new JMenuItem("Change Font"));
         menuItem.put("ch_layout", new JMenuItem("Change Keyboard Layout"));
         menuItem.put("ch_color", new JMenuItem("Change Color"));
-        menuItem.put("ch_noShuffle", new JCheckBoxMenuItem(
-                "Don't Shuffle Words"));
-        menuItem.put("ch_fun", new JCheckBoxMenuItem("Fun"));
-        // NOTE: "Save Settings" will be added separately
 
         // Add the menu bar
         menuBar();
