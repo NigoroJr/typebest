@@ -195,7 +195,7 @@ public class MainWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             ChangePreferences cp =
-                    new ChangePreferences(TypePanel.getPreferences());
+                    new ChangePreferences(typePanel.getPreferences());
 
             if (e.getSource() == restartButton)
                 restart();

@@ -26,7 +26,7 @@ import java.sql.SQLException;
 @SuppressWarnings("serial")
 public class TypePanel extends JPanel {
 
-    private static Preferences pref;
+    private Preferences pref;
     private static Records records;
 
     public static final File lastUserFile = new File("lastUser.txt");
@@ -121,7 +121,7 @@ public class TypePanel extends JPanel {
         lines.clear();
 
         int panelWidth = this.getWidth();
-        Line line = new Line();
+        Line line = new Line(pref);
         for (int i = 0; i < words.size(); i++) {
             String word = words.get(i);
 
@@ -132,7 +132,7 @@ public class TypePanel extends JPanel {
             // If adding the word exceeds the boundary
             else {
                 lines.add(line);
-                line = new Line();
+                line = new Line(pref);
                 i--;
             }
         }
@@ -284,7 +284,7 @@ public class TypePanel extends JPanel {
      * 
      * @return The Preferences used by the current user.
      */
-    public static Preferences getPreferences() {
+    public Preferences getPreferences() {
         return pref;
     }
 

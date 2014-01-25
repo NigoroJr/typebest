@@ -12,12 +12,13 @@ public class Letter extends JLabel {
      * @param letter
      *            The one letter that will be used as the content of this
      *            JLabel.
+     * @param pref
+     *            A Preferences object containing information such as the
+     *            foreground color, background color and the font of the letter.
      */
-    public Letter(char letter) {
+    public Letter(char letter, Preferences pref) {
         super(Character.toString(letter));
         rawLetter = letter;
-        // Make sure that the preferences are instantiated prior to this
-        Preferences pref = TypePanel.getPreferences();
         setForeground(pref.getToBeTyped());
         setBackground(pref.getBackgroundColor());
         setFont(pref.getFont());

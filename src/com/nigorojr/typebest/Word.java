@@ -20,8 +20,12 @@ public class Word extends JPanel implements Iterator<Letter> {
      * 
      * @param word
      *            The word that will be shown as a collection of "Letter" class.
+     * @param pref
+     *            A Preferences object that contains information such as the
+     *            foreground color, background color and the font of the
+     *            letters.
      */
-    public Word(String word) {
+    public Word(String word, Preferences pref) {
         rawWord = word;
 
         split(word);

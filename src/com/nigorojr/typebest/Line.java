@@ -13,12 +13,15 @@ public class Line extends JPanel implements Iterator<Word> {
     private ArrayList<Word> words = new ArrayList<Word>();
     private Iterator<Word> wordsIterator;
     private final JLabel space = new JLabel(" ");
+    private Preferences pref;
 
-    public Line() {
+    public Line(Preferences pref) {
         space.setPreferredSize(new Dimension(15, 0));
         this.setLayout(new FlowLayout(FlowLayout.LEADING, space
                 .getPreferredSize().width, space.getPreferredSize().height));
         this.setAlignmentX(LEFT_ALIGNMENT);
+
+        this.pref = pref;
     }
 
     /**
@@ -47,7 +50,7 @@ public class Line extends JPanel implements Iterator<Word> {
      *            The one word to be added.
      */
     public void addWord(String word) {
-        Word wordPanel = new Word(word);
+        Word wordPanel = new Word(word, pref);
         words.add(wordPanel);
 
         this.add(wordPanel);
@@ -66,7 +69,7 @@ public class Line extends JPanel implements Iterator<Word> {
      * @return True if that word is within the given width, false if not.
      */
     public boolean isWordWithin(String word, int n) {
-        Word wordPanel = new Word(word);
+        Word wordPanel = new Word(word, pref);
         return getLineWidth() + space.getPreferredSize().width
                 + wordPanel.getPreferredSize().width <= n;
     }
