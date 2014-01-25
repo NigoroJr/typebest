@@ -24,20 +24,6 @@ public class Letter extends JLabel {
     }
 
     /**
-     * Creates a new "Letter" JLabel with the given letter. The length of the
-     * given String must be at least 1. If a String with length more than 1 is
-     * given, only the first letter will be stored.
-     * 
-     * @param letter
-     *            The one letter that will be used as the content of JLabel.
-     *            This constructor assumes that the given String has length of
-     *            at least 1.
-     */
-    public Letter(String letter) {
-        this(letter.charAt(0));
-    }
-
-    /**
      * Getter method for the actual letter contained in this JLabel.
      * 
      * @return The actual letter contained in this JLabel.
