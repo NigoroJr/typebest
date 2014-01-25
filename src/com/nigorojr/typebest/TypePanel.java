@@ -27,7 +27,7 @@ import java.sql.SQLException;
 public class TypePanel extends JPanel {
 
     private Preferences pref;
-    private static Records records;
+    private Records records;
 
     public static final File lastUserFile = new File("lastUser.txt");
 
@@ -293,7 +293,7 @@ public class TypePanel extends JPanel {
      * 
      * @return The Record instance.
      */
-    public static Records getRecords() {
+    public Records getRecords() {
         return records;
     }
 

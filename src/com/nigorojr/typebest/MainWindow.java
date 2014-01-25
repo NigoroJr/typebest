@@ -182,6 +182,8 @@ public class MainWindow extends JFrame {
                     timeElapsed.stop();
                     finished = true;
                     typePanel.showResultAndAdd();
+                    RecordsWindow rw = new RecordsWindow(typePanel.getRecords());
+                    rw.setVisible(true);
                 }
             }
         }

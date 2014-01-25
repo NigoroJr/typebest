@@ -86,6 +86,12 @@ public class Tester {
         frame.setVisible(true);
 
         ColorSelector.chooseColor();
+
+        TypePanel p = new TypePanel();
+        Record rec = new Record(6, "foooooobar", "Dvorak", 514893, 22);
+        p.getRecords().addNewRecord(rec);
+        RecordsWindow r = new RecordsWindow(p.getRecords());
+        r.setVisible(true);
     }
 
 }
