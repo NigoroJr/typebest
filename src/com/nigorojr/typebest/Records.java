@@ -122,7 +122,8 @@ public class Records extends Database {
                         resultSet.getString("USERNAME"),
                         resultSet.getString("KEYBOARD_LAYOUT"),
                         resultSet.getLong("TIME"),
-                        resultSet.getInt("MISS_TYPES"));
+                        resultSet.getInt("MISS_TYPES"),
+                        resultSet.getTimestamp("DATE"));
 
                 records.add(r);
             }
