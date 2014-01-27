@@ -163,7 +163,7 @@ public class ColorSelector extends JDialog {
     }
 
     public static Color chooseColor(Color c) {
-        ColorSelector dialog = new ColorSelector(c);
+        new ColorSelector(c);
         return selectedColor;
     }
 }
