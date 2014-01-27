@@ -1,6 +1,7 @@
 package com.nigorojr.typebest;
 
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.text.DateFormat;
 
 import javax.swing.BoxLayout;
@@ -13,6 +14,7 @@ import javax.swing.ScrollPaneLayout;
 @SuppressWarnings("serial")
 public class RecordsWindow extends JFrame {
     private JPanel recordsPanel = new JPanel();
+    public static final Font font = new Font("Arial", Font.PLAIN, 20);
 
     public RecordsWindow(Records records) {
         super("Records");
@@ -33,17 +35,25 @@ public class RecordsWindow extends JFrame {
 
     private void addRecords(Records records) {
         Record[] recordArray = records.getAllRecords();
-        for (Record r : recordArray) {
-            JPanel p = new JPanel();
-            // TODO: set fonts
-            p.setLayout(new FlowLayout(FlowLayout.LEADING));
-            p.add(new JLabel(String.format("%.3f", r.time / 1000000000.0)));
-            p.add(new JLabel(Integer.toString(r.miss)));
-            p.add(new JLabel(r.keyboardLayout));
-            p.add(new JLabel(r.username));
-            p.add(new JLabel(DateFormat.getInstance().format(r.date)));
 
-            recordsPanel.add(p);
+        for (Record record : recordArray) {
+            JPanel oneRecord = new JPanel();
+            oneRecord.setLayout(new FlowLayout(FlowLayout.LEADING));
+
+            String[] recordString = {
+                    String.format("%.3f", record.time / 1000000000.0),
+                    Integer.toString(record.miss),
+                    record.username,
+                    record.keyboardLayout,
+                    DateFormat.getInstance().format(record.date),
+            };
+            for (String str : recordString) {
+                JLabel label = new JLabel(str);
+                label.setFont(font);
+                oneRecord.add(label);
+            }
+
+            recordsPanel.add(oneRecord);
         }
     }
 }
