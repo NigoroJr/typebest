@@ -2,7 +2,6 @@ package com.nigorojr.typebest;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.text.DecimalFormat;
@@ -44,9 +43,6 @@ public class TypePanel extends JPanel {
     private long endTime;
     private boolean running = false;
 
-    private String keyboardLayout;
-    private JLabel keyboardLayoutLabel;
-
     public TypePanel() {
         super();
 
@@ -59,8 +55,6 @@ public class TypePanel extends JPanel {
         catch (SQLException e) {
             e.printStackTrace();
         }
-
-        keyboardLayoutLabel = new JLabel("");
     }
 
     /**
@@ -269,15 +263,6 @@ public class TypePanel extends JPanel {
     }
 
     /**
-     * Returns the JLabel that shows the current keyboard layout. TODO: Modify
-     * this to get information from the database and then create a JLabel and
-     * return that.
-     */
-    public JLabel getKeyboardLayoutLabel() {
-        return keyboardLayoutLabel;
-    }
-
-    /**
      * Returns the current set of preferences. This is used in the Letter class
      * for setting the foreground/background color of the letters. Make sure
      * that pref is not null.
@@ -295,10 +280,6 @@ public class TypePanel extends JPanel {
      */
     public Records getRecords() {
         return records;
-    }
-
-    public String getKeyboardLayout() {
-        return keyboardLayout;
     }
 
     /**

@@ -27,7 +27,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
-    private TypePanel typePanel = new TypePanel();
+    private TypePanel typePanel;
     private ClickResponder clickResponder = new ClickResponder();
     private JButton restartButton = new JButton("Restart");
     private TimerPanel timeElapsed;
@@ -49,6 +49,11 @@ public class MainWindow extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(springLayout);
 
+        // Initialize TypePanel and read preferences
+        typePanel = new TypePanel();
+        typePanel.loadPreferences();
+        typePanel.loadLinesAndAddToPanel();
+
         // Add items to menu
         menuItem.put("ch_user", new JMenuItem("Change User"));
         menuItem.put("ch_mode", new JMenuItem("Change Practice Mode"));
@@ -67,7 +72,8 @@ public class MainWindow extends JFrame {
                 SpringLayout.EAST, typePanel);
 
         // JLabel that shows the current keyboard layout
-        JLabel currentKeyboardLayout = typePanel.getKeyboardLayoutLabel();
+        JLabel currentKeyboardLayout =
+                new JLabel(typePanel.getPreferences().getKeyboardLayout());
         springLayout.putConstraint(SpringLayout.SOUTH, currentKeyboardLayout,
                 -5, SpringLayout.NORTH, typePanel);
         springLayout.putConstraint(SpringLayout.WEST, currentKeyboardLayout,
@@ -111,9 +117,6 @@ public class MainWindow extends JFrame {
         // The size of the main window
         setSize(800, 400);
         setPreferredSize(getSize());
-
-        typePanel.loadPreferences();
-        typePanel.loadLinesAndAddToPanel();
     }
 
     /**
