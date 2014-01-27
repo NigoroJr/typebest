@@ -784,7 +784,7 @@ manner
 many
 map
 march
-March.
+March
 mark
 market
 marry
@@ -794,7 +794,7 @@ material
 mathematics
 matter
 may
-May.
+May
 maybe
 me
 meal
