@@ -150,7 +150,7 @@ public class Preferences extends Database {
      *            username.
      */
     public void addPreferencesForUser(String username) {
-        init();
+        init(username);
 
         String[] values = {
                 String.format("'%s'", username),
@@ -179,7 +179,8 @@ public class Preferences extends Database {
     /**
      * Initializes all the variables to the default value.
      */
-    public void init() {
+    public void init(String username) {
+        this.username = username;
         keyboardLayout = "QWERTY";
         toBeTyped = Color.BLUE;
         alreadyTyped = Color.RED;

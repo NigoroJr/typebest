@@ -241,7 +241,7 @@ public class TypePanel extends JPanel {
                 JOptionPane.INFORMATION_MESSAGE);
 
         Record record = new Record(pref.getID(), pref.getUsername(),
-                keyboardLayout, time, miss);
+                pref.getKeyboardLayout(), time, miss);
 
         records.addNewRecord(record);
     }
