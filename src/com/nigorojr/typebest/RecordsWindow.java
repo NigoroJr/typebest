@@ -53,6 +53,7 @@ public class RecordsWindow extends JFrame {
                 oneRecord.add(label);
             }
 
+            oneRecord.setMaximumSize(oneRecord.getPreferredSize());
             recordsPanel.add(oneRecord);
         }
     }
