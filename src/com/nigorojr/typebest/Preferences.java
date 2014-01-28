@@ -329,4 +329,33 @@ public class Preferences extends Database {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public void setToBeTyped(Color toBeTyped) {
+        this.toBeTyped = toBeTyped;
+    }
+
+    public void setAlreadyTyped(Color alreadyTyped) {
+        this.alreadyTyped = alreadyTyped;
+    }
+
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public void setMissTypeColor(Color missTypeColor) {
+        this.missTypeColor = missTypeColor;
+    }
+
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
+    public void setSpeedFractionDigit(int speedFractionDigit) {
+        this.speedFractionDigit = speedFractionDigit;
+    }
+
+    public void setTimeFractionDigit(int timeFractionDigit) {
+        this.timeFractionDigit = timeFractionDigit;
+    }
+
 }
