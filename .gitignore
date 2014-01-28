@@ -16,4 +16,5 @@
 
 *.log
 *.db/
+lastUser.txt
 *.autosave
