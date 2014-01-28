@@ -1,5 +1,8 @@
 package com.nigorojr.typebest;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -34,12 +37,23 @@ public class ChangePreferences {
      *            The new username that will be switched to.
      */
     public void changeUser(String username) {
-        // TODO: add setUsername(username) to Preferences class
+        writeLastUserToFile(pref.getUsername(), pref.getID());
+    }
 
+    /**
+     * Writes the last user who ran the program to a file. This file has the
+     * username in the first line and the user ID in the second line.
+     * 
+     * @param username
+     *            The username.
+     * @param id
+     *            The user ID which was automatically generated.
+     */
+    public static void writeLastUserToFile(String username, long id) {
         try {
-            PrintWriter pw = new PrintWriter(lastUserFile);
+            PrintWriter pw = new PrintWriter(TypePanel.lastUserFile);
             pw.println(username);
-            pw.println(pref.getID());
+            pw.println(id);
             pw.flush();
             pw.close();
         }
