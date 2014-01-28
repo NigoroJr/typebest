@@ -126,8 +126,8 @@ public class Preferences extends Database {
      *         if that is the case.
      */
     public boolean isIDExist(long id) {
-        String condition = String.format("ID = %d", id);
-        String[] selectColumns = { "ID" };
+        String condition = String.format("WHERE ID = %d", id);
+        String selectColumns = "ID";
         ResultSet result = super.select(selectColumns, condition);
         boolean ret = false;
         try {
