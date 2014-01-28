@@ -20,7 +20,6 @@ public class RecordsWindow extends JFrame {
         super("Records");
 
         setSize(800, 500);
-        setPreferredSize(getSize());
 
         recordsPanel.setLayout(new BoxLayout(recordsPanel, BoxLayout.PAGE_AXIS));
         addRecords(records);
@@ -29,7 +28,7 @@ public class RecordsWindow extends JFrame {
         jsp.setLayout(new ScrollPaneLayout());
         add(jsp);
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setPreferredSize(getSize());
         setLocationRelativeTo(null);
     }
 
