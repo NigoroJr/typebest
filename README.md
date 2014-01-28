@@ -3,12 +3,13 @@ TypeBest
 
 Description
 -----------
-A program that helps you improve your typing speed.
+A program that helps you improve your typing speed. It takes a few seconds to
+initialize the database when you run the program for the first time.
 
 Practice Modes
 --------------
-Currently, the following dictionaries, including those provided by
-[Gangas](http://www.twfan.com/) are used.
+The following dictionaries, including those provided by
+[Gangas](http://www.twfan.com/), are currently being used.
 
 * 1500 "basic" words from A to Z
 * 1500 "advanced" words from A to F
@@ -30,7 +31,6 @@ ToDo
 * Add endless mode
 * Add ignore mistype mode
 * Dialog where you can set number of letters/words and/or the time. ie, a quick config dialog.
-* Add "programming" dictionary
 * Add option which the user can choose whether to type all letters of the last
   word or finish when he/she reaches 400 letters
 * Online ranking
