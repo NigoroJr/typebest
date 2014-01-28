@@ -326,4 +326,7 @@ public class Preferences extends Database {
         return tableName;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

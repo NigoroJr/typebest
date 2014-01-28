@@ -37,6 +37,8 @@ public class ChangePreferences {
      *            The new username that will be switched to.
      */
     public void changeUser(String username) {
+        pref.setUsername(username);
+        pref.update();
         writeLastUserToFile(pref.getUsername(), pref.getID());
     }
 
