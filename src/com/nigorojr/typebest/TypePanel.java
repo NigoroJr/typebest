@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
@@ -101,6 +103,18 @@ public class TypePanel extends JPanel {
             catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+
+        // Write the user who last ran this program
+        try {
+            PrintWriter pw = new PrintWriter(lastUserFile);
+            pw.println(pref.getUsername());
+            pw.println(pref.getID());
+            pw.flush();
+            pw.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
