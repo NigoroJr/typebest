@@ -84,10 +84,10 @@ public class MainWindow extends JFrame {
                 SpringLayout.NORTH, mainPanel);
         springLayout.putConstraint(SpringLayout.SOUTH, typePanel, -40,
                 SpringLayout.SOUTH, mainPanel);
-        springLayout.putConstraint(SpringLayout.WEST, typePanel, 5,
-                SpringLayout.WEST, mainPanel);
-        springLayout.putConstraint(SpringLayout.EAST, typePanel, -5,
-                SpringLayout.EAST, mainPanel);
+        // springLayout.putConstraint(SpringLayout.WEST, typePanel, 5,
+        // SpringLayout.WEST, mainPanel);
+        // springLayout.putConstraint(SpringLayout.EAST, typePanel, -5,
+        // SpringLayout.EAST, mainPanel);
 
         addKeyListener(new TypingResponder());
 
