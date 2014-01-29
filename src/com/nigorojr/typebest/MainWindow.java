@@ -21,6 +21,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * This class adds the necessary components and creates the window. All the
  * other stuff such as reading/writing data etc. are left to MainTypePanel
  * class.
+ * TODO: change "miss type" to "mistype"
  * 
  * @author Naoki Mizuno
  */
