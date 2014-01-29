@@ -1,15 +1,32 @@
 package com.nigorojr.typebest;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Tester {
 
     public static void main(String[] args) {
+        // Test ColorSelector
+        // ColorSelector.chooseColor();
+        testChangeColor();
+        // changeColor();
+    }
+
+    public static void testDerby() {
         // This is to test the behavior of the Database class
         try {
             Records rec = new Records();
@@ -37,7 +54,9 @@ public class Tester {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public static void testWordSelector() {
         System.out.println("Testing WordSelector class...");
         Iterator<String> it = WordSelector.getWords(WordSelector.NORMAL, 50)
                 .iterator();
@@ -84,9 +103,9 @@ public class Tester {
         frame.addMouseListener(ml);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
 
-        ColorSelector.chooseColor();
-
+    public static void testRecordWindow() {
         TypePanel p = new TypePanel();
         Record rec = new Record(6, "foooooobar", "Dvorak", 514893, 22);
         p.getRecords().addNewRecord(rec);
@@ -94,4 +113,45 @@ public class Tester {
         r.setVisible(true);
     }
 
+    public static void testChangeColor() {
+        try {
+            Preferences pref = new Preferences("Tester");
+            ChangePreferences cp = new ChangePreferences(pref);
+            System.out.println(pref.getToBeTyped());
+            cp.changeColor();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void changeColor() {
+        String[] colorTypes = { "tbt", "alr", "mis", "bac" };
+        JDialog dialog = new JDialog();
+        JComboBox comboBox = new JComboBox(colorTypes);
+        final JButton ok = new JButton("OK");
+        JButton cancel = new JButton("Cancel");
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
+        buttons.add(ok);
+        buttons.add(cancel);
+        comboBox.setPreferredSize(new Dimension(200, 20));
+
+        JLabel label = new JLabel("Select color to change");
+        label.setPreferredSize(new Dimension(200, 50));
+        label.setFont(new Font("Arial", Font.PLAIN, 10));
+        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(label);
+        panel.add(comboBox);
+        panel.add(buttons);
+
+        dialog.add(panel);
+
+        dialog.setSize(new Dimension(200, 100));
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
 }
