@@ -1,9 +1,20 @@
 package com.nigorojr.typebest;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  * This class is used to update preferences.
@@ -14,6 +25,16 @@ import javax.swing.JOptionPane;
 
 public class ChangePreferences {
     private Preferences pref;
+    public static final String TO_BE_TYPED = "To be typed";
+    public static final String ALREADY_TYPED = "Already typed";
+    public static final String MISTYPE = "Mistype";
+    public static final String BACKGROUND = "Background";
+    private String[] colorTypes = {
+            TO_BE_TYPED,
+            ALREADY_TYPED,
+            MISTYPE,
+            BACKGROUND,
+    };
 
     public ChangePreferences(Preferences pref) {
         this.pref = pref;
@@ -101,15 +122,63 @@ public class ChangePreferences {
      * selected color. Clicking on cancel will make no changes.
      */
     public void changeColor() {
-        // TODO: use ChangeColor class
-    }
+        final JDialog dialog = new JDialog();
+        final JComboBox comboBox = new JComboBox(colorTypes);
+        final JButton ok = new JButton("OK");
+        final JButton cancel = new JButton("Cancel");
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
+        buttons.add(ok);
+        buttons.add(cancel);
 
-    /**
-     * Saves the settings to the user's settings file.
-     */
-    public void saveSettings() {
-        // TODO: update through Preferences class
-        // TODO: automatically save settings when altered
-    }
+        class ComboBoxListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) comboBox.getSelectedItem();
 
+                if (e.getSource() == ok) {
+                    if (selected.equals(TO_BE_TYPED))
+                        pref.setToBeTyped(ColorSelector.chooseColor(
+                                pref.getToBeTyped()));
+                    else if (selected.equals(ALREADY_TYPED))
+                        pref.setAlreadyTyped(ColorSelector.chooseColor(
+                                pref.getAlreadyTyped()));
+                    else if (selected.equals(MISTYPE))
+                        pref.setMissTypeColor(ColorSelector.chooseColor(
+                                pref.getMissTypeColor()));
+                    else if (selected.equals(BACKGROUND))
+                        pref.setBackgroundColor(ColorSelector.chooseColor(
+                                pref.getBackgroundColor()));
+
+                    pref.update();
+                }
+                else if (e.getSource() == cancel) {
+                    dialog.setVisible(false);
+                }
+            }
+        }
+
+        ok.addActionListener(new ComboBoxListener());
+        cancel.addActionListener(new ComboBoxListener());
+
+        comboBox.addActionListener(new ComboBoxListener());
+        comboBox.setPreferredSize(new Dimension(200, 20));
+
+        JLabel label = new JLabel("Select color to change");
+        label.setPreferredSize(new Dimension(200, 50));
+        label.setFont(new Font("Arial", Font.PLAIN, 10));
+        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(label);
+        panel.add(comboBox);
+        panel.add(buttons);
+
+        dialog.add(panel);
+
+        dialog.setSize(new Dimension(200, 100));
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
 }
