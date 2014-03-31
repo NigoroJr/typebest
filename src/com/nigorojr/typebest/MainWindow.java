@@ -57,7 +57,7 @@ public class MainWindow extends JDialog {
         // Add the menu bar
         ChangePreferences cp =
                 new ChangePreferences(typePanel.getPreferences());
-        MenuBar menuBar = new MenuBar(cp, wordSelector);
+        MenuBar menuBar = new MenuBar(cp, wordSelector, this);
         setJMenuBar(menuBar);
 
         // Box that shows how much time has elapsed
