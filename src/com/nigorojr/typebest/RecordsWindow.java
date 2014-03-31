@@ -5,19 +5,19 @@ import java.awt.Font;
 import java.text.DateFormat;
 
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
 
 @SuppressWarnings("serial")
-public class RecordsWindow extends JFrame {
+public class RecordsWindow extends JDialog {
     private JPanel recordsPanel = new JPanel();
     public static final Font font = new Font("Arial", Font.PLAIN, 20);
 
     public RecordsWindow(Records records) {
-        super("Records");
+        setTitle("Records");
 
         setSize(800, 500);
 
@@ -29,6 +29,7 @@ public class RecordsWindow extends JFrame {
         add(jsp);
 
         setPreferredSize(getSize());
+        pack();
         setLocationRelativeTo(null);
     }
 

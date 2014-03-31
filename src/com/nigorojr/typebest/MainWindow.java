@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 
 /**
  * This class adds the necessary components and creates the window. All the
@@ -27,7 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 
 @SuppressWarnings("serial")
-public class MainWindow extends JFrame {
+public class MainWindow extends JDialog {
     private TypePanel typePanel;
     private ClickResponder clickResponder = new ClickResponder();
     private JButton restartButton = new JButton("Restart");
@@ -139,6 +140,10 @@ public class MainWindow extends JFrame {
 
         menu.add(settings);
         setJMenuBar(menu);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        pack();
+        setVisible(true);
     }
 
     public void restart() {
@@ -235,9 +240,7 @@ public class MainWindow extends JFrame {
         catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        MainWindow mw = new MainWindow();
-        mw.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mw.setLocationRelativeTo(null);
-        mw.setVisible(true);
+
+        new MainWindow();
     }
 }
