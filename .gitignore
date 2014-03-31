@@ -10,9 +10,18 @@
 /bin
 
 # For Eclipse
-.classpath
+*.pydevproject
 .metadata
-.project
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
 
 *.log
 *.db/
