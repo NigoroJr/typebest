@@ -142,9 +142,9 @@ public class MainWindow extends JDialog {
 
         menu.add(settings);
         setJMenuBar(menu);
+        pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        pack();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
