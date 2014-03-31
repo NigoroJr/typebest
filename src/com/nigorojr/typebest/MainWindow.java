@@ -117,7 +117,7 @@ public class MainWindow extends JDialog {
         // getContentPane().add(scrollPane);
 
         // The size of the main window
-        setSize(800, 400);
+        setSize(820, 415);
         setPreferredSize(getSize());
     }
 
