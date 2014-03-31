@@ -19,7 +19,7 @@ public class RecordsWindow extends JDialog {
     public RecordsWindow(Records records) {
         setTitle("Records");
 
-        setSize(820, 415);
+        setSize(820, 440);
 
         recordsPanel.setLayout(new BoxLayout(recordsPanel, BoxLayout.PAGE_AXIS));
         addRecords(records);
