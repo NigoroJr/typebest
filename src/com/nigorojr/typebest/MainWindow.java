@@ -28,6 +28,7 @@ import javax.swing.WindowConstants;
 @SuppressWarnings("serial")
 public class MainWindow extends JDialog {
     private TypePanel typePanel;
+    private WordSelector wordSelector = new WordSelector();
     private ClickResponder clickResponder = new ClickResponder();
     private JButton restartButton = new JButton("Restart");
     private TimerPanel timeElapsed;
@@ -49,14 +50,14 @@ public class MainWindow extends JDialog {
         mainPanel.setLayout(springLayout);
 
         // Initialize TypePanel and read preferences
-        typePanel = new TypePanel();
+        typePanel = new TypePanel(wordSelector);
         typePanel.loadPreferences();
         typePanel.loadLinesAndAddToPanel();
 
         // Add the menu bar
         ChangePreferences cp =
                 new ChangePreferences(typePanel.getPreferences());
-        MenuBar menuBar = new MenuBar(cp);
+        MenuBar menuBar = new MenuBar(cp, wordSelector);
         setJMenuBar(menuBar);
 
         // Box that shows how much time has elapsed

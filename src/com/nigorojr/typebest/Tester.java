@@ -107,7 +107,7 @@ public class Tester {
     }
 
     public static void testRecordWindow() {
-        TypePanel p = new TypePanel();
+        TypePanel p = new TypePanel(new WordSelector());
         Record rec = new Record(6, "foooooobar", "Dvorak", 514893, 22);
         p.getRecords().addNewRecord(rec);
         RecordsWindow r = new RecordsWindow(p.getRecords());

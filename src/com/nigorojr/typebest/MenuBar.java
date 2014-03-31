@@ -19,6 +19,7 @@ public class MenuBar extends JMenuBar {
     public static final String MODE_PROGRAMMER = "Programmer";
 
     private ChangePreferences cp;
+    private WordSelector wordSelector;
     private LinkedHashMap<String, JMenu> menu = new LinkedHashMap<String, JMenu>() {
         {
             put("modes", new JMenu("Practice Mode"));
@@ -37,8 +38,9 @@ public class MenuBar extends JMenuBar {
         }
     };
 
-    public MenuBar(ChangePreferences cp) {
+    public MenuBar(ChangePreferences cp, WordSelector wordSelector) {
         this.cp = cp;
+        this.wordSelector = wordSelector;
 
         addMenu();
 
@@ -66,10 +68,17 @@ public class MenuBar extends JMenuBar {
                 new JMenuItem(MODE_PROGRAMMER),
         };
 
+        /**
+         * Handles changing modes.
+         * 
+         * @author Naoki Mizuno
+         * 
+         */
         class ModeListener implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                // TODO: use wordSelector to change modes
             }
         }
 

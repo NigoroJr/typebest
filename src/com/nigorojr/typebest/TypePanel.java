@@ -44,8 +44,9 @@ public class TypePanel extends JPanel {
     private long endTime;
     private boolean running = false;
 
-    public TypePanel() {
+    public TypePanel(WordSelector wordSelector) {
         super();
+        this.wordSelector = wordSelector;
 
         setSize(800, 400);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
