@@ -11,6 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneLayout;
 
+/**
+ * This class shows a window with a list of all the records of that user.
+ * 
+ * @author Naoki Mizuno
+ * 
+ */
+
 @SuppressWarnings("serial")
 public class RecordsWindow extends JDialog {
     private JPanel recordsPanel = new JPanel();
@@ -18,10 +25,10 @@ public class RecordsWindow extends JDialog {
 
     public RecordsWindow(Records records) {
         setTitle("Records");
-
         setSize(820, 415);
 
-        recordsPanel.setLayout(new BoxLayout(recordsPanel, BoxLayout.PAGE_AXIS));
+        recordsPanel
+                .setLayout(new BoxLayout(recordsPanel, BoxLayout.PAGE_AXIS));
         addRecords(records);
 
         JScrollPane jsp = new JScrollPane(recordsPanel);

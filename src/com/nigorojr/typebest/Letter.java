@@ -2,6 +2,14 @@ package com.nigorojr.typebest;
 
 import javax.swing.JLabel;
 
+/**
+ * This is class represents one letter that is shown in the TypePanel. A Letter
+ * is a JLabel.
+ * 
+ * @author Naoki Mizuno
+ * 
+ */
+
 @SuppressWarnings("serial")
 public class Letter extends JLabel {
     private char rawLetter;

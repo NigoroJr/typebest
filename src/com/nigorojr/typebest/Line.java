@@ -8,6 +8,14 @@ import java.util.Iterator;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * This class represents one line. A line consists of multiple Word, which
+ * consists of multiple Letter.
+ * 
+ * @author Naoki Mizuno
+ * 
+ */
+
 @SuppressWarnings("serial")
 public class Line extends JPanel implements Iterator<Word> {
     private ArrayList<Word> words = new ArrayList<Word>();

@@ -20,7 +20,6 @@ import java.sql.SQLException;
  * @author Naoki Mizuno
  * 
  */
-// TODO: Change the changeUser method so that it shows the existing users
 
 @SuppressWarnings("serial")
 public class TypePanel extends JPanel {

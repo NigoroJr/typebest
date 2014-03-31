@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 /**
  * This class is used to update preferences.
  * 
- * @author naoki
+ * @author Naoki Mizuno
  * 
  */
 

@@ -6,6 +6,14 @@ import java.util.Iterator;
 
 import javax.swing.JPanel;
 
+/**
+ * This class represents a word in TypePanel. A Word is a JPanel and consists of
+ * multiple Letter.
+ * 
+ * @author Naoki Mizuno
+ * 
+ */
+
 @SuppressWarnings("serial")
 public class Word extends JPanel implements Iterator<Letter> {
     private ArrayList<Letter> letters = new ArrayList<Letter>();
