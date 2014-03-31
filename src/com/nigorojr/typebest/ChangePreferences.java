@@ -1,5 +1,6 @@
 package com.nigorojr.typebest;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -135,25 +136,24 @@ public class ChangePreferences {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selected = (String) comboBox.getSelectedItem();
-
                 if (e.getSource() == ok) {
+                    Color c = null;
                     if (selected.equals(TO_BE_TYPED))
-                        pref.setToBeTyped(ColorSelector.chooseColor(
-                                pref.getToBeTyped()));
+                        c = ColorSelector.chooseColor(pref.getToBeTyped());
                     else if (selected.equals(ALREADY_TYPED))
-                        pref.setAlreadyTyped(ColorSelector.chooseColor(
-                                pref.getAlreadyTyped()));
+                        c = ColorSelector.chooseColor(pref.getAlreadyTyped());
                     else if (selected.equals(MISTYPE))
-                        pref.setMissTypeColor(ColorSelector.chooseColor(
-                                pref.getMissTypeColor()));
+                        c = ColorSelector.chooseColor(pref.getMissTypeColor());
                     else if (selected.equals(BACKGROUND))
-                        pref.setBackgroundColor(ColorSelector.chooseColor(
-                                pref.getBackgroundColor()));
+                        c = ColorSelector.chooseColor(pref.getBackgroundColor());
 
-                    pref.update();
+                    if (c != null) {
+                        pref.setToBeTyped(c);
+                        pref.update();
+                    }
                 }
                 else if (e.getSource() == cancel) {
-                    dialog.setVisible(false);
+                    dialog.dispose();
                 }
             }
         }
