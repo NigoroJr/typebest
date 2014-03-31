@@ -25,7 +25,7 @@ public class MenuBar extends JMenuBar {
     private WordSelector wordSelector;
     private LinkedHashMap<String, JMenu> menu = new LinkedHashMap<String, JMenu>() {
         {
-            put("modes", new JMenu("Practice Mode"));
+            put("modes", new JMenu("Mode"));
             put("settings", new JMenu("Settings"));
         }
     };
@@ -34,7 +34,6 @@ public class MenuBar extends JMenuBar {
     private LinkedHashMap<String, JMenuItem> settings = new LinkedHashMap<String, JMenuItem>() {
         {
             put("ch_user", new JMenuItem("Change User"));
-            put("ch_mode", new JMenuItem("Change Practice Mode"));
             put("ch_font", new JMenuItem("Change Font"));
             put("ch_layout", new JMenuItem("Change Keyboard Layout"));
             put("ch_color", new JMenuItem("Change Color"));
