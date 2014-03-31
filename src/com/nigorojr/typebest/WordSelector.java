@@ -18,10 +18,12 @@ import javax.swing.JOptionPane;
 public class WordSelector {
     /* Modes */
     public static final int NORMAL = 0;
-    public static final int LETTERS = 1;
-    public static final int ENDLESS = 2;
-    public static final int PROGRAMMER = 3;
-    public static final int CUSTOM = 4;
+    public static final int LETTERS_A_F = 1;
+    public static final int LETTERS_G_P = 2;
+    public static final int LETTERS_Q_Z = 3;
+    public static final int ENDLESS = 4;
+    public static final int PROGRAMMER = 5;
+    public static final int CUSTOM = 6;
 
     /* Default dictionary file locations */
     public static final String DEFAULT_DICT_NORMAL = "dic/Word1500.txt";
@@ -65,10 +67,12 @@ public class WordSelector {
         switch (mode) {
             case NORMAL:
                 return getWords(mode, numOfLetters, DEFAULT_DICT_NORMAL);
-            case LETTERS:
-                // TODO
-                String[] locations = {};
-                return getWords(mode, numOfLetters, locations);
+            case LETTERS_A_F:
+                return getWords(mode, numOfLetters, DEFAULT_DICT_A_F);
+            case LETTERS_G_P:
+                return getWords(mode, numOfLetters, DEFAULT_DICT_G_P);
+            case LETTERS_Q_Z:
+                return getWords(mode, numOfLetters, DEFAULT_DICT_Q_Z);
             case ENDLESS:
                 // TODO
                 String[] endlesslocations = {};
@@ -76,8 +80,7 @@ public class WordSelector {
             case PROGRAMMER:
                 return getWords(mode, numOfLetters, DEFAULT_DICT_PROGRAMMER);
             default:
-                // TODO: exception handling
-                return null;
+                return getWords(mode, numOfLetters, DEFAULT_DICT_NORMAL);
         }
     }
 

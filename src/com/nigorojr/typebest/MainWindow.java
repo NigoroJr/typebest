@@ -4,16 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.UIManager;
@@ -35,7 +31,6 @@ public class MainWindow extends JDialog {
     private ClickResponder clickResponder = new ClickResponder();
     private JButton restartButton = new JButton("Restart");
     private TimerPanel timeElapsed;
-    private HashMap<String, JMenuItem> menuItem = new HashMap<String, JMenuItem>();
 
     private boolean restartFlag = false;
     private boolean finished = false;
@@ -58,15 +53,11 @@ public class MainWindow extends JDialog {
         typePanel.loadPreferences();
         typePanel.loadLinesAndAddToPanel();
 
-        // Add items to menu
-        menuItem.put("ch_user", new JMenuItem("Change User"));
-        menuItem.put("ch_mode", new JMenuItem("Change Practice Mode"));
-        menuItem.put("ch_font", new JMenuItem("Change Font"));
-        menuItem.put("ch_layout", new JMenuItem("Change Keyboard Layout"));
-        menuItem.put("ch_color", new JMenuItem("Change Color"));
-
         // Add the menu bar
-        menuBar();
+        ChangePreferences cp =
+                new ChangePreferences(typePanel.getPreferences());
+        MenuBar menuBar = new MenuBar(cp);
+        setJMenuBar(menuBar);
 
         // Box that shows how much time has elapsed
         timeElapsed = new TimerPanel();
@@ -119,29 +110,8 @@ public class MainWindow extends JDialog {
         // getContentPane().add(scrollPane);
 
         // The size of the main window
-        setSize(820, 415);
+        setSize(820, 440);
         setPreferredSize(getSize());
-    }
-
-    /**
-     * Adds a menu bar to the main panel.
-     */
-    public void menuBar() {
-        JMenuBar menu = new JMenuBar();
-        // TODO: Think what kind of menus to add
-        JMenu settings = new JMenu("Settings");
-        for (String key : menuItem.keySet()) {
-            menuItem.get(key).addActionListener(clickResponder);
-            settings.add(menuItem.get(key));
-        }
-        // This item is added separately so that it shows up at the last of the
-        // list
-        JMenuItem save = new JMenuItem("Save Current Settings");
-        save.addActionListener(clickResponder);
-        settings.add(save);
-
-        menu.add(settings);
-        setJMenuBar(menu);
         pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -213,22 +183,8 @@ public class MainWindow extends JDialog {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            ChangePreferences cp =
-                    new ChangePreferences(typePanel.getPreferences());
-
             if (e.getSource() == restartButton)
                 restart();
-            else if (e.getSource() == menuItem.get("ch_user"))
-                cp.changeUser();
-            else if (e.getSource() == menuItem.get("ch_mode"))
-                // TODO: Change practice mode
-                ;
-            else if (e.getSource() == menuItem.get("ch_font"))
-                cp.changeFont();
-            else if (e.getSource() == menuItem.get("ch_layout"))
-                cp.changeKeyboardLayout();
-            else if (e.getSource() == menuItem.get("ch_color"))
-                cp.changeColor();
         }
     }
 

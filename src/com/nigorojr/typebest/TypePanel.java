@@ -27,6 +27,8 @@ public class TypePanel extends JPanel {
 
     private Preferences pref;
     private Records records;
+    private int currentMode = WordSelector.NORMAL;
+    private int minNumOfLetters = 400;
 
     public static final File lastUserFile = new File("lastUser.txt");
 
@@ -112,8 +114,8 @@ public class TypePanel extends JPanel {
      * This method well then set the current letter to the first letter.
      */
     public void loadLinesAndAddToPanel() {
-        // TODO: get modes and number of letters
-        ArrayList<String> words = WordSelector.getWords(WordSelector.NORMAL);
+        ArrayList<String> words =
+                WordSelector.getWords(currentMode, minNumOfLetters);
         totalNumOfLetters = 0;
         lines.clear();
 
@@ -245,6 +247,7 @@ public class TypePanel extends JPanel {
 
     public void start() {
         running = true;
+        miss = 0;
         startTime = System.nanoTime();
     }
 
@@ -292,5 +295,21 @@ public class TypePanel extends JPanel {
      */
     public boolean isRunning() {
         return running;
+    }
+
+    public int getCurrentMode() {
+        return currentMode;
+    }
+
+    public int getMinNumOfLetters() {
+        return minNumOfLetters;
+    }
+
+    public void setCurrentMode(int mode) {
+        currentMode = mode;
+    }
+
+    public void setNumOfLetters(int minNumOfLetters) {
+        this.minNumOfLetters = minNumOfLetters;
     }
 }
