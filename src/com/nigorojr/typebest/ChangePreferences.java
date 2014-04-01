@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import say.swing.JFontChooser;
+
 /**
  * This class is used to update preferences.
  * 
@@ -47,7 +49,10 @@ public class ChangePreferences {
      * to the file so that the user doesn't have to change every time.
      */
     public void changeFont() {
-        // TODO
+        JFontChooser fontChooser = new JFontChooser();
+        int result = fontChooser.showDialog(new JDialog());
+        if (result == JFontChooser.OK_OPTION)
+            pref.setFont(fontChooser.getSelectedFont());
     }
 
     /**
