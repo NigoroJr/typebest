@@ -268,11 +268,7 @@ public class Preferences extends Database {
      *         comma-separated String.
      */
     public String getKeyboardLayout() {
-        int firstComma = keyboardLayout.indexOf(',');
-        if (firstComma == -1)
-            return keyboardLayout;
-        else
-            return keyboardLayout.substring(0, firstComma - 1);
+        return keyboardLayout.split(",")[0];
     }
 
     /**
