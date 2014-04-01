@@ -119,9 +119,6 @@ public class MenuBar extends JMenuBar {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == settings.get("ch_user"))
                     cp.changeUser();
-                else if (e.getSource() == settings.get("ch_mode"))
-                    // TODO: Change practice mode
-                    ;
                 else if (e.getSource() == settings.get("ch_font"))
                     cp.changeFont();
                 else if (e.getSource() == settings.get("ch_layout"))
