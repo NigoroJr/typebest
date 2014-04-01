@@ -139,10 +139,10 @@ public class ColorSelector extends JDialog {
                 if (e.getActionCommand().equals("OK")) {
                     selectedColor = new Color(redSlider.getValue(),
                             greenSlider.getValue(), blueSlider.getValue());
-                    setVisible(false);
+                    dispose();
                 }
                 else if (e.getActionCommand().equals("Cancel"))
-                    setVisible(false);
+                    dispose();
             }
         };
         ok.addActionListener(click);
