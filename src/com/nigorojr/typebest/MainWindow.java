@@ -32,6 +32,7 @@ public class MainWindow extends JDialog {
     private ClickResponder clickResponder = new ClickResponder();
     private JButton restartButton = new JButton("Restart");
     private TimerPanel timeElapsed;
+    private JLabel keyboardLayout;
 
     private boolean restartFlag = false;
     private boolean finished = false;
@@ -68,11 +69,11 @@ public class MainWindow extends JDialog {
                 SpringLayout.EAST, typePanel);
 
         // JLabel that shows the current keyboard layout
-        JLabel currentKeyboardLayout =
+        keyboardLayout =
                 new JLabel(typePanel.getPreferences().getKeyboardLayout());
-        springLayout.putConstraint(SpringLayout.SOUTH, currentKeyboardLayout,
+        springLayout.putConstraint(SpringLayout.SOUTH, keyboardLayout,
                 -5, SpringLayout.NORTH, typePanel);
-        springLayout.putConstraint(SpringLayout.WEST, currentKeyboardLayout,
+        springLayout.putConstraint(SpringLayout.WEST, keyboardLayout,
                 15, SpringLayout.WEST, typePanel);
 
         // Window to type in
@@ -97,7 +98,7 @@ public class MainWindow extends JDialog {
         restartButton.setFocusable(false);
 
         // Add things to the main panel
-        mainPanel.add(currentKeyboardLayout);
+        mainPanel.add(keyboardLayout);
         mainPanel.add(timeElapsed);
         mainPanel.add(restartButton);
         mainPanel.add(typePanel);
@@ -187,6 +188,10 @@ public class MainWindow extends JDialog {
             if (e.getSource() == restartButton)
                 restart();
         }
+    }
+
+    public void setKeyboardLayout(String layout) {
+        keyboardLayout.setText(layout);
     }
 
     public static void main(String[] args) {

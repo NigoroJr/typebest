@@ -121,8 +121,10 @@ public class MenuBar extends JMenuBar {
                     cp.changeUser();
                 else if (e.getSource() == settings.get("ch_font"))
                     cp.changeFont();
-                else if (e.getSource() == settings.get("ch_layout"))
-                    cp.changeKeyboardLayout();
+                else if (e.getSource() == settings.get("ch_layout")) {
+                    String layout = cp.changeKeyboardLayout();
+                    mainWindow.setKeyboardLayout(layout);
+                }
                 else if (e.getSource() == settings.get("ch_color"))
                     cp.changeColor();
 

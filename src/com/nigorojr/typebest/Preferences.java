@@ -358,4 +358,7 @@ public class Preferences extends Database {
         this.timeFractionDigit = timeFractionDigit;
     }
 
+    public void setExistingKeyboardLayouts(String layoutList) {
+        this.keyboardLayout = layoutList;
+    }
 }
