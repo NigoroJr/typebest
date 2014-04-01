@@ -280,10 +280,10 @@ public class Preferences extends Database {
      * returning that variable is the same as returning all the existing
      * keyboard layouts. The first layout is the current layout.
      * 
-     * @return A comma-separated list of existing keyboard layouts in String.
+     * @return A list of existing keyboard layouts.
      */
-    public String getAllKeyboardLayouts() {
-        return keyboardLayout;
+    public String[] getExistingKeyboardLayouts() {
+        return keyboardLayout.split(",");
     }
 
     public Color getToBeTyped() {
