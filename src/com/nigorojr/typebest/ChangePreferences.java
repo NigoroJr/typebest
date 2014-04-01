@@ -50,7 +50,7 @@ public class ChangePreferences {
      */
     public void changeFont() {
         JFontChooser fontChooser = new JFontChooser();
-        int result = fontChooser.showDialog(new JDialog());
+        int result = fontChooser.showDialog(null);
         if (result == JFontChooser.OK_OPTION)
             pref.setFont(fontChooser.getSelectedFont());
     }
