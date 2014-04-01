@@ -268,11 +268,7 @@ public class Preferences extends Database {
      *         comma-separated String.
      */
     public String getKeyboardLayout() {
-        int firstComma = keyboardLayout.indexOf(',');
-        if (firstComma == -1)
-            return keyboardLayout;
-        else
-            return keyboardLayout.substring(0, firstComma - 1);
+        return keyboardLayout.split(",")[0];
     }
 
     /**
@@ -280,10 +276,10 @@ public class Preferences extends Database {
      * returning that variable is the same as returning all the existing
      * keyboard layouts. The first layout is the current layout.
      * 
-     * @return A comma-separated list of existing keyboard layouts in String.
+     * @return A list of existing keyboard layouts.
      */
-    public String getAllKeyboardLayouts() {
-        return keyboardLayout;
+    public String[] getExistingKeyboardLayouts() {
+        return keyboardLayout.split(",");
     }
 
     public Color getToBeTyped() {
@@ -358,4 +354,7 @@ public class Preferences extends Database {
         this.timeFractionDigit = timeFractionDigit;
     }
 
+    public void setExistingKeyboardLayouts(String layoutList) {
+        this.keyboardLayout = layoutList;
+    }
 }

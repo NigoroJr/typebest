@@ -58,7 +58,8 @@ public class Tester {
 
     public static void testWordSelector() {
         System.out.println("Testing WordSelector class...");
-        Iterator<String> it = WordSelector.getWords(WordSelector.NORMAL, 50)
+        Iterator<String> it =
+                new WordSelector().getWords(WordSelector.NORMAL, 50)
                 .iterator();
         while (it.hasNext())
             System.out.print(it.next() + " ");
@@ -106,7 +107,7 @@ public class Tester {
     }
 
     public static void testRecordWindow() {
-        TypePanel p = new TypePanel();
+        TypePanel p = new TypePanel(new WordSelector());
         Record rec = new Record(6, "foooooobar", "Dvorak", 514893, 22);
         p.getRecords().addNewRecord(rec);
         RecordsWindow r = new RecordsWindow(p.getRecords());

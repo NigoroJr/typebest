@@ -26,6 +26,7 @@ public class TypePanel extends JPanel {
 
     private Preferences pref;
     private Records records;
+    private WordSelector wordSelector;
 
     public static final File lastUserFile = new File("lastUser.txt");
 
@@ -42,8 +43,9 @@ public class TypePanel extends JPanel {
     private long endTime;
     private boolean running = false;
 
-    public TypePanel() {
+    public TypePanel(WordSelector wordSelector) {
         super();
+        this.wordSelector = wordSelector;
 
         setSize(800, 400);
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -111,8 +113,7 @@ public class TypePanel extends JPanel {
      * This method well then set the current letter to the first letter.
      */
     public void loadLinesAndAddToPanel() {
-        // TODO: get modes and number of letters
-        ArrayList<String> words = WordSelector.getWords(WordSelector.NORMAL);
+        ArrayList<String> words = wordSelector.getWords();
         totalNumOfLetters = 0;
         lines.clear();
 
@@ -244,6 +245,7 @@ public class TypePanel extends JPanel {
 
     public void start() {
         running = true;
+        miss = 0;
         startTime = System.nanoTime();
     }
 
