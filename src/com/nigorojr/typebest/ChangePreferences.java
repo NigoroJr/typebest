@@ -1,10 +1,7 @@
 package com.nigorojr.typebest;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -18,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import say.swing.JFontChooser;
 
 /**
@@ -32,16 +28,6 @@ import say.swing.JFontChooser;
 
 public class ChangePreferences {
     private Preferences pref;
-    public static final String TO_BE_TYPED = "To be typed";
-    public static final String ALREADY_TYPED = "Already typed";
-    public static final String MISTYPE = "Mistype";
-    public static final String BACKGROUND = "Background";
-    private String[] colorTypes = {
-            TO_BE_TYPED,
-            ALREADY_TYPED,
-            MISTYPE,
-            BACKGROUND,
-    };
 
     public ChangePreferences(Preferences pref) {
         this.pref = pref;
@@ -161,6 +147,17 @@ public class ChangePreferences {
     }
 
     /**
+     * Shows a dialog that allows user to change the color. A dialog that asks
+     * the user which color to change is shown first. Then, according to the
+     * selection, another dialog appears that allows the user to change the
+     * selected color. Clicking on cancel will make no changes.
+     */
+    public void changeColor() {
+        ColorChooser cc = new ColorChooser(pref);
+        cc.setVisible(true);
+    }
+
+    /**
      * Given a list of existing elements, this class shows a JDialog and allows
      * the user to either select from the existing items or enter a new item.
      * 
@@ -238,71 +235,5 @@ public class ChangePreferences {
         public String getChosen() {
             return selectedString;
         }
-    }
-
-    /**
-     * Shows a dialog that allows user to change the color. A dialog that asks
-     * the user which color to change is shown first. Then, according to the
-     * selection, another dialog appears that allows the user to change the
-     * selected color. Clicking on cancel will make no changes.
-     */
-    public void changeColor() {
-        final JDialog dialog = new JDialog();
-        final JComboBox comboBox = new JComboBox(colorTypes);
-        final JButton ok = new JButton("OK");
-        final JButton cancel = new JButton("Cancel");
-        JPanel buttons = new JPanel();
-        buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
-        buttons.add(ok);
-        buttons.add(cancel);
-
-        class ComboBoxListener implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selected = (String) comboBox.getSelectedItem();
-                if (e.getSource() == ok) {
-                    Color c = null;
-                    if (selected.equals(TO_BE_TYPED))
-                        c = ColorSelector.chooseColor(pref.getToBeTyped());
-                    else if (selected.equals(ALREADY_TYPED))
-                        c = ColorSelector.chooseColor(pref.getAlreadyTyped());
-                    else if (selected.equals(MISTYPE))
-                        c = ColorSelector.chooseColor(pref.getMissTypeColor());
-                    else if (selected.equals(BACKGROUND))
-                        c = ColorSelector.chooseColor(pref.getBackgroundColor());
-
-                    if (c != null) {
-                        pref.setToBeTyped(c);
-                        pref.update();
-                    }
-                }
-                else if (e.getSource() == cancel) {
-                    dialog.dispose();
-                }
-            }
-        }
-
-        ok.addActionListener(new ComboBoxListener());
-        cancel.addActionListener(new ComboBoxListener());
-
-        comboBox.addActionListener(new ComboBoxListener());
-        comboBox.setPreferredSize(new Dimension(200, 20));
-
-        JLabel label = new JLabel("Select color to change");
-        label.setPreferredSize(new Dimension(200, 50));
-        label.setFont(new Font("Arial", Font.PLAIN, 10));
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(label);
-        panel.add(comboBox);
-        panel.add(buttons);
-
-        dialog.add(panel);
-
-        dialog.setSize(new Dimension(200, 100));
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
     }
 }
