@@ -95,6 +95,8 @@ public class TypePanel extends JPanel {
                 // When the lastUserFile is an invalid empty file
                 else
                     pref = new Preferences();
+
+                scanner.close();
             }
             catch (IOException e) {
                 e.printStackTrace();

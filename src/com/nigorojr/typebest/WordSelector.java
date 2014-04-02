@@ -149,6 +149,7 @@ public class WordSelector {
                 // Read everything from the files
                 while (scanner.hasNext())
                     allWords.add(scanner.nextLine());
+                scanner.close();
             }
 
             int letterCount = 0;
