@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-
 import say.swing.JFontChooser;
 
 /**
@@ -262,7 +261,8 @@ public class ChangePreferences {
         public ColorChooser() {
             colorOf = new JComboBox(colorTypes);
             colorOf.addActionListener(this);
-            chooser = new JColorChooser();
+            String selectedByDefault = (String) colorOf.getSelectedItem();
+            chooser = new JColorChooser(getColorForType(selectedByDefault));
 
             add(colorOf, BorderLayout.NORTH);
             add(chooser);
@@ -287,27 +287,51 @@ public class ChangePreferences {
             return panel;
         }
 
+        private Color getColorForType(String type) {
+            Color c = null;
+            if (type.equals(TO_BE_TYPED))
+                c = pref.getToBeTyped();
+            else if (type.equals(ALREADY_TYPED))
+                c = pref.getAlreadyTyped();
+            else if (type.equals(MISTYPE))
+                c = pref.getMissTypeColor();
+            else if (type.equals(BACKGROUND))
+                c = pref.getBackgroundColor();
+            return c;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            String selected = (String) colorOf.getSelectedItem();
-            if (e.getSource() == ok) {
-                Color c = null;
-                if (selected.equals(TO_BE_TYPED))
-                    c = pref.getToBeTyped();
-                else if (selected.equals(ALREADY_TYPED))
-                    c = pref.getAlreadyTyped();
-                else if (selected.equals(MISTYPE))
-                    c = pref.getMissTypeColor();
-                else if (selected.equals(BACKGROUND))
-                    c = pref.getBackgroundColor();
+            String selectedType = (String) colorOf.getSelectedItem();
+
+            if (e.getSource() == ok || e.getSource() == apply) {
+                Color selectedColor = chooser.getColor();
+
+                if (selectedType.equals(TO_BE_TYPED))
+                    pref.setToBeTyped(selectedColor);
+                else if (selectedType.equals(ALREADY_TYPED))
+                    pref.setAlreadyTyped(selectedColor);
+                else if (selectedType.equals(MISTYPE))
+                    pref.setMissTypeColor(selectedColor);
+                else if (selectedType.equals(BACKGROUND))
+                    pref.setBackgroundColor(selectedColor);
+
+                pref.update();
+
+                if (e.getSource() == ok)
+                    dispose();
+            }
+            else if (e.getSource() == cancel)
+                dispose();
+            // When ComboBox is changed
+            else {
+                Color c = getColorForType(selectedType);
 
                 if (c == null)
                     return;
 
-                // TODO: Appropriate action
+                chooser.setColor(c);
             }
-            else if (e.getSource() == cancel)
-                dispose();
         }
     }
 }
