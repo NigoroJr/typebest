@@ -1,7 +1,6 @@
 package com.nigorojr.typebest;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,14 +9,12 @@ import java.io.PrintWriter;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 import say.swing.JFontChooser;
 
 /**
@@ -31,16 +28,6 @@ import say.swing.JFontChooser;
 
 public class ChangePreferences {
     private Preferences pref;
-    public static final String TO_BE_TYPED = "To be typed";
-    public static final String ALREADY_TYPED = "Already typed";
-    public static final String MISTYPE = "Mistype";
-    public static final String BACKGROUND = "Background";
-    private String[] colorTypes = {
-            TO_BE_TYPED,
-            ALREADY_TYPED,
-            MISTYPE,
-            BACKGROUND,
-    };
 
     public ChangePreferences(Preferences pref) {
         this.pref = pref;
@@ -166,7 +153,7 @@ public class ChangePreferences {
      * selected color. Clicking on cancel will make no changes.
      */
     public void changeColor() {
-        ColorChooser cc = new ColorChooser();
+        ColorChooser cc = new ColorChooser(pref);
         cc.setVisible(true);
     }
 
@@ -247,91 +234,6 @@ public class ChangePreferences {
 
         public String getChosen() {
             return selectedString;
-        }
-    }
-
-    @SuppressWarnings("serial")
-    class ColorChooser extends JDialog implements ActionListener {
-        private JComboBox colorOf;
-        private JColorChooser chooser;
-        private JButton ok = new JButton("OK");
-        private JButton cancel = new JButton("Cancel");
-        private JButton apply = new JButton("Apply");
-
-        public ColorChooser() {
-            colorOf = new JComboBox(colorTypes);
-            colorOf.addActionListener(this);
-            String selectedByDefault = (String) colorOf.getSelectedItem();
-            chooser = new JColorChooser(getColorForType(selectedByDefault));
-
-            add(colorOf, BorderLayout.NORTH);
-            add(chooser);
-            add(buttonsPanelBuilder(), BorderLayout.SOUTH);
-
-            pack();
-            setLocationRelativeTo(null);
-            setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        }
-
-        private JPanel buttonsPanelBuilder() {
-            JPanel panel = new JPanel();
-            panel.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-            ok.addActionListener(this);
-            cancel.addActionListener(this);
-            apply.addActionListener(this);
-            panel.add(ok);
-            panel.add(cancel);
-            panel.add(apply);
-
-            return panel;
-        }
-
-        private Color getColorForType(String type) {
-            Color c = null;
-            if (type.equals(TO_BE_TYPED))
-                c = pref.getToBeTyped();
-            else if (type.equals(ALREADY_TYPED))
-                c = pref.getAlreadyTyped();
-            else if (type.equals(MISTYPE))
-                c = pref.getMissTypeColor();
-            else if (type.equals(BACKGROUND))
-                c = pref.getBackgroundColor();
-            return c;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String selectedType = (String) colorOf.getSelectedItem();
-
-            if (e.getSource() == ok || e.getSource() == apply) {
-                Color selectedColor = chooser.getColor();
-
-                if (selectedType.equals(TO_BE_TYPED))
-                    pref.setToBeTyped(selectedColor);
-                else if (selectedType.equals(ALREADY_TYPED))
-                    pref.setAlreadyTyped(selectedColor);
-                else if (selectedType.equals(MISTYPE))
-                    pref.setMissTypeColor(selectedColor);
-                else if (selectedType.equals(BACKGROUND))
-                    pref.setBackgroundColor(selectedColor);
-
-                pref.update();
-
-                if (e.getSource() == ok)
-                    dispose();
-            }
-            else if (e.getSource() == cancel)
-                dispose();
-            // When ComboBox is changed
-            else {
-                Color c = getColorForType(selectedType);
-
-                if (c == null)
-                    return;
-
-                chooser.setColor(c);
-            }
         }
     }
 }
