@@ -29,7 +29,7 @@ import javax.swing.event.ChangeListener;
 class ColorChooser extends JDialog implements ActionListener {
     private Preferences pref;
 
-    private JComboBox colorOf;
+    private JComboBox<String> colorOf;
     private JColorChooser chooser;
     private JButton ok = new JButton("OK");
     private JButton cancel = new JButton("Cancel");
@@ -58,7 +58,7 @@ class ColorChooser extends JDialog implements ActionListener {
     public ColorChooser(Preferences pref) {
         this.pref = pref;
 
-        colorOf = new JComboBox(colorTypes);
+        colorOf = new JComboBox<String>(colorTypes);
         colorOf.addActionListener(this);
         String selectedByDefault = (String) colorOf.getSelectedItem();
         chooser = new JColorChooser(getColorForType(selectedByDefault));

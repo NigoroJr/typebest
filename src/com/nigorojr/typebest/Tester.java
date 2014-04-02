@@ -129,7 +129,7 @@ public class Tester {
     public static void changeColor() {
         String[] colorTypes = { "tbt", "alr", "mis", "bac" };
         JDialog dialog = new JDialog();
-        JComboBox comboBox = new JComboBox(colorTypes);
+        JComboBox<String> comboBox = new JComboBox<String>(colorTypes);
         final JButton ok = new JButton("OK");
         JButton cancel = new JButton("Cancel");
         JPanel buttons = new JPanel();

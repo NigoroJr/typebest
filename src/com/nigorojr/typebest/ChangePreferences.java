@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import say.swing.JFontChooser;
 
 /**
@@ -170,11 +171,11 @@ public class ChangePreferences {
         private JButton cancel = new JButton("Cancel");
         private String selectedString;
 
-        private JComboBox comboBox;
+        private JComboBox<String> comboBox;
         private JTextField textField;
 
         public ChooseFromExisting(String[] existing) {
-            comboBox = new JComboBox(existing);
+            comboBox = new JComboBox<String>(existing);
             textField = new JTextField();
 
             add(selectAreaBuilder());
