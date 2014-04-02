@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+/**
+ * A color chooser class that uses JColorChooser with custom preview pane.
+ * 
+ * @author Naoki Mizuno
+ * 
+ */
 
 @SuppressWarnings("serial")
 class ColorChooser extends JDialog implements ActionListener {
@@ -42,6 +48,13 @@ class ColorChooser extends JDialog implements ActionListener {
             BACKGROUND,
     };
 
+    /**
+     * Creates and shows a new JColorChooser dialog.
+     * 
+     * @param pref
+     *            The Preferences instance used to get the colors for various
+     *            types of letters.
+     */
     public ColorChooser(Preferences pref) {
         this.pref = pref;
 
@@ -63,6 +76,11 @@ class ColorChooser extends JDialog implements ActionListener {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
+    /**
+     * Builds the JPanel for OK, Cancel, and Apply buttons.
+     * 
+     * @return JPanel with the buttons.
+     */
     private JPanel buttonsPanelBuilder() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -77,6 +95,14 @@ class ColorChooser extends JDialog implements ActionListener {
         return panel;
     }
 
+    /**
+     * Given a String representation of the type of letters, this method returns
+     * the color that's currently set to that type.
+     * 
+     * @param type
+     *            The type of the letters.
+     * @return Color that's currently set to that type of letters.
+     */
     private Color getColorForType(String type) {
         Color c = null;
         if (type.equals(TO_BE_TYPED))
@@ -90,6 +116,11 @@ class ColorChooser extends JDialog implements ActionListener {
         return c;
     }
 
+    /**
+     * If any of the buttons is pressed, follow the appropriate action. If the
+     * JComboBox is changed, update the preview rectangles to show the color
+     * currently set for the type of letters selected in the JComboBox.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String selectedType = (String) colorOf.getSelectedItem();
@@ -125,6 +156,12 @@ class ColorChooser extends JDialog implements ActionListener {
         }
     }
 
+    /**
+     * Custom preview pane for JColorChooser.
+     * 
+     * @author Naoki Mizuno
+     * 
+     */
     class PreviewPanel extends JPanel implements ChangeListener {
         /* Color that's currently used */
         private Color oldColor;
@@ -143,6 +180,13 @@ class ColorChooser extends JDialog implements ActionListener {
         private JPanel oldColorPanel;
         private JPanel newColorPanel;
 
+        /**
+         * Creates a new preview panel with the preview rectangles showing the
+         * given color.
+         * 
+         * @param oldColor
+         *            The old color (i.e. reference color, color currently set)
+         */
         public PreviewPanel(Color oldColor) {
             this.oldColor = oldColor;
             this.newColor = oldColor;
@@ -154,6 +198,13 @@ class ColorChooser extends JDialog implements ActionListener {
             add(colorPreviewBuilder());
         }
 
+        /**
+         * Creates the JPanel for the sample text. This method splits up the
+         * sample text in three, and sets each part to colors for the letters
+         * already typed, mistyped, and the letters to be typed.
+         * 
+         * @return JPanel with the sample text.
+         */
         private JPanel sampleTextBuilder() {
             JPanel panel = new JPanel();
             panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -187,6 +238,13 @@ class ColorChooser extends JDialog implements ActionListener {
             return panel;
         }
 
+        /**
+         * Creates a JPanel for the previewing the selected color and the
+         * current color.
+         * 
+         * @return JPanel containing two preview rectangles, each set to the
+         *         current color and the currently selected color, respectively.
+         */
         private JPanel colorPreviewBuilder() {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -208,11 +266,22 @@ class ColorChooser extends JDialog implements ActionListener {
             return panel;
         }
 
+        /**
+         * Sets the old color and updates the preview rectangle for it.
+         * 
+         * @param c
+         *            Color to be set as the old color.
+         */
         public void setOldColor(Color c) {
             oldColor = c;
             oldColorPanel.setBackground(oldColor);
         }
 
+        /**
+         * Updates the foreground color or the background color of the sample
+         * text, depending on the type of letters selected in the JComboBox and
+         * also updates the preview rectangle.
+         */
         @Override
         public void stateChanged(ChangeEvent e) {
             newColor = chooser.getColor();
