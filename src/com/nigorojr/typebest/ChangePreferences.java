@@ -2,9 +2,7 @@ package com.nigorojr.typebest;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -12,12 +10,14 @@ import java.io.PrintWriter;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import say.swing.JFontChooser;
 
@@ -161,6 +161,17 @@ public class ChangePreferences {
     }
 
     /**
+     * Shows a dialog that allows user to change the color. A dialog that asks
+     * the user which color to change is shown first. Then, according to the
+     * selection, another dialog appears that allows the user to change the
+     * selected color. Clicking on cancel will make no changes.
+     */
+    public void changeColor() {
+        ColorChooser cc = new ColorChooser();
+        cc.setVisible(true);
+    }
+
+    /**
      * Given a list of existing elements, this class shows a JDialog and allows
      * the user to either select from the existing items or enter a new item.
      * 
@@ -240,69 +251,63 @@ public class ChangePreferences {
         }
     }
 
-    /**
-     * Shows a dialog that allows user to change the color. A dialog that asks
-     * the user which color to change is shown first. Then, according to the
-     * selection, another dialog appears that allows the user to change the
-     * selected color. Clicking on cancel will make no changes.
-     */
-    public void changeColor() {
-        final JDialog dialog = new JDialog();
-        final JComboBox comboBox = new JComboBox(colorTypes);
-        final JButton ok = new JButton("OK");
-        final JButton cancel = new JButton("Cancel");
-        JPanel buttons = new JPanel();
-        buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
-        buttons.add(ok);
-        buttons.add(cancel);
+    @SuppressWarnings("serial")
+    class ColorChooser extends JDialog implements ActionListener {
+        private JComboBox colorOf;
+        private JColorChooser chooser;
+        private JButton ok = new JButton("OK");
+        private JButton cancel = new JButton("Cancel");
+        private JButton apply = new JButton("Apply");
 
-        class ComboBoxListener implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selected = (String) comboBox.getSelectedItem();
-                if (e.getSource() == ok) {
-                    Color c = null;
-                    if (selected.equals(TO_BE_TYPED))
-                        c = ColorSelector.chooseColor(pref.getToBeTyped());
-                    else if (selected.equals(ALREADY_TYPED))
-                        c = ColorSelector.chooseColor(pref.getAlreadyTyped());
-                    else if (selected.equals(MISTYPE))
-                        c = ColorSelector.chooseColor(pref.getMissTypeColor());
-                    else if (selected.equals(BACKGROUND))
-                        c = ColorSelector.chooseColor(pref.getBackgroundColor());
+        public ColorChooser() {
+            colorOf = new JComboBox(colorTypes);
+            colorOf.addActionListener(this);
+            chooser = new JColorChooser();
 
-                    if (c != null) {
-                        pref.setToBeTyped(c);
-                        pref.update();
-                    }
-                }
-                else if (e.getSource() == cancel) {
-                    dialog.dispose();
-                }
-            }
+            add(colorOf, BorderLayout.NORTH);
+            add(chooser);
+            add(buttonsPanelBuilder(), BorderLayout.SOUTH);
+
+            pack();
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         }
 
-        ok.addActionListener(new ComboBoxListener());
-        cancel.addActionListener(new ComboBoxListener());
+        private JPanel buttonsPanelBuilder() {
+            JPanel panel = new JPanel();
+            panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        comboBox.addActionListener(new ComboBoxListener());
-        comboBox.setPreferredSize(new Dimension(200, 20));
+            ok.addActionListener(this);
+            cancel.addActionListener(this);
+            apply.addActionListener(this);
+            panel.add(ok);
+            panel.add(cancel);
+            panel.add(apply);
 
-        JLabel label = new JLabel("Select color to change");
-        label.setPreferredSize(new Dimension(200, 50));
-        label.setFont(new Font("Arial", Font.PLAIN, 10));
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+            return panel;
+        }
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.add(label);
-        panel.add(comboBox);
-        panel.add(buttons);
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String selected = (String) colorOf.getSelectedItem();
+            if (e.getSource() == ok) {
+                Color c = null;
+                if (selected.equals(TO_BE_TYPED))
+                    c = pref.getToBeTyped();
+                else if (selected.equals(ALREADY_TYPED))
+                    c = pref.getAlreadyTyped();
+                else if (selected.equals(MISTYPE))
+                    c = pref.getMissTypeColor();
+                else if (selected.equals(BACKGROUND))
+                    c = pref.getBackgroundColor();
 
-        dialog.add(panel);
+                if (c == null)
+                    return;
 
-        dialog.setSize(new Dimension(200, 100));
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
+                // TODO: Appropriate action
+            }
+            else if (e.getSource() == cancel)
+                dispose();
+        }
     }
 }
