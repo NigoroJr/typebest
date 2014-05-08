@@ -22,8 +22,9 @@ public class Tester {
     public static void main(String[] args) {
         // Test ColorSelector
         // ColorSelector.chooseColor();
-        testChangeColor();
+        // testChangeColor();
         // changeColor();
+        testDerby();
     }
 
     public static void testDerby() {
@@ -50,6 +51,10 @@ public class Tester {
             Preferences p = new Preferences("test_user");
             p.readPreferencesForID(1);
             System.out.println(p.getKeyboardLayout());
+
+            // Limit
+            System.out.print("testing limit: ");
+            System.out.println(rec.getTopRecords(2)[0].username);
         }
         catch (Exception e) {
             e.printStackTrace();

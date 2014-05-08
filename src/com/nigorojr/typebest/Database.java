@@ -19,7 +19,6 @@ public abstract class Database {
     private boolean create = true;
 
     private Connection connection = null;
-    protected Statement statement = null;
 
     /**
      * Establishes a connection with the database.
@@ -83,10 +82,10 @@ public abstract class Database {
         connection = DriverManager.getConnection(String.format(
                 "%s%s;create=%s", protocol, databaseDirName,
                 Boolean.toString(create)));
-        statement = connection.createStatement();
         if (!isTableExist()) {
             createTable(columnNamesAndTypes);
             if (!primaryKey.equals("")) {
+                Statement statement = connection.createStatement();
                 String command = String
                         .format("ALTER TABLE %s ADD CONSTRAINT %s_PRIMARY_KEY PRIMARY KEY(%s)",
                                 tableName, tableName, primaryKey);
@@ -145,6 +144,7 @@ public abstract class Database {
         query = String.format("CREATE TABLE %s (%s)", tableName, columns);
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         }
         catch (SQLException e) {
@@ -175,6 +175,7 @@ public abstract class Database {
         String query = String.format("INSERT INTO %s %s", tableName,
                 formatInsertQuery(columnNamesAndValues));
         try {
+            Statement statement = connection.createStatement();
             statement.execute(query);
         }
         catch (SQLException e) {
@@ -196,6 +197,28 @@ public abstract class Database {
      * @return The result of the query as a ResultSet object.
      */
     public ResultSet select(String[] selectColumns, String condition) {
+        // Passing negative limit returns all rows
+        return select(selectColumns, condition, -1);
+    }
+
+    /**
+     * Executes the SELECT command and queries the database for the given
+     * condition. Allows limiting the maximum number of rows when the limit is
+     * equal to or greater than 0.
+     * 
+     * @param selectColumns
+     *            A list of column names that will be selected.
+     * @param condition
+     *            The condition of the query. This parameter can be empty if
+     *            there is no condition. The String should start with the
+     *            statement, in other words, it should be something like
+     *            "WHERE foo LIKE '%.txt'" or "ORDER BY date DESC"
+     * @param limit
+     *            The maximum number of rows. Queries for all rows when limit is
+     *            less than 0.
+     * @return The result of the query as a ResultSet object.
+     */
+    public ResultSet select(String[] selectColumns, String condition, int limit) {
         ResultSet result = null;
 
         // join columns to be selected with commas
@@ -212,6 +235,11 @@ public abstract class Database {
             query += String.format(" %s", condition);
 
         try {
+            Statement statement = connection.createStatement();
+
+            if (limit >= 0)
+                statement.setMaxRows(limit);
+
             result = statement.executeQuery(query);
         }
         catch (SQLException e) {
@@ -257,6 +285,26 @@ public abstract class Database {
      * @param selectColumns
      *            A list of column names that will be selected. This can be "*"
      *            to select all the columns in the table.
+     * @param condition
+     *            The condition starting from a keyword. For example, to select
+     *            all rows where the USERNAME is "foo", this variable should be
+     *            "WHERE USERNAME = 'foo'".
+     * @param limit
+     *            The maximum number of rows.
+     * @return A ResultSet object containing the result of the query.
+     */
+    public ResultSet select(String selectColumns, String condition, int limit) {
+        return select(new String[] { selectColumns }, condition, limit);
+    }
+
+    /**
+     * Allow column format in String instead of array of String. This can be
+     * used to select all columns by making <code>selectColumns</code> "*" or by
+     * manually separating the column names with commas e.g. "foo,bar,baz"
+     * 
+     * @param selectColumns
+     *            A list of column names that will be selected. This can be "*"
+     *            to select all the columns in the table.
      * @return A ResultSet object containing the result of the query.
      */
     public ResultSet select(String selectColumns) {
@@ -288,6 +336,7 @@ public abstract class Database {
         }
 
         try {
+            Statement statement = connection.createStatement();
             statement.execute(String.format("UPDATE %s SET %s %s",
                     tableName, columns, condition));
         }
@@ -305,6 +354,7 @@ public abstract class Database {
      */
     public void delete(String condition) {
         try {
+            Statement statement = connection.createStatement();
             statement.execute(String.format("DELETE FROM %s %s",
                     tableName, condition));
         }

@@ -100,8 +100,8 @@ public class Records extends Database {
      * @return An array with length n containing the results of the query.
      */
     public Record[] getTopRecords(int n) {
-        ResultSet queryResult = super.select("*",
-                String.format("ORDER BY TIME, MISS_TYPES LIMIT %d", n));
+        ResultSet queryResult =
+                super.select("*", "ORDER BY TIME, MISS_TYPES", n);
         return resultSetToRecordArray(queryResult);
     }
 
