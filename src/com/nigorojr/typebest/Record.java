@@ -44,4 +44,18 @@ public class Record {
         this.miss = miss;
         this.date = date;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof Record))
+            return false;
+        Record that = (Record) o;
+
+        return this.user_id == that.user_id
+                && this.username.equals(that.username)
+                && this.keyboardLayout.equals(that.keyboardLayout)
+                && this.time == that.time
+                && this.miss == that.miss
+                && this.date.equals(that.date);
+    }
 }

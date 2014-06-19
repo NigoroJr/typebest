@@ -170,9 +170,9 @@ public class MainWindow extends JDialog {
                 if (!typePanel.isRunning()) {
                     timeElapsed.stop();
                     finished = true;
-                    typePanel.showResultAndAdd();
+                    typePanel.showResultAndAdd(typePanel.getLastRecord());
                     RecordsWindow rw = new RecordsWindow(typePanel.getRecords());
-                    rw.setVisible(true);
+                    rw.showDefault(typePanel.getLastRecord());
                 }
             }
         }

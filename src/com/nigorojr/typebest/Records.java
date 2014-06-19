@@ -2,6 +2,7 @@ package com.nigorojr.typebest;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -87,6 +88,43 @@ public class Records extends Database {
     public Record[] getAllRecords() {
         ResultSet queryResult = super.select("*", "ORDER BY TIME, MISS_TYPES");
         return resultSetToRecordArray(queryResult);
+    }
+
+    /**
+     * Returns the Record object from the given user ID, username, layout, time,
+     * and miss. This method is used to get the record that has the date.
+     * 
+     * @param id
+     *            The user ID.
+     * @param username
+     * @param layout
+     *            The keyboard layout.
+     * @param time
+     *            Time it took to complete the round.
+     * @param miss
+     *            Number of mistypes.
+     * @return The Record object that has the date.
+     */
+    public Record getRecordWith(
+            long id,
+            String username,
+            String layout,
+            long time,
+            int miss) {
+        String cond = String
+                .format("WHERE USER_ID = %s AND USERNAME = '%s' AND KEYBOARD_LAYOUT = '%s' AND TIME = %s AND MISS_TYPES = %s",
+                        id, username, layout, time, miss);
+        ResultSet queryResult = super.select("DATE", cond);
+        Timestamp date = null;
+        try {
+            if (queryResult.next())
+                date = queryResult.getTimestamp("DATE");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new Record(id, username, layout, time, miss, date);
     }
 
     /**
