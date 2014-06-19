@@ -219,32 +219,33 @@ public class TypePanel extends JPanel {
     }
 
     /**
-     * Shows a JOptionPane of the result and adds the result to the database.
+     * Shows a JOptionPane of the given result and adds it to the database.
+     * 
+     * @param record
+     *            The record to show and add to database.
      */
-    public void showResultAndAdd() {
-        long time = endTime - startTime;
-
+    public void showResultAndAdd(Record record) {
         // Then, show the list of results and where this round falls into
         // user.getRecords().showListOfRecords();
         // Show the result
         DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
         df.setMaximumFractionDigits(pref.getTimeFractionDigit());
         String message = String.format("Time: %s\nMiss: %d\n",
-                df.format(time / 1000000000.0), miss);
+                df.format(record.time / 1000000000.0), record.miss);
 
         df.setMaximumFractionDigits(pref.getSpeedFractionDigit());
         message += String.format("Speed: %s keys/sec",
-                df.format(totalNumOfLetters / (time / 1000000000.0)));
+                df.format(totalNumOfLetters / (record.time / 1000000000.0)));
 
         JOptionPane.showMessageDialog(null, message, "Result",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        Record record = new Record(pref.getID(), pref.getUsername(),
-                pref.getKeyboardLayout(), time, miss);
-
         records.addNewRecord(record);
     }
 
+    /**
+     * Starts a trial.
+     */
     public void start() {
         running = true;
         miss = 0;
@@ -295,5 +296,17 @@ public class TypePanel extends JPanel {
      */
     public boolean isRunning() {
         return running;
+    }
+
+    /**
+     * Returns the Record of the previous trial. Returns null if there is no
+     * last record.
+     * 
+     * @return The record of the previous trial. Null if none.
+     */
+    public Record getLastRecord() {
+        long time = endTime - startTime;
+        return records.getRecordWith(pref.getID(),
+                pref.getUsername(), pref.getKeyboardLayout(), time, miss);
     }
 }
