@@ -20,8 +20,6 @@ import javax.swing.ScrollPaneLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-import org.apache.derby.client.am.DateTime;
-
 /**
  * This class shows a window with a list of all the records of that user.
  * 
