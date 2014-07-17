@@ -22,6 +22,11 @@ tmp/
 local.properties
 .settings/
 .loadpath
+.classpath
+.project
+
+# Apache Maven
+target/
 
 *.log
 *.db/
